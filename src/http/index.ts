@@ -1,9 +1,7 @@
 import { AuthResponse } from '@/models/response/AuthResponse';
 import axios from 'axios';
 
-//TODO заменить роут на тот что в енв
-// export const vueApiUrl = process.env.VUE_API_URL;
-export const API_URL = 'http://127.0.0.1:5000/api';
+export const API_URL = process.env.VUE_APP_API_URL;
 const $api = axios.create({
   withCredentials: true,
   baseURL: API_URL,
