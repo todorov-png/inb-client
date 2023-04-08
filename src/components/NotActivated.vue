@@ -4,10 +4,10 @@
       <template #header>
         <img class="w-11rem h-11rem pt-4 px-4 mx-auto" alt="email" :src="PathEmailSvg" />
       </template>
-      <template #title>Your account has not been activated!</template>
-      <template #subtitle>Check your email.</template>
+      <template #title><h2 class="text-4xl">Your account has not been activated!</h2></template>
+      <template #subtitle><h3 class="text-2xl">Check your email.</h3></template>
       <template #content>
-        If you didn't receive your email, please click the button below to resend.
+        <p class="text-xl">If you didn't receive your email, please click the button below to resend.</p>
       </template>
       <template #footer>
         <Button
