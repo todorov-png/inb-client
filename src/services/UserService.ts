@@ -3,10 +3,11 @@ import { AxiosResponse } from 'axios';
 import { IUser } from '@/models/IUser';
 
 export default class UserService {
-  // static fetchUsers(): Promise<AxiosResponse<IUser[]>> {
-  //   return $api.get<IUser[]>('/users');
-  // }
-  static sendActivationCode(): Promise<AxiosResponse> {
+  static async fetchUsers(): Promise<AxiosResponse<IUser[]>> {
+    return $api.get<IUser[]>('/users');
+  }
+
+  static async sendActivationCode(): Promise<AxiosResponse> {
     return $api.post('/activation-code');
   }
 }

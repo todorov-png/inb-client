@@ -19,9 +19,9 @@ export default {
     // getUserToken(state) {
     //   return state.user.token;
     // },
-    // getUser(state) {
-    //   return state.user;
-    // },
+    getUser(state: any) {
+      return state.user;
+    },
   },
   mutations: {
     setLoading(state: any, bool: boolean) {

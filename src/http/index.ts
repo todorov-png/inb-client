@@ -32,6 +32,7 @@ $api.interceptors.response.use(
         console.log('Не авторизован');
       }
     }
+    throw error;
   }
 );
 

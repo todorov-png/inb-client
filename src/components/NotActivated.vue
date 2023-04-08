@@ -24,39 +24,49 @@
   import Card from 'primevue/card';
   import Button from 'primevue/button';
   import EmailSvg from '@/assets/img/svg/email.svg';
-  import AuthService from '@/services/AuthService';
+  import UserService from '@/services/UserService';
 
   export default {
     components: { Card, Button },
+
     data() {
       return {
         PathEmailSvg: EmailSvg,
       };
     },
+
     methods: {
       async sendNewActivationCode() {
-        console.log(111, await AuthService.sendActivationCode());
+        try {
+          await UserService.sendActivationCode();
+          this.$toast.add({
+            severity: 'success',
+            summary: 'Check your email',
+            detail: 'New activation code sent successfully',
+            life: 3000,
+          });
+        } catch (e) {
+          let messageError = 'Error, try again!';
+          if (e.response?.data?.message) {
+            messageError = e.response.data.message;
+          }
+          this.$toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: messageError,
+            life: 3000,
+          });
+        }
       },
+
       confirmSendEmail(event) {
         this.$confirm.require({
           target: event.currentTarget,
           message: 'Are you sure you want to send a new activation code?',
           icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-
-
-
-            this.$toast.add({
-              severity: 'info',
-              summary: 'Confirmed',
-              detail: 'You have accepted',
-              life: 3000,
-            });
-          },
+          accept: this.sendNewActivationCode,
         });
       },
     },
   };
 </script>
-
-<style lang="scss"></style>
