@@ -6,6 +6,7 @@
     <ProgressSpinner strokeWidth="5" />
   </div>
   <template v-else>
+    <ConfirmPopup class="m-auto w-max max-w-30rem h-content-max top-0 right-0 bottom-0 left-0" />
     <Toast />
     <RouterView />
   </template>
@@ -13,11 +14,12 @@
 
 <script>
   import Toast from 'primevue/toast';
+  import ConfirmPopup from 'primevue/confirmpopup';
   import ProgressSpinner from 'primevue/progressspinner';
   import { mapGetters } from 'vuex';
 
   export default {
-    components: { Toast, ProgressSpinner },
+    components: { ConfirmPopup, Toast, ProgressSpinner },
     created() {
       document.body.scrollTop = 0;
       window.addEventListener('resize', this.onResize, true);

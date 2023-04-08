@@ -1,8 +1,12 @@
-<template>home</template>
+<template>
+  <NotActivated />
+</template>
 
 <script>
+  import NotActivated from '@/components/NotActivated.vue';
+
   export default {
-    components: {},
+    components: { NotActivated },
     data() {
       return {};
     },
