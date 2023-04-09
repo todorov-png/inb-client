@@ -5,6 +5,7 @@ import NotFoundView from '@/views/NotFoundView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import LoginView from '@/views/LoginView.vue';
 import HomeView from '@/views/HomeView.vue';
+import ProfileView from '@/views/ProfileView.vue';
 import LandView from '@/views/LandView.vue';
 import store from '@/store/index.js';
 
@@ -19,6 +20,12 @@ const routes = [
         name: 'home',
         meta: { requiresAuth: true },
         component: HomeView,
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        meta: { requiresAuth: true },
+        component: ProfileView,
       },
       {
         path: 'land',
@@ -61,7 +68,6 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  console.log(to);
   const isAuthenticated = await store.dispatch('checkAuth');
   const matched = to.matched;
   for (let i = 0; i < matched.length; i++) {

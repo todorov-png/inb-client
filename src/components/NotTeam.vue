@@ -2,7 +2,7 @@
   <div class="h-full flex align-items-center justify-content-center">
     <Card class="max-w-30rem text-center">
       <template #header>
-        <img class="w-11rem h-11rem pt-4 px-4 mx-auto" alt="email" :src="PathTeamSvg" />
+        <img class="w-11rem h-11rem pt-4 px-4 mx-auto" alt="team" :src="PathTeamSvg" />
       </template>
       <template #title><h2 class="text-4xl">No team is assigned to you!</h2></template>
       <template #content>

@@ -46,12 +46,13 @@
             label: 'Profile',
             icon: 'pi pi-fw pi-user text-1xl sm:text-2xl',
             class: 'text-2xl sm:text-3xl white-space-nowrap',
+            command: this.goToProfile,
           },
-          {
-            label: 'Settings',
-            icon: 'pi pi-fw pi-cog text-1xl sm:text-2xl',
-            class: 'text-2xl sm:text-3xl white-space-nowrap',
-          },
+          // {
+          //   label: 'Settings',
+          //   icon: 'pi pi-fw pi-cog text-1xl sm:text-2xl',
+          //   class: 'text-2xl sm:text-3xl white-space-nowrap',
+          // },
           { separator: true },
           {
             label: 'Log Out',
@@ -80,6 +81,8 @@
         switch (this.$route.name) {
           case 'home':
             return 'home';
+          case 'profile':
+            return 'profile';
           case 'land':
             return 'landing information';
           default:
@@ -109,6 +112,9 @@
         } else {
           this.$router.push({ name: 'home' });
         }
+      },
+      goToProfile() {
+        this.$router.push({ name: 'profile' });
       },
       toggleUserMenu(event) {
         this.$refs.user_menu.toggle(event);
