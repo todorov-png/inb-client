@@ -25,16 +25,6 @@ const routes = [
         name: 'land',
         meta: { requiresAuth: true },
         component: LandView,
-        // children: [
-        //   // {
-        //   //   path: '/*',
-        //   //   redirect: { name: '404' },
-        //   // },
-        //   {
-        //     path: '/:notFound(.*)',
-        //     component: NotFoundView,
-        //   },
-        // ],
       },
     ],
   },
@@ -57,20 +47,11 @@ const routes = [
       },
     ],
   },
-  // {
-  //   path: '/:notFound(.*)',
-  //   component: NotFoundView,
-  // },
   {
     name: '404',
     path: '/:notFound(.*)*',
     component: NotFoundView,
   },
-  // {
-  //   name: '404',
-  //   path: '/',
-  //   component: NotFoundView,
-  // },
 ];
 
 const router = createRouter({
