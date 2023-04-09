@@ -1,25 +1,25 @@
-import express from 'express';
-import serveStatic from 'serve-static';
 import path from 'path';
-import * as env from 'dotenv';
-import {fileURLToPath} from 'url';
-env.config();
+import express from 'express';
+import compress from 'compression';
+import history from 'connect-history-api-fallback';
+import { fileURLToPath } from 'url';
 
+const PORT = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const PORT = process.env.PORT || 3000;
-const app = express();
-app.use(serveStatic(path.join(__dirname, 'dist')))
+const pathIndex = path.join(__dirname, 'dist');
+const cacheTime = 86400000 * 7;
 
+const server = express();
+server.use(
+  history({
+    logger: console.log.bind(console),
+  })
+);
 
-const start = async () => {
-  try {
-    app.listen(PORT, () => {
-      console.log(`[OK] Server is running on PORT = ${PORT}`);
-    });
-
-  } catch (e) {
-    console.log(e);
-  }
-};
-start();
+server.use(compress({ threshold: 512 }));
+server.use(express.static(pathIndex, { maxAge: cacheTime }));
+server.disable('x-powered-by');
+server.listen(PORT, () => {
+  console.log(`[OK] Server is running on PORT = ${PORT}`);
+});

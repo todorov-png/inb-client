@@ -25,6 +25,16 @@ const routes = [
         name: 'land',
         meta: { requiresAuth: true },
         component: LandView,
+        // children: [
+        //   // {
+        //   //   path: '/*',
+        //   //   redirect: { name: '404' },
+        //   // },
+        //   {
+        //     path: '/:notFound(.*)',
+        //     component: NotFoundView,
+        //   },
+        // ],
       },
     ],
   },
@@ -47,10 +57,20 @@ const routes = [
       },
     ],
   },
+  // {
+  //   path: '/:notFound(.*)',
+  //   component: NotFoundView,
+  // },
   {
-    path: '/:notFound(.*)',
+    name: '404',
+    path: '/:notFound(.*)*',
     component: NotFoundView,
   },
+  // {
+  //   name: '404',
+  //   path: '/',
+  //   component: NotFoundView,
+  // },
 ];
 
 const router = createRouter({
@@ -60,6 +80,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  console.log(to);
   const isAuthenticated = await store.dispatch('checkAuth');
   const matched = to.matched;
   for (let i = 0; i < matched.length; i++) {
