@@ -10,7 +10,7 @@
       <span class="p-inputgroup-addon">
         <i class="pi pi-user"></i>
       </span>
-      <InputText v-model="username" type="text" name="name" placeholder="Username" />
+      <InputText v-model="username" type="text" name="username" placeholder="Username" />
     </div>
     <div class="p-inputgroup mb-2">
       <span class="p-inputgroup-addon">

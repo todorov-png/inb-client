@@ -5,7 +5,7 @@
         <img class="w-11rem h-11rem pt-4 px-4 mx-auto" alt="profile" :src="PathProfileSvg" />
       </template>
       <template #content>
-        <div class="flex justify-content-center gap-3 mb-4">
+        <div class="flex justify-content-center gap-3 mb-4" style="margin-top: -1.25rem">
           <SelectButton
             :modelValue="theme"
             :options="themeOptions"
@@ -20,63 +20,63 @@
           />
         </div>
         <div class="p-inputgroup mb-2">
-      <span class="p-inputgroup-addon">
-        <i class="pi pi-user"></i>
-      </span>
-      <InputText v-model="username" type="text" name="name" placeholder="Username" />
-    </div>
-    <div class="p-inputgroup mb-2">
-      <span class="p-inputgroup-addon">
-        <i class="pi pi-at"></i>
-      </span>
-      <InputText v-model="email" name="email" type="email" placeholder="Email" />
-    </div>
-    <div class="p-inputgroup mb-2">
-      <span class="p-inputgroup-addon">
-        <i class="pi pi-key"></i>
-      </span>
-      <Password
-        v-model="password"
-        name="password"
-        type="password"
-        class="flex"
-        placeholder="Password"
-        :feedback="false"
-        toggleMask
-      />
-    </div>
-    <div class="p-inputgroup">
-      <span class="p-inputgroup-addon">
-        <i class="pi pi-key"></i>
-      </span>
-      <Password
-        v-model="repeatPassword"
-        name="repeat-password"
-        type="password"
-        class="flex"
-        placeholder="Repeat password"
-        :feedback="false"
-        toggleMask
-      />
-    </div>
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-user"></i>
+          </span>
+          <InputText v-model="newUsername" type="text" name="username" :placeholder="getUsername" />
+        </div>
+        <div class="p-inputgroup mb-2">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-at"></i>
+          </span>
+          <InputText v-model="newEmail" name="email" type="email" :placeholder="getEmail" />
+        </div>
+        <div class="p-inputgroup mb-2">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-key"></i>
+          </span>
+          <Password
+            v-model="newPassword"
+            name="new-password"
+            type="password"
+            class="flex"
+            placeholder="New password"
+            :feedback="false"
+            toggleMask
+          />
+        </div>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-key"></i>
+          </span>
+          <Password
+            v-model="currentPassword"
+            name="password"
+            type="password"
+            class="flex"
+            placeholder="Current password"
+            :feedback="false"
+            toggleMask
+          />
+        </div>
       </template>
       <template #footer>
         <Button
           type="button"
           class="w-full mb-3"
-          label="Sign In"
-          icon="pi pi-sign-in"
+          label="Save"
+          icon="pi pi-save"
           :loading="loadingSubmit"
           @click="submitForm"
         ></Button>
         <router-link :to="{ name: 'home' }" custom v-slot="{ navigate }">
           <Button
             class="w-full"
-            label="Registration"
+            label="Home"
             severity="secondary"
             role="link"
             outlined
-            icon="pi pi-user-plus"
+            icon="pi pi-home"
             @click="navigate"
           ></Button>
         </router-link>
@@ -93,6 +93,7 @@
   import SelectButton from 'primevue/selectbutton';
   import ProfileSvg from '@/assets/img/svg/profile.svg';
   import { getCookie, setCookie } from '@/lib/cookie.js';
+  import { mapGetters } from 'vuex';
   // import UserService from '@/services/UserService';
 
   export default {
@@ -105,22 +106,37 @@
         themeOptions: ['Light', 'Dark'],
         lang: null,
         langOptions: ['EN', 'RU', 'UK'],
+        newUsername: '',
+        newEmail: '',
+        currentPassword: '',
+        newPassword: '',
       };
     },
 
     created() {
-      this.theme = getCookie('theme') || 'Light';
+      this.theme = localStorage.getItem('theme') || 'Light';
       this.lang = getCookie('lang') || 'RU';
     },
 
+    computed: { ...mapGetters(['getUsername', 'getEmail']) },
+
     methods: {
       changeTheme(value) {
-        setCookie('theme', value);
+        localStorage.setItem('theme', value);
         this.theme = value;
+        const themeElement = document.getElementById('theme-link');
+        if (themeElement) {
+          const themeName = value === 'Light' ? 'lara-light-blue' : 'arya-blue';
+          const href = `${window.location.origin}/themes/${themeName}/theme.css`;
+          themeElement.setAttribute('href', href);
+        }
       },
       changeLang(value) {
         setCookie('lang', value);
         this.lang = value;
+      },
+      saveData() {
+        //TODO Тут отправка запроса на сервер для обновления данных
       },
     },
   };

@@ -22,6 +22,12 @@ export default {
     getUser(state: any) {
       return state.user;
     },
+    getUsername(state: any) {
+      return state.user.username || '';
+    },
+    getEmail(state: any) {
+      return state.user.email || '';
+    },
   },
   mutations: {
     setLoading(state: any, bool: boolean) {

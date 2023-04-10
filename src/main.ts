@@ -7,7 +7,8 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import ConfirmationService from 'primevue/confirmationservice';
 import 'primevue/resources/primevue.min.css';
-import 'primevue/resources/themes/lara-light-blue/theme.css';
+// import 'primevue/resources/themes/lara-light-blue/theme.css';
+// import 'primevue/resources/themes/arya-blue/theme.css';
 import 'primeicons/primeicons.css';
 import './assets/scss/style.scss';
 
