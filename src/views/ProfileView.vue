@@ -92,7 +92,6 @@
   import Password from 'primevue/password';
   import SelectButton from 'primevue/selectbutton';
   import ProfileSvg from '@/assets/img/svg/profile.svg';
-  import { getCookie, setCookie } from '@/lib/cookie.js';
   import { mapGetters } from 'vuex';
   // import UserService from '@/services/UserService';
 
@@ -115,7 +114,7 @@
 
     created() {
       this.theme = localStorage.getItem('theme') || 'Light';
-      this.lang = getCookie('lang') || 'RU';
+      this.lang = localStorage.getItem('lang') || 'EN';
     },
 
     computed: { ...mapGetters(['getUsername', 'getEmail']) },
@@ -132,7 +131,7 @@
         }
       },
       changeLang(value) {
-        setCookie('lang', value);
+        localStorage.setItem('lang', value);
         this.lang = value;
       },
       saveData() {
