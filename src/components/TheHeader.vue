@@ -62,21 +62,33 @@
           },
         ],
         adminItems: [
+          // {
+          //   label: 'Users',
+          //   icon: 'pi pi-fw pi-users text-1xl sm:text-2xl',
+          //   class: 'text-2xl sm:text-3xl white-space-nowrap',
+          // },
           {
-            label: 'Users',
-            icon: 'pi pi-fw pi-user text-1xl sm:text-2xl',
+            label: 'Teams',
+            icon: 'pi pi-fw pi-users text-1xl sm:text-2xl',
             class: 'text-2xl sm:text-3xl white-space-nowrap',
           },
           {
-            label: 'Tasks',
-            icon: 'pi pi-fw pi-cog text-1xl sm:text-2xl',
+            label: 'Roles',
+            icon: 'pi pi-fw pi-shield text-1xl sm:text-2xl',
             class: 'text-2xl sm:text-3xl white-space-nowrap',
+            command: this.goToRoles,
           },
+          // {
+          //   label: 'Tasks',
+          //   icon: 'pi pi-fw pi-cog text-1xl sm:text-2xl',
+          //   class: 'text-2xl sm:text-3xl white-space-nowrap',
+          // },
         ],
       };
     },
     computed: {
       ...mapGetters(['getUser']),
+
       titleName() {
         switch (this.$route.name) {
           case 'home':
@@ -85,6 +97,8 @@
             return 'profile';
           case 'land':
             return 'landing information';
+          case 'roles':
+            return 'Roles';
           default:
             return '404';
         }
@@ -92,6 +106,7 @@
     },
     methods: {
       ...mapActions(['logout']),
+
       async logoutUser() {
         const response = await this.logout();
         if (response.success) {
@@ -105,17 +120,25 @@
           });
         }
       },
+
       clickLogo(event) {
-        const role = this.getUser.role || 'user';
+        //TODO Тут выводить по разрешениям, а не ролям
+        const role = this.getUser.role || 'admin';
         if (role === 'admin') {
           this.$refs.admin_menu.toggle(event);
         } else {
           this.$router.push({ name: 'home' });
         }
       },
+
       goToProfile() {
         this.$router.push({ name: 'profile' });
       },
+
+      goToRoles() {
+        this.$router.push({ name: 'roles' });
+      },
+
       toggleUserMenu(event) {
         this.$refs.user_menu.toggle(event);
       },

@@ -3,6 +3,7 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import RegisterView from '@/views/RegisterView.vue';
+import RolesView from '@/views/RolesView.vue';
 import LoginView from '@/views/LoginView.vue';
 import HomeView from '@/views/HomeView.vue';
 import ProfileView from '@/views/ProfileView.vue';
@@ -32,6 +33,12 @@ const routes = [
         name: 'land',
         meta: { requiresAuth: true },
         component: LandView,
+      },
+      {
+        path: 'roles',
+        name: 'roles',
+        meta: { requiresAuth: true },
+        component: RolesView,
       },
     ],
   },
