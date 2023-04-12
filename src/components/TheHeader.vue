@@ -26,7 +26,7 @@
         :model="userItems"
         :popup="true"
       ></Menu>
-      <Menu ref="admin_menu" id="admin_menu" :model="adminItems" :popup="true"></Menu>
+      <Menu ref="admin_menu" id="admin_menu" :model="adminMenu" :popup="true"></Menu>
     </div>
   </header>
 </template>
@@ -41,11 +41,13 @@
     components: { Menu, Button },
     data() {
       return {
+        menuTextClass: 'text-xl sm:text-2xl white-space-nowrap',
+        menuIconClass: ' pi pi-fw text-xl sm:text-2xl',
         userItems: [
           {
             label: 'Profile',
-            icon: 'pi pi-fw pi-user text-1xl sm:text-2xl',
-            class: 'text-2xl sm:text-3xl white-space-nowrap',
+            icon: `pi-user ${this.menuIconClass}`,
+            class: this.menuTextClass,
             command: this.goToProfile,
           },
           // {
@@ -57,33 +59,44 @@
           {
             label: 'Log Out',
             icon: 'pi pi-fw pi-sign-out text-1xl sm:text-2xl',
-            class: 'text-2xl sm:text-3xl white-space-nowrap',
+            class: 'text-xl sm:text-2xl white-space-nowrap',
             command: this.logoutUser,
           },
         ],
-        adminItems: [
-          // {
-          //   label: 'Users',
-          //   icon: 'pi pi-fw pi-users text-1xl sm:text-2xl',
-          //   class: 'text-2xl sm:text-3xl white-space-nowrap',
-          // },
+        adminMenuItems: [
           {
             label: 'Teams',
-            icon: 'pi pi-fw pi-users text-1xl sm:text-2xl',
-            class: 'text-2xl sm:text-3xl white-space-nowrap',
+            icon: 'pi-users',
           },
           {
             label: 'Roles',
-            icon: 'pi pi-fw pi-shield text-1xl sm:text-2xl',
-            class: 'text-2xl sm:text-3xl white-space-nowrap',
+            icon: 'pi-shield',
             command: this.goToRoles,
           },
-          // {
-          //   label: 'Tasks',
-          //   icon: 'pi pi-fw pi-cog text-1xl sm:text-2xl',
-          //   class: 'text-2xl sm:text-3xl white-space-nowrap',
-          // },
         ],
+        // adminItems1: [
+        //   // {
+        //   //   label: 'Users',
+        //   //   icon: 'pi pi-fw pi-users text-xl sm:text-2xl',
+        //   //   class: 'text-xl sm:text-2xl white-space-nowrap',
+        //   // },
+        //   {
+        //     label: 'Teams',
+        //     icon: 'pi pi-fw pi-users text-xl sm:text-2xl',
+        //     class: 'text-xl sm:text-2xl white-space-nowrap',
+        //   },
+        //   {
+        //     label: 'Roles',
+        //     icon: 'pi pi-fw pi-shield text-xl sm:text-2xl',
+        //     class: 'text-xl sm:text-2xl white-space-nowrap',
+        //     command: this.goToRoles,
+        //   },
+        //   // {
+        //   //   label: 'Tasks',
+        //   //   icon: 'pi pi-fw pi-cog text-1xl sm:text-2xl',
+        //   //   class: 'text-2xl sm:text-3xl white-space-nowrap',
+        //   // },
+        // ],
       };
     },
     computed: {
@@ -102,6 +115,18 @@
           default:
             return '404';
         }
+      },
+
+      adminMenu() {
+        const menu = [];
+        this.adminMenuItems.forEach((item) => {
+          item.class = this.menuTextClass;
+          item.icon += this.menuIconClass;
+          //TODO Тут добавить проверку на разрешения
+          menu.push(item);
+        });
+
+        return menu;
       },
     },
     methods: {
