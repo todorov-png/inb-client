@@ -1,15 +1,16 @@
 <template>
-  {{ roles }}
   <div class="card p-fluid surface-border border-x-1">
     <DataTable
       v-model:filters="filters"
       v-model:editingRows="editingRows"
       v-model:selection="selectedRoles"
+      v-model="balanceFrozen"
       :value="roles"
       :loading="loading"
       :globalFilterFields="['name']"
       editMode="row"
       dataKey="name"
+      scrollable
       @row-edit-save="onRowEditSave"
     >
       <template #empty> Roles not found. </template>
@@ -34,8 +35,8 @@
           </div>
         </div>
       </template>
-      <Column selectionMode="multiple" style="width: 3rem" :exportable="false"></Column>
-      <Column field="name" header="Name" sortable>
+      <Column selectionMode="multiple" frozen style="width: 3rem" :exportable="false"></Column>
+      <Column field="name" header="Name" sortable frozen>
         <template #editor="{ data, field }">
           <InputText v-model="data[field]" />
         </template>
@@ -153,6 +154,7 @@
         editingRows: [],
         selectedRoles: null,
         submitted: false,
+        balanceFrozen: false,
         roleDialog: false,
         deleteRoleDialog: false,
         deleteRolesDialog: false,
@@ -194,7 +196,7 @@
         ];
         //TODO Тут запрос на получение данных
         this.loading = false;
-        this.permissions = ['adminMenu', 'createTeam', 'createRole', 'roleAssignment'];
+        this.permissions = ['createTeam', 'TeamAssignment', 'createRole', 'roleAssignment'];
         this.roles.push(...initRoles.map((role) => this.formattingRole(role, this.permissions)));
       },
 

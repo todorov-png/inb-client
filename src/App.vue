@@ -1,15 +1,13 @@
 <template>
   <div
-    v-if="getStatusLoading"
-    class="absolute top-0 bottom-0 left-0 right-0 flex flex-wrap align-content-center"
+    class="absolute top-0 bottom-0 left-0 right-0 flex-wrap align-content-center z-5 opacity-90 bg-primary-reverse"
+    :class="getStatusLoading ? 'flex' : 'hidden'"
   >
     <ProgressSpinner strokeWidth="5" />
   </div>
-  <template v-else>
-    <ConfirmPopup class="m-auto w-max max-w-30rem h-content-max top-0 right-0 bottom-0 left-0" />
-    <Toast />
-    <RouterView />
-  </template>
+  <ConfirmPopup class="m-auto w-max max-w-30rem h-content-max top-0 right-0 bottom-0 left-0" />
+  <Toast />
+  <RouterView />
 </template>
 
 <script>

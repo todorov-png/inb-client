@@ -67,7 +67,7 @@
           label="Save"
           icon="pi pi-save"
           :loading="loadingSubmit"
-          @click="submitForm"
+          @click="saveData"
         ></Button>
         <router-link :to="{ name: 'home' }" custom v-slot="{ navigate }">
           <Button
@@ -109,6 +109,7 @@
         newEmail: '',
         currentPassword: '',
         newPassword: '',
+        loadingSubmit: false,
       };
     },
 

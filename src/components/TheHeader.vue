@@ -1,12 +1,13 @@
 <template>
   <header class="fixed top-0 right-0 left-0">
     <div class="container py-3 flex align-items-center justify-content-between">
-      <img
-        src="@/assets/img/logo.webp"
-        alt="logo"
-        class="w-3rem sm:w-4rem border-circle cursor-pointer"
-        @click="clickLogo"
-      />
+      <router-link to="/">
+        <img
+          src="@/assets/img/logo.webp"
+          alt="logo"
+          class="w-3rem sm:w-4rem border-circle cursor-pointer"
+        />
+      </router-link>
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold uppercase px-4">{{ titleName }}</h1>
       <Button
         rounded
@@ -22,11 +23,10 @@
       <Menu
         ref="user_menu"
         id="user_menu"
-        class="p-0 mt-3 border-round-2xl overflow-hidden text-2xl"
-        :model="userItems"
+        class="p-0 mt-3 border-round-2xl overflow-hidden text-xl sm:text-2xl white-space-nowrap"
+        :model="menuItems"
         :popup="true"
       ></Menu>
-      <Menu ref="admin_menu" id="admin_menu" :model="adminMenu" :popup="true"></Menu>
     </div>
   </header>
 </template>
@@ -35,70 +35,15 @@
   import Menu from 'primevue/menu';
   import Button from 'primevue/button';
   import { mapGetters, mapActions } from 'vuex';
-  // import { deleteCookie } from '@/lib/cookie.js';
 
   export default {
     components: { Menu, Button },
     data() {
       return {
-        menuTextClass: 'text-xl sm:text-2xl white-space-nowrap',
-        menuIconClass: ' pi pi-fw text-xl sm:text-2xl',
-        userItems: [
-          {
-            label: 'Profile',
-            icon: `pi-user ${this.menuIconClass}`,
-            class: this.menuTextClass,
-            command: this.goToProfile,
-          },
-          // {
-          //   label: 'Settings',
-          //   icon: 'pi pi-fw pi-cog text-1xl sm:text-2xl',
-          //   class: 'text-2xl sm:text-3xl white-space-nowrap',
-          // },
-          { separator: true },
-          {
-            label: 'Log Out',
-            icon: 'pi pi-fw pi-sign-out text-1xl sm:text-2xl',
-            class: 'text-xl sm:text-2xl white-space-nowrap',
-            command: this.logoutUser,
-          },
-        ],
-        adminMenuItems: [
-          {
-            label: 'Teams',
-            icon: 'pi-users',
-          },
-          {
-            label: 'Roles',
-            icon: 'pi-shield',
-            command: this.goToRoles,
-          },
-        ],
-        // adminItems1: [
-        //   // {
-        //   //   label: 'Users',
-        //   //   icon: 'pi pi-fw pi-users text-xl sm:text-2xl',
-        //   //   class: 'text-xl sm:text-2xl white-space-nowrap',
-        //   // },
-        //   {
-        //     label: 'Teams',
-        //     icon: 'pi pi-fw pi-users text-xl sm:text-2xl',
-        //     class: 'text-xl sm:text-2xl white-space-nowrap',
-        //   },
-        //   {
-        //     label: 'Roles',
-        //     icon: 'pi pi-fw pi-shield text-xl sm:text-2xl',
-        //     class: 'text-xl sm:text-2xl white-space-nowrap',
-        //     command: this.goToRoles,
-        //   },
-        //   // {
-        //   //   label: 'Tasks',
-        //   //   icon: 'pi pi-fw pi-cog text-1xl sm:text-2xl',
-        //   //   class: 'text-2xl sm:text-3xl white-space-nowrap',
-        //   // },
-        // ],
+        menu: [],
       };
     },
+
     computed: {
       ...mapGetters(['getUser']),
 
@@ -117,18 +62,57 @@
         }
       },
 
-      adminMenu() {
+      menuItems() {
+        const menuIconClass = ' pi pi-fw text-xl sm:text-2xl';
         const menu = [];
-        this.adminMenuItems.forEach((item) => {
-          item.class = this.menuTextClass;
-          item.icon += this.menuIconClass;
-          //TODO Тут добавить проверку на разрешения
-          menu.push(item);
+        const fullMenu = [
+          {
+            label: 'Profile',
+            icon: 'pi-user',
+            to: '/profile',
+          },
+          {
+            label: 'Users',
+            icon: 'pi-users',
+          },
+          {
+            permissions: ['createTeam', 'TeamAssignment'],
+            label: 'Teams',
+            icon: 'pi-users',
+          },
+          {
+            permissions: ['createRole', 'roleAssignment'],
+            label: 'Roles',
+            icon: 'pi-shield',
+            to: '/roles',
+          },
+          { separator: true },
+          {
+            label: 'Log Out',
+            icon: 'pi-sign-out',
+            command: this.logoutUser,
+          },
+        ];
+        //TODO Заменить разрешения на разрешения пользователя
+        const permission = ['TeamAssignment', 'createTeam', 'createRole', 'roleAssignment'];
+        fullMenu.forEach((menuItem) => {
+          if (menuItem?.label) {
+            menuItem.icon += menuIconClass;
+            if (
+              !menuItem.permissions ||
+              menuItem.permissions.some((item) => permission.some((item1) => item === item1))
+            ) {
+              delete menuItem.permissions;
+              menu.push(menuItem);
+            }
+          } else {
+            menu.push(menuItem);
+          }
         });
-
         return menu;
       },
     },
+
     methods: {
       ...mapActions(['logout']),
 
@@ -144,24 +128,6 @@
             life: 3000,
           });
         }
-      },
-
-      clickLogo(event) {
-        //TODO Тут выводить по разрешениям, а не ролям
-        const role = this.getUser.role || 'admin';
-        if (role === 'admin') {
-          this.$refs.admin_menu.toggle(event);
-        } else {
-          this.$router.push({ name: 'home' });
-        }
-      },
-
-      goToProfile() {
-        this.$router.push({ name: 'profile' });
-      },
-
-      goToRoles() {
-        this.$router.push({ name: 'roles' });
       },
 
       toggleUserMenu(event) {
