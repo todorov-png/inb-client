@@ -1,10 +1,12 @@
 import axios from 'axios';
 import AuthService from '@/services/AuthService';
-import { IUser } from '@/models/IUser';
 import { AuthResponse } from '@/models/response/AuthResponse';
+import { createStore } from 'vuex';
+import { IUser } from '@/models/IUser';
 import { API_URL } from '@/http';
+import { i18n } from '@/i18n';
 
-export default {
+export default createStore({
   state() {
     return {
       user: {} as IUser,
@@ -12,23 +14,11 @@ export default {
       isLoading: false as boolean,
     };
   },
-  getters: {
-    getStatusLoading(state: any) {
-      return state.isLoading;
-    },
-    // getUserToken(state) {
-    //   return state.user.token;
-    // },
-    getUser(state: any) {
-      return state.user;
-    },
-    getUsername(state: any) {
-      return state.user.username || '';
-    },
-    getEmail(state: any) {
-      return state.user.email || '';
-    },
-  },
+  // getters: {
+  //   getUsername(state: any) {
+  //     return state.user.username || '';
+  //   },
+  // },
   mutations: {
     setLoading(state: any, bool: boolean) {
       state.isLoading = bool;
@@ -53,7 +43,7 @@ export default {
         if (e.response?.data?.message) {
           return { success: false, messageError: e.response.data.message };
         }
-        return { success: false, messageError: 'Error, try again!' };
+        return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
       }
     },
 
@@ -69,7 +59,7 @@ export default {
         if (e.response?.data?.message) {
           return { success: false, messageError: e.response.data.message };
         }
-        return { success: false, messageError: 'Error, try again!' };
+        return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
       }
     },
 
@@ -84,7 +74,7 @@ export default {
         if (e.response?.data?.message) {
           return { success: false, messageError: e.response.data.message };
         }
-        return { success: false, messageError: 'Error, try again!' };
+        return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
       }
     },
 
@@ -108,4 +98,5 @@ export default {
       }
     },
   },
-};
+});
+

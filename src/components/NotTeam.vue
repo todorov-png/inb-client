@@ -4,17 +4,16 @@
       <template #header>
         <img class="w-11rem h-11rem pt-4 px-4 mx-auto" alt="team" :src="PathTeamSvg" />
       </template>
-      <template #title><h2 class="text-4xl">No team is assigned to you!</h2></template>
+      <template #title>
+        <h2 class="text-4xl">{{ $t('NOT_TEAM.TITLE') }}</h2>
+      </template>
       <template #content>
-        <p class="text-xl">
-          To join a team, write to the administrator your team name and current username. After
-          joining, you will have access to materials for active products
-        </p>
+        <p class="text-xl">{{ $t('NOT_TEAM.CONTENT') }}</p>
       </template>
       <template #footer>
         <Button
           icon="pi pi-send"
-          label="Contact administrator"
+          :label="$t('NOT_TEAM.BUTTON')"
           outlined
           @click="openTgAdmin"
         ></Button>

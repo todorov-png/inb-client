@@ -13,12 +13,12 @@
       scrollable
       @row-edit-save="onRowEditSave"
     >
-      <template #empty> Roles not found. </template>
-      <template #loading> Loading role data. Please wait. </template>
+      <template #empty>{{ $t('ROLES.TABLE.EMPTY') }}</template>
+      <template #loading>{{ $t('ROLES.TABLE.LOADING') }}</template>
       <template #header>
         <div class="flex flex-wrap align-items-center justify-content-between">
           <div class="flex align-items-center gap-2">
-            <span class="text-xl text-900 font-bold">Roles</span>
+            <span class="text-xl text-900 font-bold">{{ $t('ROLES.TABLE.TITLE') }}</span>
             <Button icon="pi pi-plus" rounded raised @click="openNewRole" />
             <Button
               icon="pi pi-trash"
@@ -31,32 +31,31 @@
           </div>
           <div class="p-input-icon-left w-auto">
             <i class="pi pi-search" />
-            <InputText v-model="filters['global'].value" class="max-w-12rem" placeholder="Search" />
+            <InputText
+              v-model="filters['global'].value"
+              class="max-w-12rem"
+              :placeholder="$t('ROLES.TABLE.SEARCH')"
+            />
           </div>
         </div>
       </template>
       <Column selectionMode="multiple" frozen style="width: 3rem" :exportable="false"></Column>
-      <Column field="name" header="Name" sortable frozen>
+      <Column field="name" :header="$t('ROLES.PERMISSIONS.NAME')" sortable frozen>
         <template #editor="{ data, field }">
           <InputText v-model="data[field]" />
         </template>
       </Column>
-      <Column field="adminMenu" header="AdminMenu">
+      <Column field="createTeam" :header="$t('ROLES.PERMISSIONS.CREATE_TEAM')">
         <template #editor="{ data, field }">
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
-      <Column field="createTeam" header="CreateTeam">
+      <Column field="createRole" :header="$t('ROLES.PERMISSIONS.CREATE_ROLE')">
         <template #editor="{ data, field }">
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
-      <Column field="createRole" header="CreateRole">
-        <template #editor="{ data, field }">
-          <Checkbox v-model="data[field]" :binary="true" />
-        </template>
-      </Column>
-      <Column field="roleAssignment" header="RoleAssignment">
+      <Column field="roleAssignment" :header="$t('ROLES.PERMISSIONS.ROLE_ASSIGNMENT')">
         <template #editor="{ data, field }">
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
@@ -71,21 +70,23 @@
 
     <Dialog
       v-model:visible="roleDialog"
-      header="Create role"
-      :modal="true"
       class="p-fluid w-full max-w-30rem"
+      :header="$t('ROLES.CREATE_ROLE.HEADER')"
+      :modal="true"
     >
       <div class="field">
-        <label for="name">Name</label>
+        <label for="name">{{ $t('ROLES.CREATE_ROLE.NAME') }}</label>
         <InputText
           id="name"
           v-model.trim="role.name"
           :class="{ 'p-invalid': submitted && !role.name }"
         />
-        <small class="p-error" v-if="submitted && !role.name">Name is required.</small>
+        <small class="p-error" v-if="submitted && !role.name">
+          {{ $t('ROLES.CREATE_ROLE.EMPTY_NAME') }}
+        </small>
       </div>
       <div class="field">
-        <label class="mb-3">Permissions</label>
+        <label class="mb-3">{{ $t('ROLES.CREATE_ROLE.PERMISSIONS') }}</label>
         <div class="formgrid grid">
           <div v-for="(item, index) in permissions" :key="index" class="field-checkbox col-6">
             <Checkbox :inputId="item" v-model="role[item]" :binary="true" />
@@ -102,31 +103,33 @@
     <Dialog
       v-model:visible="deleteRoleDialog"
       :style="{ width: '450px' }"
-      header="Confirm"
+      :header="$t('ROLES.DELETE_ROLE.HEADER')"
       :modal="true"
     >
       <div class="confirmation-content">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-        <span v-if="role">
-          Are you sure you want to delete the role <b>{{ role.name }}</b
-          >?
-        </span>
+        <span v-if="role" v-html="$t('ROLES.DELETE_ROLE.ROLE', { name: role.name })"></span>
       </div>
       <template #footer>
-        <Button label="No" icon="pi pi-times" text @click="deleteRoleDialog = false" />
-        <Button label="Yes" icon="pi pi-check" text @click="deleteRole" />
+        <Button
+          icon="pi pi-times"
+          text
+          :label="$t('ROLES.DELETE_ROLE.NO')"
+          @click="deleteRoleDialog = false"
+        />
+        <Button :label="$t('ROLES.DELETE_ROLE.YES')" icon="pi pi-check" text @click="deleteRole" />
       </template>
     </Dialog>
 
     <Dialog
       v-model:visible="deleteRolesDialog"
       :style="{ width: '450px' }"
-      header="Confirm"
+      :header="$t('ROLES.DELETE_ROLE.HEADER')"
       :modal="true"
     >
       <div class="confirmation-content">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-        <span v-if="role">Are you sure you want to delete the selected roles?</span>
+        <span v-if="role">{{ $t('ROLES.DELETE_ROLE.ROLES') }}</span>
       </div>
       <template #footer>
         <Button label="No" icon="pi pi-times" text @click="deleteRolesDialog = false" />
@@ -137,8 +140,6 @@
 </template>
 
 <script>
-  // import { mapGetters } from 'vuex';
-
   import DataTable from 'primevue/datatable';
   import Column from 'primevue/column';
   import InputText from 'primevue/inputtext';
@@ -165,13 +166,11 @@
         roles: [],
       };
     },
+
     async created() {
       await this.getData();
     },
 
-    computed: {
-      // ...mapGetters(['getUser']),
-    },
     methods: {
       async getData() {
         this.loading = true;
@@ -222,7 +221,9 @@
         this.submitted = true;
         if (this.role.name?.trim()) {
           const data = { name: this.role.name, permissions: [] };
-          this.permissions.forEach((item) => (this.role[item] ? (data.permissions[item] = true) : null));
+          this.permissions.forEach((item) =>
+            this.role[item] ? (data.permissions[item] = true) : null
+          );
           //TODO Тут запрос на добавление продукта и ответ, если добавлен то закрываем модалку, если ошибка то выводим ее
           this.roles.unshift(this.formattingRole(data, this.permissions));
           this.roleDialog = false;
@@ -243,8 +244,8 @@
         //TODO Запрос на удаление одной роли
         this.$toast.add({
           severity: 'success',
-          summary: 'Successful',
-          detail: 'Role removed',
+          summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
+          detail: this.$t('ROLES.DELETE_ROLE.ONE'),
           life: 3000,
         });
       },
@@ -256,8 +257,8 @@
         //TODO Запрос на удаление нескольких ролей
         this.$toast.add({
           severity: 'success',
-          summary: 'Successful',
-          detail: 'Roles removed',
+          summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
+          detail: this.$t('ROLES.DELETE_ROLE.MANU'),
           life: 3000,
         });
       },

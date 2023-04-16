@@ -23,13 +23,13 @@
           <span class="p-inputgroup-addon">
             <i class="pi pi-user"></i>
           </span>
-          <InputText v-model="newUsername" type="text" name="username" :placeholder="getUsername" />
+          <InputText v-model="newUsername" type="text" name="username" :placeholder="username" />
         </div>
         <div class="p-inputgroup mb-2">
           <span class="p-inputgroup-addon">
             <i class="pi pi-at"></i>
           </span>
-          <InputText v-model="newEmail" name="email" type="email" :placeholder="getEmail" />
+          <InputText v-model="newEmail" name="email" type="email" :placeholder="email" />
         </div>
         <div class="p-inputgroup mb-2">
           <span class="p-inputgroup-addon">
@@ -40,7 +40,7 @@
             name="new-password"
             type="password"
             class="flex"
-            placeholder="New password"
+            :placeholder="$t('PROFILE.FORM.NEW_PASSWORD')"
             :feedback="false"
             toggleMask
           />
@@ -54,7 +54,7 @@
             name="password"
             type="password"
             class="flex"
-            placeholder="Current password"
+            :placeholder="$t('PROFILE.FORM.CURRENT_PASSWORD')"
             :feedback="false"
             toggleMask
           />
@@ -64,19 +64,19 @@
         <Button
           type="button"
           class="w-full mb-3"
-          label="Save"
           icon="pi pi-save"
           :loading="loadingSubmit"
+          :label="$t('PROFILE.BUTTONS.SAVE')"
           @click="saveData"
         ></Button>
         <router-link :to="{ name: 'home' }" custom v-slot="{ navigate }">
           <Button
             class="w-full"
-            label="Home"
             severity="secondary"
             role="link"
             outlined
             icon="pi pi-home"
+            :label="$t('PROFILE.BUTTONS.HOME')"
             @click="navigate"
           ></Button>
         </router-link>
@@ -92,7 +92,6 @@
   import Password from 'primevue/password';
   import SelectButton from 'primevue/selectbutton';
   import ProfileSvg from '@/assets/img/svg/profile.svg';
-  import { mapGetters } from 'vuex';
   // import UserService from '@/services/UserService';
 
   export default {
@@ -102,7 +101,6 @@
       return {
         PathProfileSvg: ProfileSvg,
         theme: null,
-        themeOptions: ['Light', 'Dark'],
         lang: null,
         langOptions: ['EN', 'RU', 'UK'],
         newUsername: '',
@@ -114,27 +112,55 @@
     },
 
     created() {
-      this.theme = localStorage.getItem('theme') || 'Light';
-      this.lang = localStorage.getItem('lang') || 'EN';
+      this.setTheme();
+      this.setLang();
     },
 
-    computed: { ...mapGetters(['getUsername', 'getEmail']) },
+    computed: {
+      themeOptions() {
+        return [this.$t('PROFILE.THEME.LIGHT'), this.$t('PROFILE.THEME.DARK')];
+      },
+
+      username() {
+        return this.$store.state.user.username || this.$t('PROFILE.FORM.USERNAME');
+      },
+
+      email() {
+        return this.$store.state.user.email || this.$t('PROFILE.FORM.EMAIL');
+      },
+    },
 
     methods: {
+      setTheme() {
+        this.theme =
+          localStorage.getItem('theme') && localStorage.getItem('theme') === 'Dark'
+            ? this.$t('PROFILE.THEME.DARK')
+            : this.$t('PROFILE.THEME.LIGHT');
+      },
+
+      setLang() {
+        this.lang = localStorage.getItem('lang').toUpperCase() || 'EN';
+      },
+
       changeTheme(value) {
-        localStorage.setItem('theme', value);
         this.theme = value;
+        const themeName = value === this.$t('PROFILE.THEME.LIGHT') ? 'Light' : 'Dark';
         const themeElement = document.getElementById('theme-link');
+        localStorage.setItem('theme', themeName);
         if (themeElement) {
-          const themeName = value === 'Light' ? 'lara-light-blue' : 'arya-blue';
-          const href = `${window.location.origin}/themes/${themeName}/theme.css`;
+          const href = `${window.location.origin}/themes/${themeName.toLowerCase()}.css`;
           themeElement.setAttribute('href', href);
         }
       },
+
       changeLang(value) {
-        localStorage.setItem('lang', value);
         this.lang = value;
+        const lowValue = value.toLowerCase();
+        localStorage.setItem('lang', lowValue);
+        this.$i18n.locale = lowValue;
+        this.setTheme();
       },
+
       saveData() {
         //TODO Тут отправка запроса на сервер для обновления данных
       },

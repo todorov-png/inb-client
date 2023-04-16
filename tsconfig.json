@@ -5,6 +5,7 @@
      "strict":true,
      "jsx":"preserve",
      "moduleResolution":"node",
+     "resolveJsonModule": true,
      "experimentalDecorators":true,
      "allowJs":true,
      "skipLibCheck":true,
@@ -36,8 +37,8 @@
      "src/**/*.vue",
      "tests/**/*.ts",
      "tests/**/*.tsx",
-     "src/store/index.js"
-  ],
+     "src/store/index.ts",
+     "src/store/modules/user.ts"  ],
   "exclude":[
      "node_modules"
   ]

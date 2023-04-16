@@ -1,4 +1,5 @@
 import { AuthResponse } from '@/models/response/AuthResponse';
+import { i18n } from '@/i18n';
 import axios from 'axios';
 
 export const API_URL = process.env.VUE_APP_API_URL;
@@ -9,6 +10,7 @@ const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+  config.headers['Accept-Language'] = i18n.global.locale;
   return config;
 });
 

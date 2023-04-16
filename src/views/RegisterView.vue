@@ -3,20 +3,25 @@
     <template #legend>
       <div class="flex align-items-center text-primary">
         <span class="pi pi-user mr-2"></span>
-        <span class="font-bold text-lg">Registration</span>
+        <span class="font-bold text-lg">{{ $t('AUTH.REGISTRATION') }}</span>
       </div>
     </template>
     <div class="p-inputgroup mb-2">
       <span class="p-inputgroup-addon">
         <i class="pi pi-user"></i>
       </span>
-      <InputText v-model="username" type="text" name="username" placeholder="Username" />
+      <InputText
+        v-model="username"
+        type="text"
+        name="username"
+        :placeholder="$t('AUTH.USERNAME')"
+      />
     </div>
     <div class="p-inputgroup mb-2">
       <span class="p-inputgroup-addon">
         <i class="pi pi-at"></i>
       </span>
-      <InputText v-model="email" name="email" type="email" placeholder="Email" />
+      <InputText v-model="email" name="email" type="email" :placeholder="$t('AUTH.EMAIL')" />
     </div>
     <div class="p-inputgroup mb-2">
       <span class="p-inputgroup-addon">
@@ -27,7 +32,7 @@
         name="password"
         type="password"
         class="flex"
-        placeholder="Password"
+        :placeholder="$t('AUTH.PASSWORD')"
         :feedback="false"
         toggleMask
       />
@@ -41,7 +46,7 @@
         name="repeat-password"
         type="password"
         class="flex"
-        placeholder="Repeat password"
+        :placeholder="$t('AUTH.REPEAT_PASSWORD')"
         :feedback="false"
         toggleMask
       />
@@ -49,19 +54,19 @@
     <Button
       type="button"
       class="w-full mb-3"
-      label="Sign up"
       icon="pi pi-user-plus"
+      :label="$t('AUTH.BUTTONS.SING_UP')"
       :loading="loadingSubmit"
       @click="submitForm"
     ></Button>
     <router-link :to="{ name: 'login' }" custom v-slot="{ navigate }">
       <Button
         class="w-full"
-        label="Login"
         severity="secondary"
         role="link"
         outlined
         icon="pi pi-sign-in"
+        :label="$t('AUTH.BUTTONS.LOGIN')"
         @click="navigate"
       ></Button>
     </router-link>
@@ -93,6 +98,7 @@
     },
     methods: {
       ...mapActions(['registration']),
+
       async submitForm() {
         this.loadingSubmit = true;
         const response = await this.registration({
@@ -106,7 +112,7 @@
         } else {
           this.$toast.add({
             severity: 'error',
-            summary: 'Error',
+            summary: this.$t('TOAST.SUMMARY.ERROR'),
             detail: response.messageError,
             life: 3000,
           });

@@ -3,14 +3,14 @@
     <template #legend>
       <div class="flex align-items-center text-primary">
         <span class="pi pi-user mr-2"></span>
-        <span class="font-bold text-lg">Login</span>
+        <span class="font-bold text-lg">{{ $t('AUTH.LOGIN') }}</span>
       </div>
     </template>
     <div class="p-inputgroup mb-2">
       <span class="p-inputgroup-addon">
         <i class="pi pi-at"></i>
       </span>
-      <InputText v-model="email" name="email" type="email" placeholder="Email" />
+      <InputText v-model="email" name="email" type="email" :placeholder="$t('AUTH.EMAIL')" />
     </div>
     <div class="p-inputgroup mb-3">
       <span class="p-inputgroup-addon">
@@ -21,7 +21,7 @@
         name="password"
         type="password"
         class="flex"
-        placeholder="Password"
+        :placeholder="$t('AUTH.PASSWORD')"
         :feedback="false"
         toggleMask
       />
@@ -29,19 +29,19 @@
     <Button
       type="button"
       class="w-full mb-3"
-      label="Sign In"
       icon="pi pi-sign-in"
+      :label="$t('AUTH.BUTTONS.SING_IN')"
       :loading="loadingSubmit"
       @click="submitForm"
     ></Button>
     <router-link :to="{ name: 'register' }" custom v-slot="{ navigate }">
       <Button
         class="w-full"
-        label="Registration"
         severity="secondary"
         role="link"
         outlined
         icon="pi pi-user-plus"
+        :label="$t('AUTH.BUTTONS.REGISTRATION')"
         @click="navigate"
       ></Button>
     </router-link>
@@ -71,27 +71,7 @@
     },
     methods: {
       ...mapActions(['login']),
-      // checkValidation() {
-      //   if (!this.email || !this.password) {
-      //     this.$toast.add({
-      //       severity: 'error',
-      //       summary: 'Error',
-      //       detail: 'Complete the form!',
-      //       life: 3000,
-      //     });
-      //     return false;
-      //   }
-      //   if (!/^[^@]+@\w+(\.\w+)+\w$/.test(this.email)) {
-      //     this.$toast.add({
-      //       severity: 'error',
-      //       summary: 'Error',
-      //       detail: 'Invalid email',
-      //       life: 3000,
-      //     });
-      //     return false;
-      //   }
-      //   return true;
-      // },
+
       async submitForm() {
         this.loadingSubmit = true;
         const response = await this.login({
@@ -103,7 +83,7 @@
         } else {
           this.$toast.add({
             severity: 'error',
-            summary: 'Error',
+            summary: this.$t('TOAST.SUMMARY.ERROR'),
             detail: response.messageError,
             life: 3000,
           });

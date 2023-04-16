@@ -1,7 +1,7 @@
 <template>
   <div
     class="absolute top-0 bottom-0 left-0 right-0 flex-wrap align-content-center z-5 opacity-90 bg-primary-reverse"
-    :class="getStatusLoading ? 'flex' : 'hidden'"
+    :class="isLoading ? 'flex' : 'hidden'"
   >
     <ProgressSpinner strokeWidth="5" />
   </div>
@@ -14,23 +14,28 @@
   import Toast from 'primevue/toast';
   import ConfirmPopup from 'primevue/confirmpopup';
   import ProgressSpinner from 'primevue/progressspinner';
-  import { mapGetters } from 'vuex';
 
   export default {
     components: { ConfirmPopup, Toast, ProgressSpinner },
+
     created() {
       document.body.scrollTop = 0;
       window.addEventListener('resize', this.onResize, true);
       window.addEventListener('touchmove', this.onResize, true);
       this.onResize();
     },
+
     unmounted() {
       window.removeEventListener('resize', this.onResize, true);
       window.removeEventListener('touchmove', this.onResize, true);
     },
+
     computed: {
-      ...mapGetters(['getStatusLoading']),
+      isLoading() {
+        return this.$store.state.isLoading;
+      },
     },
+
     methods: {
       onResize() {
         const vh = window.innerHeight * 0.01;

@@ -23,7 +23,7 @@
       <Menu
         ref="user_menu"
         id="user_menu"
-        class="p-0 mt-3 border-round-2xl overflow-hidden text-xl sm:text-2xl white-space-nowrap"
+        class="p-0 mt-3 border-round-2xl overflow-hidden text-xl sm:text-2xl white-space-nowrap w-full sm:w-auto"
         :model="menuItems"
         :popup="true"
       ></Menu>
@@ -34,7 +34,7 @@
 <script>
   import Menu from 'primevue/menu';
   import Button from 'primevue/button';
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
 
   export default {
     components: { Menu, Button },
@@ -45,18 +45,20 @@
     },
 
     computed: {
-      ...mapGetters(['getUser']),
+      user() {
+        return this.$store.state.user || {};
+      },
 
       titleName() {
         switch (this.$route.name) {
           case 'home':
-            return 'home';
+            return this.$t('HEADER.TITLE.HOME');
           case 'profile':
-            return 'profile';
+            return this.$t('HEADER.TITLE.PROFILE');
           case 'land':
-            return 'landing information';
+            return this.$t('HEADER.TITLE.LAND');
           case 'roles':
-            return 'Roles';
+            return this.$t('HEADER.TITLE.ROLES');
           default:
             return '404';
         }
@@ -67,28 +69,28 @@
         const menu = [];
         const fullMenu = [
           {
-            label: 'Profile',
+            label: this.$t('HEADER.MENU.PROFILE'),
             icon: 'pi-user',
             to: '/profile',
           },
           {
-            label: 'Users',
+            label: this.$t('HEADER.MENU.USERS'),
             icon: 'pi-users',
           },
           {
             permissions: ['createTeam', 'TeamAssignment'],
-            label: 'Teams',
+            label: this.$t('HEADER.MENU.TEAMS'),
             icon: 'pi-users',
           },
           {
             permissions: ['createRole', 'roleAssignment'],
-            label: 'Roles',
+            label: this.$t('HEADER.MENU.ROLES'),
             icon: 'pi-shield',
             to: '/roles',
           },
           { separator: true },
           {
-            label: 'Log Out',
+            label: this.$t('HEADER.MENU.LOG_OUT'),
             icon: 'pi-sign-out',
             command: this.logoutUser,
           },

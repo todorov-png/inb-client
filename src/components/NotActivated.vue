@@ -4,16 +4,20 @@
       <template #header>
         <img class="w-11rem h-11rem pt-4 px-4 mx-auto" alt="email" :src="PathEmailSvg" />
       </template>
-      <template #title><h2 class="text-4xl">Your account has not been activated!</h2></template>
-      <template #subtitle><h3 class="text-2xl">Check your email.</h3></template>
+      <template #title>
+        <h2 class="text-4xl">{{ $t('NOT_ACTIVATED.TITLE') }}</h2>
+      </template>
+      <template #subtitle>
+        <h3 class="text-2xl">{{ $t('NOT_ACTIVATED.SUBTITLE') }}</h3>
+      </template>
       <template #content>
-        <p class="text-xl">If you didn't receive your email, please click the button below to resend.</p>
+        <p class="text-xl">{{ $t('NOT_ACTIVATED.CONTENT') }}</p>
       </template>
       <template #footer>
         <Button
-          @click="confirmSendEmail($event)"
           icon="pi pi-send"
-          label="Submit a new activation code"
+          :label="$t('NOT_ACTIVATED.BUTTON')"
+          @click="confirmSendEmail($event)"
         ></Button>
       </template>
     </Card>
@@ -41,18 +45,18 @@
           await UserService.sendActivationCode();
           this.$toast.add({
             severity: 'success',
-            summary: 'Check your email',
-            detail: 'New activation code sent successfully',
+            summary: this.$t('NOT_ACTIVATED.TOAST_SEND_CODE.SUMMARY'),
+            detail: this.$t('NOT_ACTIVATED.TOAST_SEND_CODE.DETAIL'),
             life: 3000,
           });
         } catch (e) {
-          let messageError = 'Error, try again!';
+          let messageError = this.$t('TOAST.DETAIL.SERVER_ERROR');
           if (e.response?.data?.message) {
             messageError = e.response.data.message;
           }
           this.$toast.add({
             severity: 'error',
-            summary: 'Error',
+            summary: this.$t('TOAST.SUMMARY.ERROR'),
             detail: messageError,
             life: 3000,
           });
@@ -62,7 +66,7 @@
       confirmSendEmail(event) {
         this.$confirm.require({
           target: event.currentTarget,
-          message: 'Are you sure you want to send a new activation code?',
+          message: this.$t('NOT_ACTIVATED.CONFIRM'),
           icon: 'pi pi-exclamation-triangle',
           accept: this.sendNewActivationCode,
         });

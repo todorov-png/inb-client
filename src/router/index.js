@@ -1,4 +1,3 @@
-import { createRouter, createWebHistory } from 'vue-router';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
@@ -8,7 +7,8 @@ import LoginView from '@/views/LoginView.vue';
 import HomeView from '@/views/HomeView.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import LandView from '@/views/LandView.vue';
-import store from '@/store/index.js';
+import store from '@/store/index.ts';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {

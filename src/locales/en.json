@@ -1,0 +1,113 @@
+{
+  "AUTH": {
+    "LOGIN": "Login",
+    "REGISTRATION": "Registration",
+    "USERNAME": "Username",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "REPEAT_PASSWORD": "Repeat Password",
+    "BUTTONS": {
+      "SING_IN": "Sign In",
+      "REGISTRATION": "Registration",
+      "SING_UP": "Sign up",
+      "LOGIN": "Login"
+    }
+  },
+
+  "HEADER": {
+    "TITLE": {
+      "HOME": "home",
+      "PROFILE": "profile",
+      "LAND": "land",
+      "ROLES": "roles"
+    },
+    "MENU": {
+      "PROFILE": "Profile",
+      "USERS": "Users",
+      "TEAMS": "Teams",
+      "ROLES": "Roles",
+      "LOG_OUT": "Log Out"
+    }
+  },
+
+  "PAGE_NOT_FOUND": {
+    "TITLE": "Oops!",
+    "SUBTITLE": "404 - Page not found",
+    "BUTTON": "Go To Homepage"
+  },
+
+  "NOT_ACTIVATED": {
+    "TITLE": "Your account has not been activated!",
+    "SUBTITLE": "Check your email.",
+    "CONTENT": "If you didn't receive your email, please click the button below to resend.",
+    "BUTTON": "Submit a new activation code",
+    "TOAST_SEND_CODE": {
+      "SUMMARY": "Check your email",
+      "DETAIL": "New activation code sent successfully"
+    },
+    "CONFIRM": "Are you sure you want to send a new activation code?"
+  },
+
+  "NOT_TEAM": {
+    "TITLE": "No team is assigned to you!",
+    "CONTENT": "To join a team, write to the administrator your team name and current username. After joining, you will have access to materials for active products",
+    "BUTTON": "Contact administrator"
+  },
+
+  "ROLES": {
+    "TABLE": {
+      "TITLE": "Roles",
+      "EMPTY": "Roles not found.",
+      "LOADING": "Loading role data. Please wait.",
+      "SEARCH": "Search"
+    },
+    "PERMISSIONS": {
+      "NAME": "Name",
+      "CREATE_TEAM": "Create Team",
+      "CREATE_ROLE": "Create Role",
+      "ROLE_ASSIGNMENT": "Role Assignment"
+    },
+    "CREATE_ROLE": {
+      "HEADER": "Create role",
+      "NAME": "Name",
+      "EMPTY_NAME": "Name is required.",
+      "PERMISSIONS": "Permissions"
+    },
+    "DELETE_ROLE": {
+      "HEADER": "Confirm",
+      "NO": "No",
+      "YES": "Yes",
+      "ROLE": "Are you sure you want to delete the role <b>{name}<b>?",
+      "ROLES": "Are you sure you want to delete the selected roles?",
+      "ONE": "Role removed",
+      "MANU": "Roles removed"
+    }
+  },
+
+  "PROFILE": {
+    "THEME": {
+      "LIGHT": "Light",
+      "DARK": "Dark"
+    },
+    "FORM": {
+      "USERNAME": "Username",
+      "EMAIL": "Email",
+      "NEW_PASSWORD": "New password",
+      "CURRENT_PASSWORD": "Current password"
+    },
+    "BUTTONS": {
+      "SAVE": "Save",
+      "HOME": "Home"
+    }
+  },
+
+  "TOAST": {
+    "SUMMARY": {
+      "ERROR": "Error",
+      "SUCCESSFUL": "Successful"
+    },
+    "DETAIL": {
+      "SERVER_ERROR": "Error, try again!"
+    }
+  }
+}
