@@ -92,7 +92,7 @@
   import Password from 'primevue/password';
   import SelectButton from 'primevue/selectbutton';
   import ProfileSvg from '@/assets/img/svg/profile.svg';
-  // import UserService from '@/services/UserService';
+  import { mapActions } from 'vuex';
 
   export default {
     components: { Card, Button, SelectButton, InputText, Password },
@@ -105,8 +105,8 @@
         langOptions: ['EN', 'RU', 'UK'],
         newUsername: '',
         newEmail: '',
-        currentPassword: '',
         newPassword: '',
+        currentPassword: '',
         loadingSubmit: false,
       };
     },
@@ -131,6 +131,8 @@
     },
 
     methods: {
+      ...mapActions(['updateUser']),
+
       setTheme() {
         this.theme =
           localStorage.getItem('theme') && localStorage.getItem('theme') === 'Dark'
@@ -161,8 +163,34 @@
         this.setTheme();
       },
 
-      saveData() {
-        //TODO Тут отправка запроса на сервер для обновления данных
+      async saveData() {
+        this.loadingSubmit = true;
+        const response = await this.updateUser({
+          username: this.newUsername,
+          email: this.newEmail,
+          password: this.currentPassword,
+          newPassword: this.newPassword,
+        });
+        if (response.success) {
+          this.newUsername = '';
+          this.newEmail = '';
+          this.newPassword = '';
+          this.currentPassword = '';
+          this.$toast.add({
+            severity: 'success',
+            summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
+            detail: this.$t('PROFILE.TOAST.DETAIL'),
+            life: 3000,
+          });
+        } else {
+          this.$toast.add({
+            severity: 'error',
+            summary: this.$t('TOAST.SUMMARY.ERROR'),
+            detail: response.messageError,
+            life: 3000,
+          });
+        }
+        this.loadingSubmit = false;
       },
     },
   };

@@ -98,6 +98,9 @@
     "BUTTONS": {
       "SAVE": "Save",
       "HOME": "Home"
+    },
+    "TOAST": {
+      "DETAIL": "Data updated successfully"
     }
   },
 

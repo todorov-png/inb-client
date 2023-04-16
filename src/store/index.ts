@@ -1,8 +1,9 @@
 import axios from 'axios';
 import AuthService from '@/services/AuthService';
+import UserService from '@/services/UserService';
 import { AuthResponse } from '@/models/response/AuthResponse';
 import { createStore } from 'vuex';
-import { IUser } from '@/models/IUser';
+import { IUser, IUpdateUser } from '@/models/IUser';
 import { API_URL } from '@/http';
 import { i18n } from '@/i18n';
 
@@ -95,6 +96,19 @@ export default createStore({
         return false;
       } finally {
         commit('setLoading', false);
+      }
+    },
+
+    async updateUser({ commit }: any, userData: IUpdateUser) {
+      try {
+        const response = await UserService.updateUser(userData);
+        commit('setUser', response.data);
+        return { success: true };
+      } catch (e: any) {
+        if (e.response?.data?.message) {
+          return { success: false, messageError: e.response.data.message };
+        }
+        return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
       }
     },
   },

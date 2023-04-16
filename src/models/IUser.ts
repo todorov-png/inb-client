@@ -1,6 +1,13 @@
 export interface IUser {
-  username: string,
+  id: string;
+  username: string;
   email: string;
   isActivated: boolean;
-  id: string;
+}
+
+export interface IUpdateUser {
+  username?: string;
+  email?: string;
+  password: String;
+  newPassword?: String;
 }
