@@ -63,15 +63,20 @@
     },
     "PERMISSIONS": {
       "NAME": "Name",
-      "CREATE_TEAM": "Create Team",
-      "CREATE_ROLE": "Create Role",
-      "ROLE_ASSIGNMENT": "Role Assignment"
+      "CREATE_TEAM": "Create team",
+      "ASSIGN_TEAM": "Assign team",
+      "CREATE_ROLE": "Create role",
+      "ASSIGN_ROLE": "Assign role"
     },
     "CREATE_ROLE": {
       "HEADER": "Create role",
       "NAME": "Name",
       "EMPTY_NAME": "Name is required.",
-      "PERMISSIONS": "Permissions"
+      "PERMISSIONS": "Permissions",
+      "SUCCESSFUL": "Role created successfully"
+    },
+    "UPDATE_ROLE": {
+      "SUCCESSFUL": "Role updated successfully"
     },
     "DELETE_ROLE": {
       "HEADER": "Confirm",

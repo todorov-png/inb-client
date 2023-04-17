@@ -6,8 +6,8 @@ export interface IUser {
 }
 
 export interface IUpdateUser {
-  username?: string;
-  email?: string;
+  username: string;
+  email: string;
   password: String;
-  newPassword?: String;
+  newPassword: String;
 }

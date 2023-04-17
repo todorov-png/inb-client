@@ -64,14 +64,19 @@
     "PERMISSIONS": {
       "NAME": "Название",
       "CREATE_TEAM": "Создать команду",
+      "ASSIGN_TEAM": "Назначить команду",
       "CREATE_ROLE": "Создать роль",
-      "ROLE_ASSIGNMENT": "Назначение ролей"
+      "ASSIGN_ROLE": "Назначить роль"
     },
     "CREATE_ROLE": {
       "HEADER": "Создать роль",
       "NAME": "Название",
       "EMPTY_NAME": "Необходимо указать название.",
-      "PERMISSIONS": "Разрешения"
+      "PERMISSIONS": "Разрешения",
+      "SUCCESSFUL": "Роль успешно создана"
+    },
+    "UPDATE_ROLE": {
+      "SUCCESSFUL": "Роль успешно обновлена"
     },
     "DELETE_ROLE": {
       "HEADER": "Подтвердить",

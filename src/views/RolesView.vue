@@ -50,12 +50,17 @@
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
+      <Column field="assignTeam" :header="$t('ROLES.PERMISSIONS.ASSIGN_TEAM')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
       <Column field="createRole" :header="$t('ROLES.PERMISSIONS.CREATE_ROLE')">
         <template #editor="{ data, field }">
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
-      <Column field="roleAssignment" :header="$t('ROLES.PERMISSIONS.ROLE_ASSIGNMENT')">
+      <Column field="assignRole" :header="$t('ROLES.PERMISSIONS.ASSIGN_ROLE')">
         <template #editor="{ data, field }">
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
@@ -140,6 +145,7 @@
 </template>
 
 <script>
+  import RoleService from '@/services/RoleService';
   import DataTable from 'primevue/datatable';
   import Column from 'primevue/column';
   import InputText from 'primevue/inputtext';
@@ -147,6 +153,7 @@
   import Button from 'primevue/button';
   import Dialog from 'primevue/dialog';
   import { FilterMatchMode } from 'primevue/api';
+  import { showCatchMessage } from '@/helpers/showCatch.js';
 
   export default {
     components: { DataTable, Column, InputText, Checkbox, Button, Dialog },
@@ -162,7 +169,7 @@
         role: {},
         loading: false,
         filters: { global: { value: null, matchMode: FilterMatchMode.CONTAINS } },
-        permissions: [],
+        permissions: ['createTeam', 'assignTeam', 'createRole', 'assignRole'],
         roles: [],
       };
     },
@@ -174,33 +181,19 @@
     methods: {
       async getData() {
         this.loading = true;
-        const initRoles = [
-          {
-            name: 'name role',
-            permissions: {
-              adminMenu: false,
-              createRole: true,
-              roleAssignment: false,
-            },
-          },
-          {
-            name: 'name role2',
-            permissions: {
-              adminMenu: true,
-              createTeam: true,
-              createRole: false,
-              roleAssignment: false,
-            },
-          },
-        ];
-        //TODO Тут запрос на получение данных
-        this.loading = false;
-        this.permissions = ['createTeam', 'TeamAssignment', 'createRole', 'roleAssignment'];
-        this.roles.push(...initRoles.map((role) => this.formattingRole(role, this.permissions)));
+        try {
+          const response = await RoleService.fetchRoles();
+          const roles = response.data || [];
+          this.roles.push(...roles.map((role) => this.formattingRole(role, this.permissions)));
+        } catch (e) {
+          showCatchMessage.call(this, e);
+        } finally {
+          this.loading = false;
+        }
       },
 
       formattingRole(role, permissions) {
-        const data = { name: role.name };
+        const data = { _id: role._id, name: role.name };
         permissions.forEach(
           (permission) => (data[permission] = role.permissions[permission] || false)
         );
@@ -217,17 +210,28 @@
         this.roleDialog = false;
       },
 
-      saveRole() {
+      async saveRole() {
         this.submitted = true;
         if (this.role.name?.trim()) {
-          const data = { name: this.role.name, permissions: [] };
+          const data = { name: this.role.name, permissions: {} };
           this.permissions.forEach((item) =>
             this.role[item] ? (data.permissions[item] = true) : null
           );
-          //TODO Тут запрос на добавление продукта и ответ, если добавлен то закрываем модалку, если ошибка то выводим ее
-          this.roles.unshift(this.formattingRole(data, this.permissions));
-          this.roleDialog = false;
-          this.role = {};
+          try {
+            const response = await RoleService.createRole(data);
+            this.$toast.add({
+              severity: 'success',
+              summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
+              detail: this.$t('ROLES.CREATE_ROLE.SUCCESSFUL'),
+              life: 3000,
+            });
+            data._id = response.data._id;
+            this.roles.unshift(this.formattingRole(data, this.permissions));
+            this.roleDialog = false;
+            this.role = {};
+          } catch (e) {
+            showCatchMessage.call(this, e);
+          }
         }
       },
 
@@ -263,17 +267,25 @@
         });
       },
 
-      onRowEditSave(event) {
+      async onRowEditSave(event) {
         const { newData, index } = event;
-        const newDataFormat = { name: newData.name, permission: {} };
+        const newDataFormat = { _id: newData._id, name: newData.name, permissions: {} };
 
-        this.roles[index] = newData;
         this.permissions.forEach((permission) =>
-          newData[permission] ? (newDataFormat.permission[permission] = true) : null
+          newData[permission] ? (newDataFormat.permissions[permission] = true) : null
         );
-
-        //TODO Тут отправляем данные на сервер с изменениями в роли
-        console.log('onRowEditSave', newDataFormat);
+        try {
+          await RoleService.updateRole(newDataFormat);
+          this.$toast.add({
+            severity: 'success',
+            summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
+            detail: this.$t('ROLES.UPDATE_ROLE.SUCCESSFUL'),
+            life: 3000,
+          });
+          this.roles[index] = newData;
+        } catch (e) {
+          showCatchMessage.call(this, e);
+        }
       },
     },
   };
