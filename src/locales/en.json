@@ -18,6 +18,7 @@
     "TITLE": {
       "HOME": "home",
       "PROFILE": "profile",
+      "USERS": "users",
       "LAND": "land",
       "ROLES": "roles"
     },
@@ -86,6 +87,22 @@
       "ROLES": "Are you sure you want to delete the selected roles?",
       "ONE": "Role removed",
       "MANU": "Roles removed"
+    }
+  },
+
+  "USERS": {
+    "TABLE": {
+      "TITLE": "Users",
+      "EMPTY": "Users not found.",
+      "LOADING": "Loading users list. Please wait.",
+      "SEARCH": "Search"
+    },
+    "COLUMN": {
+      "USERNAME": "Username",
+      "EMAIL": "Email",
+      "ROLE": "Role",
+      "TEAM": "Team",
+      "VIEW": "View"
     }
   },
 

@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 right-0 left-0">
+  <header class="fixed top-0 right-0 left-0 z-5">
     <div class="container py-3 flex align-items-center justify-content-between">
       <router-link to="/">
         <img
@@ -55,6 +55,8 @@
             return this.$t('HEADER.TITLE.HOME');
           case 'profile':
             return this.$t('HEADER.TITLE.PROFILE');
+          case 'users':
+            return this.$t('HEADER.TITLE.USERS');
           case 'land':
             return this.$t('HEADER.TITLE.LAND');
           case 'roles':
@@ -76,6 +78,7 @@
           {
             label: this.$t('HEADER.MENU.USERS'),
             icon: 'pi-users',
+            to: '/users',
           },
           {
             permissions: ['createTeam', 'TeamAssignment'],

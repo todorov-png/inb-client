@@ -1,16 +1,18 @@
 <template>
-  <div class="card p-fluid surface-border border-x-1">
+  <div class="card p-fluid">
     <DataTable
       v-model:filters="filters"
       v-model:editingRows="editingRows"
       v-model:selection="selectedRoles"
       v-model="balanceFrozen"
+      :rows="10"
       :value="roles"
       :loading="loading"
       :globalFilterFields="['name']"
       editMode="row"
       dataKey="name"
       scrollable
+      paginator
       @row-edit-save="onRowEditSave"
     >
       <template #empty>{{ $t('ROLES.TABLE.EMPTY') }}</template>
@@ -190,7 +192,6 @@
         try {
           const response = await RoleService.fetchRoles();
           const roles = response.data || [];
-          console.log(roles);
           this.roles.push(...roles.map((role) => this.formattingRole(role)));
         } catch (e) {
           showCatchMessage.call(this, e);

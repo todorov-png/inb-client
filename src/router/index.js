@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import RolesView from '@/views/RolesView.vue';
+import UsersView from '@/views/UsersView.vue';
 import LoginView from '@/views/LoginView.vue';
 import HomeView from '@/views/HomeView.vue';
 import ProfileView from '@/views/ProfileView.vue';
@@ -27,6 +28,12 @@ const routes = [
         name: 'profile',
         meta: { requiresAuth: true },
         component: ProfileView,
+      },
+      {
+        path: 'users',
+        name: 'users',
+        meta: { requiresAuth: true },
+        component: UsersView,
       },
       {
         path: 'land',
