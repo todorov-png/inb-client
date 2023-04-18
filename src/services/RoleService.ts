@@ -1,6 +1,6 @@
 import $api from '@/http';
 import { AxiosResponse } from 'axios';
-import { IRole } from '@/models/IRole';
+import { IRole, IDeleteRole, IDeleteRoles } from '@/models/IRole';
 
 export default class RoleService {
   static async fetchRoles(): Promise<AxiosResponse<IRole[]>> {
@@ -13,5 +13,13 @@ export default class RoleService {
 
   static async updateRole(data: IRole): Promise<AxiosResponse<IRole>> {
     return $api.put<IRole>('/role', data);
+  }
+
+  static async deleteRoles(data: IDeleteRoles): Promise<AxiosResponse> {
+    return $api.delete('/roles', { data });
+  }
+
+  static async deleteRole(data: IDeleteRole): Promise<AxiosResponse> {
+    return $api.delete('/role', { data });
   }
 }

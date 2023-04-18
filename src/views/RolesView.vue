@@ -39,8 +39,14 @@
           </div>
         </div>
       </template>
-      <Column selectionMode="multiple" frozen style="width: 3rem" :exportable="false"></Column>
-      <Column field="name" :header="$t('ROLES.PERMISSIONS.NAME')" sortable frozen>
+      <Column
+        selectionMode="multiple"
+        frozen
+        style="width: 3rem"
+        :exportable="false"
+        class="z-1"
+      ></Column>
+      <Column field="name" :header="$t('ROLES.PERMISSIONS.NAME')" sortable frozen class="z-1">
         <template #editor="{ data, field }">
           <InputText v-model="data[field]" />
         </template>
@@ -184,7 +190,8 @@
         try {
           const response = await RoleService.fetchRoles();
           const roles = response.data || [];
-          this.roles.push(...roles.map((role) => this.formattingRole(role, this.permissions)));
+          console.log(roles);
+          this.roles.push(...roles.map((role) => this.formattingRole(role)));
         } catch (e) {
           showCatchMessage.call(this, e);
         } finally {
@@ -192,10 +199,11 @@
         }
       },
 
-      formattingRole(role, permissions) {
+      formattingRole(role) {
         const data = { _id: role._id, name: role.name };
-        permissions.forEach(
-          (permission) => (data[permission] = role.permissions[permission] || false)
+        this.permissions.forEach(
+          (permission) =>
+            (data[permission] = (role.permissions && role.permissions[permission]) || false)
         );
         return data;
       },
@@ -226,7 +234,7 @@
               life: 3000,
             });
             data._id = response.data._id;
-            this.roles.unshift(this.formattingRole(data, this.permissions));
+            this.roles.unshift(this.formattingRole(data));
             this.roleDialog = false;
             this.role = {};
           } catch (e) {
@@ -241,30 +249,42 @@
           : (this.deleteRolesDialog = true);
       },
 
-      deleteRole() {
-        this.roles = this.roles.filter((val) => val.id !== this.role.id);
-        this.deleteRoleDialog = false;
-        this.role = {};
-        //TODO Запрос на удаление одной роли
-        this.$toast.add({
-          severity: 'success',
-          summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
-          detail: this.$t('ROLES.DELETE_ROLE.ONE'),
-          life: 3000,
-        });
+      async deleteRole() {
+        try {
+          const roleID = this.selectedRoles[0]._id;
+          await RoleService.deleteRole({ role: roleID });
+          this.$toast.add({
+            severity: 'success',
+            summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
+            detail: this.$t('ROLES.DELETE_ROLE.ONE'),
+            life: 3000,
+          });
+          this.roles = this.roles.filter((val) => !this.selectedRoles.includes(val));
+          this.selectedRoles = [];
+        } catch (e) {
+          showCatchMessage.call(this, e);
+        } finally {
+          this.deleteRoleDialog = false;
+        }
       },
 
-      deleteselectedRoles() {
-        this.roles = this.roles.filter((val) => !this.selectedRoles.includes(val));
-        this.deleteRolesDialog = false;
-        this.selectedRoles = null;
-        //TODO Запрос на удаление нескольких ролей
-        this.$toast.add({
-          severity: 'success',
-          summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
-          detail: this.$t('ROLES.DELETE_ROLE.MANU'),
-          life: 3000,
-        });
+      async deleteselectedRoles() {
+        try {
+          const arrayID = this.selectedRoles.map((item) => item._id);
+          await RoleService.deleteRoles({ roles: arrayID });
+          this.$toast.add({
+            severity: 'success',
+            summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
+            detail: this.$t('ROLES.DELETE_ROLE.MANU'),
+            life: 3000,
+          });
+          this.roles = this.roles.filter((val) => !this.selectedRoles.includes(val));
+          this.selectedRoles = [];
+        } catch (e) {
+          showCatchMessage.call(this, e);
+        } finally {
+          this.deleteRolesDialog = false;
+        }
       },
 
       async onRowEditSave(event) {
