@@ -17,3 +17,7 @@ export interface IEditUser {
   role: string | null;
   team: String | null;
 }
+
+export interface IDeleteUser {
+  user: string;
+}

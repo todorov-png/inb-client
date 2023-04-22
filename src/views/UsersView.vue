@@ -44,8 +44,7 @@
             icon="pi pi-pencil"
             severity="info"
             rounded
-            aria-label="User"
-            @click="showDialog(slotProps)"
+            @click="openChangeModal(slotProps)"
           />
             <!-- <Button
               icon="pi pi-trash"
@@ -60,7 +59,7 @@
     </DataTable>
 
     <Dialog
-      v-model:visible="userDialog"
+      v-model:visible="changeDialog"
       class="p-fluid w-full max-w-30rem"
       :header="$t('USERS.CHANGE_USER.HEADER')"
       :modal="true"
@@ -100,8 +99,8 @@
         </Dropdown>
       </div>
       <template #footer>
-        <Button label="Cancel" icon="pi pi-times" text @click="hideDialog" />
-        <Button label="Save" icon="pi pi-check" text @click="updateUser" />
+        <Button :label="$t('CONFIRM_MODAL.BUTTONS.CANCEL')" icon="pi pi-times" text @click="hideChangeModal" />
+        <Button :label="$t('CONFIRM_MODAL.BUTTONS.UPDATE')" icon="pi pi-check" text @click="updateUser" />
       </template>
     </Dialog>
   </div>
@@ -124,15 +123,15 @@
     components: { DataTable, Column, InputText, Button, Dialog, Dropdown },
     data() {
       return {
-        submitted: false,
         balanceFrozen: false,
         loading: false,
         filters: { global: { value: null, matchMode: FilterMatchMode.CONTAINS } },
         users: [],
-        userDialog: false,
+        changeDialog: false,
         selectedUser: null,
         selectedRole: null,
         selectedTeam: null,
+        selectedUserIndex: null,
         roles: [{ name: '------', _id: null }],
         teams: [{ name: '------', _id: null }],
       };
@@ -174,19 +173,19 @@
         return user;
       },
 
-      showDialog(user) {
-        this.userDialog = true;
-        this.selectedUser = user;
-        this.selectedRole = user.role;
-        this.selectedTeam = user.team;
+      openChangeModal(event) {
+        this.changeDialog = true;
+        this.selectedUser = event.data;
+        this.selectedUserIndex = event.index;
+        this.selectedRole = event.data.role;
+        this.selectedTeam = event.data.team;
       },
 
-      hideDialog() {
-        this.userDialog = false;
+      hideChangeModal() {
+        this.changeDialog = false;
       },
 
       async updateUser() {
-        this.submitted = true;
         const data = {
           userId: this.selectedUser._id,
           roleId: this.selectedRole._id,
@@ -197,13 +196,11 @@
           this.$toast.add({
             severity: 'success',
             summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
-            detail: this.$t('ROLES.UPDATE_USER.SUCCESSFUL'),
+            detail: this.$t('USERS.CHANGE_USER.SUCCESSFUL'),
             life: 3000,
           });
-          this.users = this.users.map((user) => {
-            return user._id === response.data._id ? response.data : user;
-          });
-          this.userDialog = false;
+          this.users[this.selectedUserIndex] = response.data;
+          this.hideChangeModal();
         } catch (e) {
           showCatchMessage.call(this, e);
         }

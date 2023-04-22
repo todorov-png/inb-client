@@ -12,7 +12,6 @@
       <Button
         rounded
         severity="info"
-        aria-label="User"
         aria-haspopup="true"
         aria-controls="user_menu"
         class="p-0 w-3rem sm:w-4rem h-3rem sm:h-4rem cursor-pointer flex align-items-center justify-content-center"
@@ -83,7 +82,7 @@
             to: '/users',
           },
           {
-            permissions: ['createTeam', 'TeamAssignment'],
+            permissions: ['createTeam', 'teamAssignment'],
             label: this.$t('HEADER.MENU.TEAMS'),
             icon: 'pi-globe',
             to: '/teams',
@@ -102,7 +101,7 @@
           },
         ];
         //TODO Заменить разрешения на разрешения пользователя
-        const permission = ['TeamAssignment', 'createTeam', 'createRole', 'roleAssignment'];
+        const permission = ['teamAssignment', 'createTeam', 'createRole', 'roleAssignment'];
         fullMenu.forEach((menuItem) => {
           if (menuItem?.label) {
             menuItem.icon += menuIconClass;
@@ -131,7 +130,7 @@
         } else {
           this.$toast.add({
             severity: 'error',
-            summary: 'Error',
+            summary: this.$t('TOAST.SUMMARY.ERROR'),
             detail: response.messageError,
             life: 3000,
           });

@@ -63,12 +63,22 @@
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
+      <Column field="deleteTeam" :header="$t('ROLES.PERMISSIONS.DELETE_TEAM')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
       <Column field="createRole" :header="$t('ROLES.PERMISSIONS.CREATE_ROLE')">
         <template #editor="{ data, field }">
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
       <Column field="assignRole" :header="$t('ROLES.PERMISSIONS.ASSIGN_ROLE')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
+      <Column field="deleteRole" :header="$t('ROLES.PERMISSIONS.DELETE_ROLE')">
         <template #editor="{ data, field }">
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
@@ -82,7 +92,7 @@
     </DataTable>
 
     <Dialog
-      v-model:visible="roleDialog"
+      v-model:visible="createModal"
       class="p-fluid w-full max-w-30rem"
       :header="$t('ROLES.CREATE_ROLE.HEADER')"
       :modal="true"
@@ -108,13 +118,23 @@
         </div>
       </div>
       <template #footer>
-        <Button label="Cancel" icon="pi pi-times" text @click="hideDialog" />
-        <Button label="Save" icon="pi pi-check" text @click="saveRole" />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.CANCEL')"
+          icon="pi pi-times"
+          text
+          @click="createModal = false"
+        />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.CREATE')"
+          icon="pi pi-check"
+          text
+          @click="createRole"
+        />
       </template>
     </Dialog>
 
     <Dialog
-      v-model:visible="deleteRoleDialog"
+      v-model:visible="deleteRoleModal"
       class="p-fluid w-full max-w-30rem"
       :header="$t('ROLES.DELETE_ROLE.HEADER')"
       :modal="true"
@@ -127,15 +147,20 @@
         <Button
           icon="pi pi-times"
           text
-          :label="$t('ROLES.DELETE_ROLE.NO')"
-          @click="deleteRoleDialog = false"
+          :label="$t('CONFIRM_MODAL.BUTTONS.NO')"
+          @click="deleteRoleModal = false"
         />
-        <Button :label="$t('ROLES.DELETE_ROLE.YES')" icon="pi pi-check" text @click="deleteRole" />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.YES')"
+          icon="pi pi-check"
+          text
+          @click="deleteRole"
+        />
       </template>
     </Dialog>
 
     <Dialog
-      v-model:visible="deleteRolesDialog"
+      v-model:visible="deleteRolesModal"
       class="p-fluid w-full max-w-30rem"
       :header="$t('ROLES.DELETE_ROLE.HEADER')"
       :modal="true"
@@ -145,8 +170,18 @@
         <span v-if="role">{{ $t('ROLES.DELETE_ROLE.ROLES') }}</span>
       </div>
       <template #footer>
-        <Button label="No" icon="pi pi-times" text @click="deleteRolesDialog = false" />
-        <Button label="Yes" icon="pi pi-check" text @click="deleteselectedRoles" />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.NO')"
+          icon="pi pi-times"
+          text
+          @click="deleteRolesModal = false"
+        />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.YES')"
+          icon="pi pi-check"
+          text
+          @click="deleteSelectedRoles"
+        />
       </template>
     </Dialog>
   </div>
@@ -171,13 +206,20 @@
         selectedRoles: null,
         submitted: false,
         balanceFrozen: false,
-        roleDialog: false,
-        deleteRoleDialog: false,
-        deleteRolesDialog: false,
+        createModal: false,
+        deleteRoleModal: false,
+        deleteRolesModal: false,
         role: {},
         loading: false,
         filters: { global: { value: null, matchMode: FilterMatchMode.CONTAINS } },
-        permissions: ['createTeam', 'assignTeam', 'createRole', 'assignRole'],
+        permissions: [
+          'createTeam',
+          'assignTeam',
+          'deleteTeam',
+          'createRole',
+          'assignRole',
+          'deleteRole',
+        ],
         roles: [],
       };
     },
@@ -212,14 +254,10 @@
       openNewRole() {
         this.role = {};
         this.submitted = false;
-        this.roleDialog = true;
+        this.createModal = true;
       },
 
-      hideDialog() {
-        this.roleDialog = false;
-      },
-
-      async saveRole() {
+      async createRole() {
         this.submitted = true;
         if (this.role.name?.trim()) {
           const data = { name: this.role.name, permissions: {} };
@@ -236,7 +274,7 @@
             });
             data._id = response.data._id;
             this.roles.unshift(this.formattingRole(data));
-            this.roleDialog = false;
+            this.createModal = false;
             this.role = {};
           } catch (e) {
             showCatchMessage.call(this, e);
@@ -246,8 +284,8 @@
 
       confirmDeleteSelected() {
         this.selectedRoles.length === 1
-          ? (this.deleteRoleDialog = true)
-          : (this.deleteRolesDialog = true);
+          ? (this.deleteRoleModal = true)
+          : (this.deleteRolesModal = true);
       },
 
       async deleteRole() {
@@ -265,11 +303,11 @@
         } catch (e) {
           showCatchMessage.call(this, e);
         } finally {
-          this.deleteRoleDialog = false;
+          this.deleteRoleModal = false;
         }
       },
 
-      async deleteselectedRoles() {
+      async deleteSelectedRoles() {
         try {
           const arrayID = this.selectedRoles.map((item) => item._id);
           await RoleService.deleteRoles({ roles: arrayID });
@@ -284,14 +322,13 @@
         } catch (e) {
           showCatchMessage.call(this, e);
         } finally {
-          this.deleteRolesDialog = false;
+          this.deleteRolesModal = false;
         }
       },
 
       async onRowEditSave(event) {
         const { newData, index } = event;
         const newDataFormat = { _id: newData._id, name: newData.name, permissions: {} };
-
         this.permissions.forEach((permission) =>
           newData[permission] ? (newDataFormat.permissions[permission] = true) : null
         );

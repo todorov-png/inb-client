@@ -67,8 +67,10 @@
       "NAME": "Name",
       "CREATE_TEAM": "Create team",
       "ASSIGN_TEAM": "Assign team",
+      "DELETE_TEAM": "Delete team",
       "CREATE_ROLE": "Create role",
-      "ASSIGN_ROLE": "Assign role"
+      "ASSIGN_ROLE": "Assign role",
+      "DELETE_ROLE": "Delete role"
     },
     "CREATE_ROLE": {
       "HEADER": "Create role",
@@ -82,8 +84,6 @@
     },
     "DELETE_ROLE": {
       "HEADER": "Confirm",
-      "NO": "No",
-      "YES": "Yes",
       "ROLE": "Are you sure you want to delete the role <b>{name}<b>?",
       "ROLES": "Are you sure you want to delete the selected roles?",
       "ONE": "Role removed",
@@ -101,7 +101,29 @@
     "COLUMN": {
       "NAME": "Name",
       "BEARER": "Bearer",
-      "LINK_IG": "Link tg"
+      "LINK_IG": "Link telegram"
+    },
+    "CREATE_TEAM": {
+      "HEADER": "Create team",
+      "NAME": "Name",
+      "EMPTY_NAME": "Name is required.",
+      "BEARER": "Bearer",
+      "EMPTY_BEARER": "Bearer is required.",
+      "LINK_TG": "Link telegram",
+      "SUCCESSFUL": "Team created successfully"
+    },
+    "CHANGE_TEAM": {
+      "HEADER": "Change team",
+      "NAME": "Name",
+      "EMPTY_NAME": "Name is required.",
+      "BEARER": "Bearer",
+      "LINK_TG": "Link telegram",
+      "SUCCESSFUL": "Team change successfully"
+    },
+    "DELETE_TEAM": {
+      "HEADER": "Confirm",
+      "TEAM": "Are you sure you want to delete the team <b>{name}<b>?",
+      "SUCCESSFUL": "Team delete successfully"
     }
   },
 
@@ -130,7 +152,8 @@
       "TEAM": {
         "LABEL": "Team",
         "DROPDOWN": "Select a team"
-      }
+      },
+      "SUCCESSFUL": "User change successfully"
     }
   },
 
@@ -161,6 +184,16 @@
     },
     "DETAIL": {
       "SERVER_ERROR": "Error, try again!"
+    }
+  },
+
+  "CONFIRM_MODAL": {
+    "BUTTONS": {
+      "NO": "No",
+      "YES": "Yes",
+      "CANCEL": "Cancel",
+      "CREATE": "Create",
+      "UPDATE": "Update"
     }
   }
 }

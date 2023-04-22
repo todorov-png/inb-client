@@ -36,7 +36,6 @@
               icon="pi pi-pencil"
               severity="info"
               rounded
-              aria-label="Team"
               @click="openChangeModal(slotProps)"
             />
             <Button
@@ -84,8 +83,18 @@
         <InputText id="create_link_tg" v-model.trim="newTeam.linkTg" />
       </div>
       <template #footer>
-        <Button label="Cancel" icon="pi pi-times" text @click="hideCreateModal" />
-        <Button label="Create" icon="pi pi-check" text @click="createTeam" />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.CANCEL')"
+          icon="pi pi-times"
+          text
+          @click="hideCreateModal"
+        />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.CREATE')"
+          icon="pi pi-check"
+          text
+          @click="createTeam"
+        />
       </template>
     </Dialog>
 
@@ -115,8 +124,18 @@
         <InputText id="change_link_tg" v-model.trim="selectTeam.linkTg" />
       </div>
       <template #footer>
-        <Button label="Cancel" icon="pi pi-times" text @click="hideChangeModal" />
-        <Button label="Save" icon="pi pi-check" text @click="changeTeam" />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.CANCEL')"
+          icon="pi pi-times"
+          text
+          @click="hideChangeModal"
+        />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.UPDATE')"
+          icon="pi pi-check"
+          text
+          @click="changeTeam"
+        />
       </template>
     </Dialog>
 
@@ -134,8 +153,18 @@
         ></span>
       </div>
       <template #footer>
-        <Button label="No" icon="pi pi-times" text @click="deleteDialog = false" />
-        <Button label="Yes" icon="pi pi-check" text @click="deleteTeam" />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.NO')"
+          icon="pi pi-times"
+          text
+          @click="deleteDialog = false"
+        />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.YES')"
+          icon="pi pi-check"
+          text
+          @click="deleteTeam"
+        />
       </template>
     </Dialog>
   </div>
@@ -217,7 +246,7 @@
 
       openChangeModal(event) {
         this.submitted = false;
-        this.selectTeam = event.data;
+        this.selectTeam = JSON.parse(JSON.stringify(event.data));
         this.selectTeamIndex = event.index;
         this.changeDialog = true;
       },
@@ -228,7 +257,7 @@
 
       async changeTeam() {
         this.submitted = true;
-        if (this.selectTeam.name?.trim() && this.selectTeam.bearer?.trim()) {
+        if (this.selectTeam.name?.trim()) {
           try {
             await TeamService.updateTeam(this.selectTeam);
             this.$toast.add({
@@ -246,6 +275,7 @@
       },
 
       openDeleteModal(event) {
+        console.log(555, event);
         this.selectTeam = event.data;
         this.selectTeamIndex = event.index;
         this.deleteDialog = true;
@@ -264,7 +294,7 @@
             detail: this.$t('TEAMS.DELETE_TEAM.SUCCESSFUL'),
             life: 3000,
           });
-          this.teams.splice(this.selectTeamIndex,1);
+          this.teams.splice(this.selectTeamIndex, 1);
           this.hideDeleteModal();
         } catch (e) {
           showCatchMessage.call(this, e);
