@@ -57,8 +57,10 @@
             return this.$t('HEADER.TITLE.PROFILE');
           case 'users':
             return this.$t('HEADER.TITLE.USERS');
-          case 'land':
-            return this.$t('HEADER.TITLE.LAND');
+          case 'teams':
+            return this.$t('HEADER.TITLE.TEAMS');
+          // case 'land':
+          //   return this.$t('HEADER.TITLE.LAND');
           case 'roles':
             return this.$t('HEADER.TITLE.ROLES');
           default:
@@ -83,7 +85,8 @@
           {
             permissions: ['createTeam', 'TeamAssignment'],
             label: this.$t('HEADER.MENU.TEAMS'),
-            icon: 'pi-users',
+            icon: 'pi-globe',
+            to: '/teams',
           },
           {
             permissions: ['createRole', 'roleAssignment'],

@@ -11,3 +11,9 @@ export interface IUpdateUser {
   password: String;
   newPassword: String;
 }
+
+export interface IEditUser {
+  user: string | null;
+  role: string | null;
+  team: String | null;
+}

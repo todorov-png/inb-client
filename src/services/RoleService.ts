@@ -1,10 +1,14 @@
 import $api from '@/http';
 import { AxiosResponse } from 'axios';
-import { IRole, IDeleteRole, IDeleteRoles } from '@/models/IRole';
+import { IRole, IRoleShort, IDeleteRole, IDeleteRoles } from '@/models/IRole';
 
 export default class RoleService {
   static async fetchRoles(): Promise<AxiosResponse<IRole[]>> {
     return $api.get<IRole[]>('/roles');
+  }
+
+  static async fetchRolesList(): Promise<AxiosResponse<IRoleShort[]>> {
+    return $api.get<IRoleShort[]>('/roles-list');
   }
 
   static async createRole(data: IRole): Promise<AxiosResponse<IRole>> {

@@ -19,6 +19,7 @@
       "HOME": "home",
       "PROFILE": "profile",
       "USERS": "users",
+      "TEAMS": "teams",
       "LAND": "land",
       "ROLES": "roles"
     },
@@ -90,6 +91,20 @@
     }
   },
 
+  "TEAMS": {
+    "TABLE": {
+      "TITLE": "Teams",
+      "EMPTY": "Teams not found.",
+      "LOADING": "Loading team data. Please wait.",
+      "SEARCH": "Search"
+    },
+    "COLUMN": {
+      "NAME": "Name",
+      "BEARER": "Bearer",
+      "LINK_IG": "Link tg"
+    }
+  },
+
   "USERS": {
     "TABLE": {
       "TITLE": "Users",
@@ -103,6 +118,19 @@
       "ROLE": "Role",
       "TEAM": "Team",
       "VIEW": "View"
+    },
+    "CHANGE_USER": {
+      "HEADER": "User change",
+      "USERNAME": "Username",
+      "EMAIL": "Email",
+      "ROLE": {
+        "LABEL": "Role",
+        "DROPDOWN": "Select a role"
+      },
+      "TEAM": {
+        "LABEL": "Team",
+        "DROPDOWN": "Select a team"
+      }
     }
   },
 

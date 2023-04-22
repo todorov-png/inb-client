@@ -115,7 +115,7 @@
 
     <Dialog
       v-model:visible="deleteRoleDialog"
-      :style="{ width: '450px' }"
+      class="p-fluid w-full max-w-30rem"
       :header="$t('ROLES.DELETE_ROLE.HEADER')"
       :modal="true"
     >
@@ -136,7 +136,7 @@
 
     <Dialog
       v-model:visible="deleteRolesDialog"
-      :style="{ width: '450px' }"
+      class="p-fluid w-full max-w-30rem"
       :header="$t('ROLES.DELETE_ROLE.HEADER')"
       :modal="true"
     >

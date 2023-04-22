@@ -6,6 +6,11 @@ export interface IRole {
   permissions: IPermissions;
 }
 
+export interface IRoleShort {
+  _id: string;
+  name: string;
+}
+
 export interface IDeleteRole {
   role: string;
 }
