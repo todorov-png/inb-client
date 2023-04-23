@@ -70,7 +70,8 @@
       "DELETE_TEAM": "Удалить команду",
       "CREATE_ROLE": "Создать роль",
       "ASSIGN_ROLE": "Назначить роль",
-      "DELETE_ROLE": "Удалить роль"
+      "DELETE_ROLE": "Удалить роль",
+      "DELETE_USER": "Удалить пользователя"
     },
     "CREATE_ROLE": {
       "HEADER": "Создать роль",

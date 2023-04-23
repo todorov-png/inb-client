@@ -70,7 +70,8 @@
       "DELETE_TEAM": "Delete team",
       "CREATE_ROLE": "Create role",
       "ASSIGN_ROLE": "Assign role",
-      "DELETE_ROLE": "Delete role"
+      "DELETE_ROLE": "Delete role",
+      "DELETE_USER": "Delete user"
     },
     "CREATE_ROLE": {
       "HEADER": "Create role",

@@ -48,6 +48,10 @@
         return this.$store.state.user || {};
       },
 
+      userPermissions() {
+        return this.$store.state.user.permissions || {};
+      },
+
       titleName() {
         switch (this.$route.name) {
           case 'home':
@@ -77,18 +81,19 @@
             to: '/profile',
           },
           {
+            permissions: ['assignRole', 'assignTeam', 'deleteUser'],
             label: this.$t('HEADER.MENU.USERS'),
             icon: 'pi-users',
             to: '/users',
           },
           {
-            permissions: ['createTeam', 'teamAssignment'],
+            permissions: ['createTeam', 'deleteTeam'],
             label: this.$t('HEADER.MENU.TEAMS'),
             icon: 'pi-globe',
             to: '/teams',
           },
           {
-            permissions: ['createRole', 'roleAssignment'],
+            permissions: ['createRole', 'deleteRole'],
             label: this.$t('HEADER.MENU.ROLES'),
             icon: 'pi-shield',
             to: '/roles',
@@ -100,14 +105,12 @@
             command: this.logoutUser,
           },
         ];
-        //TODO Заменить разрешения на разрешения пользователя
-        const permission = ['teamAssignment', 'createTeam', 'createRole', 'roleAssignment'];
         fullMenu.forEach((menuItem) => {
           if (menuItem?.label) {
             menuItem.icon += menuIconClass;
             if (
               !menuItem.permissions ||
-              menuItem.permissions.some((item) => permission.some((item1) => item === item1))
+              menuItem.permissions.some((item) => this.userPermissions[item])
             ) {
               delete menuItem.permissions;
               menu.push(menuItem);

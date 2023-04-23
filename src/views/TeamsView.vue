@@ -15,7 +15,13 @@
         <div class="flex flex-wrap align-items-center justify-content-between">
           <div class="flex align-items-center gap-2">
             <span class="text-xl text-900 font-bold">{{ $t('TEAMS.TABLE.TITLE') }}</span>
-            <Button icon="pi pi-plus" rounded raised @click="openCreateModal" />
+            <Button
+              v-if="userPermissions.createTeam"
+              icon="pi pi-plus"
+              rounded
+              raised
+              @click="openCreateModal"
+            />
           </div>
           <div class="p-input-icon-left w-auto">
             <i class="pi pi-search" />
@@ -33,12 +39,14 @@
         <template #body="slotProps">
           <div class="flex align-items-center justify-content-end gap-2">
             <Button
+              v-if="userPermissions.createTeam"
               icon="pi pi-pencil"
               severity="info"
               rounded
               @click="openChangeModal(slotProps)"
             />
             <Button
+              v-if="userPermissions.deleteTeam"
               icon="pi pi-trash"
               rounded
               raised
@@ -199,6 +207,12 @@
 
     async created() {
       await this.getData();
+    },
+
+    computed: {
+      userPermissions() {
+        return this.$store.state.user.permissions || {};
+      },
     },
 
     methods: {

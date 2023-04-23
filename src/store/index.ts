@@ -99,6 +99,20 @@ export default createStore({
       }
     },
 
+    checkPermissions({ state }: any, namePage: string) {
+      const permissions = state.user.permissions || {};
+      switch (namePage) {
+        case 'users':
+          return !!(permissions.assignRole || permissions.assignTeam || permissions.deleteUser);
+        case 'teams':
+          return !!(permissions.createTeam || permissions.deleteTeam);
+        case 'roles':
+          return !!(permissions.createRole || permissions.deleteRole);
+        default:
+          return true;
+      }
+    },
+
     async updateUser({ commit }: any, userData: IUpdateUser) {
       try {
         const response = await UserService.updateUser(userData);

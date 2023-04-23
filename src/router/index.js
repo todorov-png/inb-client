@@ -88,19 +88,22 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to) => {
   const isAuthenticated = await store.dispatch('checkAuth');
   const matched = to.matched;
+  const permission = await store.dispatch('checkPermissions', to.name);
   for (let i = 0; i < matched.length; i++) {
     const meta = matched[i].meta;
     switch (true) {
       case meta.requiresAuth && !isAuthenticated:
-        return next('/auth');
+        return { name: 'login' };
+      case !permission:
+        return { name: '404' };
       case meta.guest && isAuthenticated:
-        return next('/');
+        return { name: 'home' };
     }
   }
-  next();
+  return;
 });
 
 export default router;

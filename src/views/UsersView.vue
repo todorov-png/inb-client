@@ -54,12 +54,14 @@
         <template #body="slotProps">
           <div class="flex align-items-center justify-content-end gap-2">
             <Button
+              v-if="userPermissions.assignRole || userPermissions.assignTeam"
               icon="pi pi-pencil"
               severity="info"
               rounded
               @click="openChangeModal(slotProps)"
             />
             <Button
+              v-if="userPermissions.deleteUser"
               icon="pi pi-trash"
               rounded
               raised
@@ -85,7 +87,7 @@
         <label for="email">{{ $t('USERS.CHANGE_USER.EMAIL') }}</label>
         <InputText id="email" :placeholder="selectedUser.email" disabled />
       </div>
-      <div class="field">
+      <div class="field" v-if="userPermissions.assignRole">
         <label for="role">{{ $t('USERS.CHANGE_USER.ROLE.LABEL') }}</label>
         <Dropdown
           id="role"
@@ -98,7 +100,7 @@
         >
         </Dropdown>
       </div>
-      <div class="field">
+      <div class="field" v-if="userPermissions.assignTeam">
         <label for="team">{{ $t('USERS.CHANGE_USER.TEAM.LABEL') }}</label>
         <Dropdown
           id="team"
@@ -193,6 +195,12 @@
 
     async created() {
       await this.getData();
+    },
+
+    computed: {
+      userPermissions() {
+        return this.$store.state.user.permissions || {};
+      },
     },
 
     methods: {

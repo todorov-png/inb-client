@@ -21,8 +21,15 @@
         <div class="flex flex-wrap align-items-center justify-content-between">
           <div class="flex align-items-center gap-2">
             <span class="text-xl text-900 font-bold">{{ $t('ROLES.TABLE.TITLE') }}</span>
-            <Button icon="pi pi-plus" rounded raised @click="openNewRole" />
             <Button
+              v-if="userPermissions.createRole"
+              icon="pi pi-plus"
+              rounded
+              raised
+              @click="openNewRole"
+            />
+            <Button
+              v-if="userPermissions.deleteRole"
               icon="pi pi-trash"
               rounded
               raised
@@ -42,6 +49,7 @@
         </div>
       </template>
       <Column
+        v-if="userPermissions.deleteRole"
         selectionMode="multiple"
         frozen
         style="width: 3rem"
@@ -83,7 +91,13 @@
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
+      <Column field="deleteUser" :header="$t('ROLES.PERMISSIONS.DELETE_USER')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
       <Column
+        v-if="userPermissions.createRole"
         :rowEditor="true"
         style="width: 10%; min-width: 8rem"
         headerStyle="justify-content: center;"
@@ -141,7 +155,10 @@
     >
       <div class="confirmation-content">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-        <span v-if="selectedRoles[0]" v-html="$t('ROLES.DELETE_ROLE.ROLE', { name: selectedRoles[0].name })"></span>
+        <span
+          v-if="selectedRoles[0]"
+          v-html="$t('ROLES.DELETE_ROLE.ROLE', { name: selectedRoles[0].name })"
+        ></span>
       </div>
       <template #footer>
         <Button
@@ -219,6 +236,7 @@
           'createRole',
           'assignRole',
           'deleteRole',
+          'deleteUser'
         ],
         roles: [],
       };
@@ -226,6 +244,12 @@
 
     async created() {
       await this.getData();
+    },
+
+    computed: {
+      userPermissions() {
+        return this.$store.state.user.permissions || {};
+      },
     },
 
     methods: {
