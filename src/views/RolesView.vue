@@ -141,7 +141,7 @@
     >
       <div class="confirmation-content">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
-        <span v-if="role" v-html="$t('ROLES.DELETE_ROLE.ROLE', { name: role.name })"></span>
+        <span v-if="selectedRoles[0]" v-html="$t('ROLES.DELETE_ROLE.ROLE', { name: selectedRoles[0].name })"></span>
       </div>
       <template #footer>
         <Button
@@ -243,7 +243,7 @@
       },
 
       formattingRole(role) {
-        const data = { _id: role._id, name: role.name };
+        const data = { _id: role._id, name: role.name.toLowerCase() };
         this.permissions.forEach(
           (permission) =>
             (data[permission] = (role.permissions && role.permissions[permission]) || false)
@@ -260,7 +260,7 @@
       async createRole() {
         this.submitted = true;
         if (this.role.name?.trim()) {
-          const data = { name: this.role.name, permissions: {} };
+          const data = { name: this.role.name.toLowerCase(), permissions: {} };
           this.permissions.forEach((item) =>
             this.role[item] ? (data.permissions[item] = true) : null
           );
@@ -328,6 +328,7 @@
 
       async onRowEditSave(event) {
         const { newData, index } = event;
+        newData.name = newData.name.toLowerCase();
         const newDataFormat = { _id: newData._id, name: newData.name, permissions: {} };
         this.permissions.forEach((permission) =>
           newData[permission] ? (newDataFormat.permissions[permission] = true) : null

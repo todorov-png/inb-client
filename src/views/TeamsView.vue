@@ -206,7 +206,13 @@
         this.loading = true;
         try {
           const response = await TeamService.fetchTeams();
-          this.teams = response.data || [];
+          const teams = response.data || [];
+          this.teams = teams.map((team) => {
+            if (!team.linkTg) {
+              team.linkTg = '------';
+            }
+            return team;
+          });
         } catch (e) {
           showCatchMessage.call(this, e);
         } finally {
@@ -236,6 +242,7 @@
               life: 3000,
             });
             this.newTeam._id = response.data._id;
+            this.newTeam.name = this.newTeam.name.toLowerCase();
             this.teams.unshift(this.newTeam);
             this.hideCreateModal();
           } catch (e) {
@@ -266,6 +273,7 @@
               detail: this.$t('TEAMS.CHANGE_TEAM.SUCCESSFUL'),
               life: 3000,
             });
+            this.selectTeam.name = this.selectTeam.name.toLowerCase();
             this.teams[this.selectTeamIndex] = this.selectTeam;
             this.hideChangeModal();
           } catch (e) {
@@ -275,7 +283,6 @@
       },
 
       openDeleteModal(event) {
-        console.log(555, event);
         this.selectTeam = event.data;
         this.selectTeamIndex = event.index;
         this.deleteDialog = true;

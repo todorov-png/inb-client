@@ -41,18 +41,18 @@
         <template #body="slotProps">
           <div class="flex align-items-center justify-content-end gap-2">
             <Button
-            icon="pi pi-pencil"
-            severity="info"
-            rounded
-            @click="openChangeModal(slotProps)"
-          />
-            <!-- <Button
+              icon="pi pi-pencil"
+              severity="info"
+              rounded
+              @click="openChangeModal(slotProps)"
+            />
+            <Button
               icon="pi pi-trash"
               rounded
               raised
               severity="danger"
               @click="openDeleteModal(slotProps)"
-            /> -->
+            />
           </div>
         </template>
       </Column>
@@ -99,8 +99,47 @@
         </Dropdown>
       </div>
       <template #footer>
-        <Button :label="$t('CONFIRM_MODAL.BUTTONS.CANCEL')" icon="pi pi-times" text @click="hideChangeModal" />
-        <Button :label="$t('CONFIRM_MODAL.BUTTONS.UPDATE')" icon="pi pi-check" text @click="updateUser" />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.CANCEL')"
+          icon="pi pi-times"
+          text
+          @click="hideChangeModal"
+        />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.UPDATE')"
+          icon="pi pi-check"
+          text
+          @click="updateUser"
+        />
+      </template>
+    </Dialog>
+
+    <Dialog
+      v-model:visible="deleteDialog"
+      class="p-fluid w-full max-w-30rem"
+      :header="$t('USERS.DELETE_USER.HEADER')"
+      :modal="true"
+    >
+      <div class="confirmation-content">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
+        <span
+          v-if="selectedUser"
+          v-html="$t('USERS.DELETE_USER.USER', { name: selectedUser.username })"
+        ></span>
+      </div>
+      <template #footer>
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.NO')"
+          icon="pi pi-times"
+          text
+          @click="deleteDialog = false"
+        />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.YES')"
+          icon="pi pi-check"
+          text
+          @click="deleteUser"
+        />
       </template>
     </Dialog>
   </div>
@@ -128,6 +167,7 @@
         filters: { global: { value: null, matchMode: FilterMatchMode.CONTAINS } },
         users: [],
         changeDialog: false,
+        deleteDialog: false,
         selectedUser: null,
         selectedRole: null,
         selectedTeam: null,
@@ -164,12 +204,8 @@
       },
 
       formattingUser(user) {
-        user.role = user.role
-          ? this.roles.find((item) => item._id === user.role)
-          : { name: '------', _id: null };
-        user.team = user.team
-          ? this.teams.find((item) => item._id === user.team)
-          : { name: '------', _id: null };
+        user.role ? null : user.role = { name: '------', _id: null };
+        user.team ? null : user.team = { name: '------', _id: null };
         return user;
       },
 
@@ -201,6 +237,32 @@
           });
           this.users[this.selectedUserIndex] = response.data;
           this.hideChangeModal();
+        } catch (e) {
+          showCatchMessage.call(this, e);
+        }
+      },
+
+      openDeleteModal(event) {
+        this.selectedUser = event.data;
+        this.selectedUserIndex = event.index;
+        this.deleteDialog = true;
+      },
+
+      hideDeleteModal() {
+        this.deleteDialog = false;
+      },
+
+      async deleteUser() {
+        try {
+          await UserService.deleteUser({ user: this.selectedUser._id });
+          this.$toast.add({
+            severity: 'success',
+            summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
+            detail: this.$t('USERS.DELETE_USER.SUCCESSFUL'),
+            life: 3000,
+          });
+          this.users.splice(this.selectedUserIndex, 1);
+          this.hideDeleteModal();
         } catch (e) {
           showCatchMessage.call(this, e);
         }

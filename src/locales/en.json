@@ -154,6 +154,11 @@
         "DROPDOWN": "Select a team"
       },
       "SUCCESSFUL": "User change successfully"
+    },
+    "DELETE_USER": {
+      "HEADER": "Confirm",
+      "USER": "Are you sure you want to delete the user <b>{name}<b>?",
+      "SUCCESSFUL": "User delete successfully"
     }
   },
 
