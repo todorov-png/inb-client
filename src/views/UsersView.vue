@@ -5,7 +5,14 @@
       v-model="balanceFrozen"
       :value="users"
       :loading="loading"
-      :globalFilterFields="['username', 'email', 'role.name', 'team.name']"
+      :globalFilterFields="[
+        'username',
+        'email',
+        'registrationDate',
+        'activationDate',
+        'role.name',
+        'team.name',
+      ]"
       :rows="10"
       scrollable
       paginator
@@ -35,6 +42,12 @@
         class="z-1"
       ></Column>
       <Column field="email" :header="$t('USERS.COLUMN.EMAIL')" sortable></Column>
+      <Column
+        field="registrationDate"
+        :header="$t('USERS.COLUMN.DATE_REGISTRATION')"
+        sortable
+      ></Column>
+      <Column field="activationDate" :header="$t('USERS.COLUMN.DATE_ACTIVATION')" sortable></Column>
       <Column field="role.name" :header="$t('USERS.COLUMN.ROLE')" sortable></Column>
       <Column field="team.name" :header="$t('USERS.COLUMN.TEAM')" sortable></Column>
       <Column>
@@ -157,6 +170,7 @@
   import Dropdown from 'primevue/dropdown';
   import { FilterMatchMode } from 'primevue/api';
   import { showCatchMessage } from '@/helpers/showCatch.js';
+  import { formatDate } from '@/helpers/formatDate.js';
 
   export default {
     components: { DataTable, Column, InputText, Button, Dialog, Dropdown },
@@ -204,8 +218,12 @@
       },
 
       formattingUser(user) {
-        user.role ? null : user.role = { name: '------', _id: null };
-        user.team ? null : user.team = { name: '------', _id: null };
+        user.registrationDate = user.registrationDate
+          ? formatDate(user.registrationDate)
+          : '------';
+        user.activationDate = user.activationDate ? formatDate(user.activationDate) : '------';
+        user.role ? null : (user.role = { name: '------', _id: null });
+        user.team ? null : (user.team = { name: '------', _id: null });
         return user;
       },
 

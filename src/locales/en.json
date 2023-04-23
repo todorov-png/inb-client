@@ -139,7 +139,9 @@
       "EMAIL": "Email",
       "ROLE": "Role",
       "TEAM": "Team",
-      "VIEW": "View"
+      "VIEW": "View",
+      "DATE_REGISTRATION": "Date of registration",
+      "DATE_ACTIVATION": "Activation date"
     },
     "CHANGE_USER": {
       "HEADER": "User change",

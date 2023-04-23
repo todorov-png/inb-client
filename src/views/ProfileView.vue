@@ -141,7 +141,7 @@
       },
 
       setLang() {
-        this.lang = localStorage.getItem('lang').toUpperCase() || 'EN';
+        this.lang = localStorage.getItem('lang')?.toUpperCase() || 'EN';
       },
 
       changeTheme(value) {

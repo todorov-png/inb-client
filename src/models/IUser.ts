@@ -1,21 +1,22 @@
 export interface IUser {
-  id: string;
+  id?: string;
   username: string;
   email: string;
   isActivated: boolean;
+  permissions?: object;
 }
 
 export interface IUpdateUser {
   username: string;
   email: string;
-  password: String;
-  newPassword: String;
+  password: string;
+  newPassword: string;
 }
 
 export interface IEditUser {
   user: string | null;
   role: string | null;
-  team: String | null;
+  team: string | null;
 }
 
 export interface IDeleteUser {

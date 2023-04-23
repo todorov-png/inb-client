@@ -1,6 +1,7 @@
 <template>
-  <NotActivated v-if="isActivated" />
-  <NotTeam v-else />
+  <NotActivated v-if="!isActivated" />
+  <NotTeam v-else-if="!isTeam" />
+  <div v-else>Тут список лендов</div>
 </template>
 
 <script>
@@ -15,6 +16,9 @@
     computed: {
       isActivated() {
         return this.$store.state.user.isActivated || false;
+      },
+      isTeam() {
+        return this.$store.state.user.isTeam || false;
       },
     },
     methods: {},
