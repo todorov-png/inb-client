@@ -207,13 +207,17 @@
       async getData() {
         this.loading = true;
         try {
-          const responseRoles = await RoleService.fetchRolesList();
-          const roles = responseRoles.data || [];
-          this.roles.push(...roles);
+          if (this.userPermissions.assignRole) {
+            const responseRoles = await RoleService.fetchRolesList();
+            const roles = responseRoles.data || [];
+            this.roles.push(...roles);
+          }
 
-          const responseTeams = await TeamService.fetchTeamsList();
-          const teams = responseTeams.data || [];
-          this.teams.push(...teams);
+          if (this.userPermissions.assignTeam) {
+            const responseTeams = await TeamService.fetchTeamsList();
+            const teams = responseTeams.data || [];
+            this.teams.push(...teams);
+          }
 
           const responseUsers = await UserService.fetchUsers();
           const users = responseUsers.data || [];
