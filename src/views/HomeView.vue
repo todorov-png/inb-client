@@ -1,27 +1,26 @@
 <template>
   <NotActivated v-if="!isActivated" />
   <NotTeam v-else-if="!isTeam" />
-  <div v-else>Тут список лендов</div>
+  <ProductsList v-else />
 </template>
 
 <script>
+  import ProductsList from '@/components/ProductsList.vue';
   import NotActivated from '@/components/NotActivated.vue';
   import NotTeam from '@/components/NotTeam.vue';
 
   export default {
-    components: { NotActivated, NotTeam },
-    data() {
-      return {};
-    },
+    components: { ProductsList, NotActivated, NotTeam },
+
     computed: {
       isActivated() {
         return this.$store.state.user.isActivated || false;
       },
+
       isTeam() {
         return this.$store.state.user.isTeam || false;
       },
     },
-    methods: {},
   };
 </script>
 

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AuthService from '@/services/AuthService';
 import UserService from '@/services/UserService';
+import ProductService from '@/services/ProductService';
 import { AuthResponse } from '@/models/response/AuthResponse';
 import { createStore } from 'vuex';
 import { IUser, IUpdateUser } from '@/models/IUser';
@@ -13,6 +14,7 @@ export default createStore({
       user: {} as IUser,
       isAuth: false as boolean,
       isLoading: false as boolean,
+      products: [] as Array<any>,
     };
   },
   // getters: {
@@ -24,13 +26,20 @@ export default createStore({
     setLoading(state: any, bool: boolean) {
       state.isLoading = bool;
     },
+
     setAuth(state: any, bool: boolean) {
       state.isAuth = bool;
     },
+
     setUser(state: any, user: IUser) {
       state.user = user;
     },
+
+    setProducts(state: any, products: [any]) {
+      state.products = products;
+    },
   },
+
   actions: {
     async login({ commit }: any, userData: any) {
       try {
@@ -117,6 +126,20 @@ export default createStore({
       try {
         const response = await UserService.updateUser(userData);
         commit('setUser', response.data);
+        return { success: true };
+      } catch (e: any) {
+        if (e.response?.data?.message) {
+          return { success: false, messageError: e.response.data.message };
+        }
+        return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
+      }
+    },
+
+    async getProducts({ commit }: any) {
+      try {
+        const response = await ProductService.getProducts();
+        // commit('setProducts', response.data);
+        console.log(response.data);
         return { success: true };
       } catch (e: any) {
         if (e.response?.data?.message) {
