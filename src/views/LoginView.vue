@@ -33,7 +33,7 @@
       :label="$t('AUTH.BUTTONS.SING_IN')"
       :loading="loadingSubmit"
       @click="submitForm"
-    ></Button>
+    />
     <router-link :to="{ name: 'register' }" custom v-slot="{ navigate }">
       <Button
         class="w-full"
@@ -43,7 +43,7 @@
         icon="pi pi-user-plus"
         :label="$t('AUTH.BUTTONS.REGISTRATION')"
         @click="navigate"
-      ></Button>
+      />
     </router-link>
   </Fieldset>
 </template>

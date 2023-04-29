@@ -81,7 +81,7 @@
             to: '/profile',
           },
           {
-            permissions: ['assignRole', 'assignTeam', 'deleteUser'],
+            permissions: ['assignRole', 'assignTeam', 'createUser', 'deleteUser'],
             label: this.$t('HEADER.MENU.USERS'),
             icon: 'pi-users',
             to: '/users',

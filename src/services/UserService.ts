@@ -7,6 +7,10 @@ export default class UserService {
     return $api.post('/activation-code');
   }
 
+  static async createUser(data: IUser): Promise<AxiosResponse<IUser>> {
+    return $api.post<IUser>('/user', data);
+  }
+
   static async updateUser(data: IUpdateUser): Promise<AxiosResponse<IUser>> {
     return $api.put<IUser>('/user-update', data);
   }

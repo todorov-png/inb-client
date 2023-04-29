@@ -12,7 +12,7 @@
           icon="pi pi-home"
           :label="$t('PAGE_NOT_FOUND.BUTTON')"
           @click="navigate"
-        ></Button>
+        />
       </router-link>
     </div>
   </div>

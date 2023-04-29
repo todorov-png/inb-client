@@ -68,7 +68,7 @@
           :loading="loadingSubmit"
           :label="$t('PROFILE.BUTTONS.SAVE')"
           @click="saveData"
-        ></Button>
+        />
         <router-link :to="{ name: 'home' }" custom v-slot="{ navigate }">
           <Button
             class="w-full"
@@ -78,7 +78,7 @@
             icon="pi pi-home"
             :label="$t('PROFILE.BUTTONS.HOME')"
             @click="navigate"
-          ></Button>
+          />
         </router-link>
       </template>
     </Card>

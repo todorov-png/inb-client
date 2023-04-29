@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AuthService from '@/services/AuthService';
 import UserService from '@/services/UserService';
-import ProductService from '@/services/ProductService';
+import LandService from '@/services/LandService';
 import { AuthResponse } from '@/models/response/AuthResponse';
 import { createStore } from 'vuex';
 import { IUser, IUpdateUser } from '@/models/IUser';
@@ -112,7 +112,12 @@ export default createStore({
       const permissions = state.user.permissions || {};
       switch (namePage) {
         case 'users':
-          return !!(permissions.assignRole || permissions.assignTeam || permissions.deleteUser);
+          return !!(
+            permissions.assignRole ||
+            permissions.assignTeam ||
+            permissions.deleteUser ||
+            permissions.createUser
+          );
         case 'teams':
           return !!(permissions.createTeam || permissions.deleteTeam);
         case 'roles':
@@ -135,11 +140,12 @@ export default createStore({
       }
     },
 
-    async getProducts({ commit }: any) {
+    async getLands({ commit }: any) {
       try {
-        const response = await ProductService.getProducts();
-        // commit('setProducts', response.data);
-        console.log(response.data);
+        commit('setLoading', true);
+        const response = await LandService.getLands();
+        commit('setLoading', false);
+        commit('setProducts', response.data);
         return { success: true };
       } catch (e: any) {
         if (e.response?.data?.message) {

@@ -71,6 +71,7 @@
       "CREATE_ROLE": "Create role",
       "ASSIGN_ROLE": "Assign role",
       "DELETE_ROLE": "Delete role",
+      "CREATE_USER": "Create user",
       "DELETE_USER": "Delete user"
     },
     "CREATE_ROLE": {
@@ -143,6 +144,24 @@
       "VIEW": "View",
       "DATE_REGISTRATION": "Date of registration",
       "DATE_ACTIVATION": "Activation date"
+    },
+    "CREATE_USER": {
+      "HEADER": "Create user",
+      "USERNAME": "Username",
+      "EMPTY_USERNAME": "Username is required.",
+      "EMAIL": "Email",
+      "EMPTY_EMAIL": "Email is required.",
+      "PASSWORD": "Password",
+      "EMPTY_PASSWORD": "Password is required.",
+      "ROLE": {
+        "LABEL": "Role",
+        "DROPDOWN": "Select a role"
+      },
+      "TEAM": {
+        "LABEL": "Team",
+        "DROPDOWN": "Select a team"
+      },
+      "SUCCESSFUL": "User create successfully"
     },
     "CHANGE_USER": {
       "HEADER": "User change",

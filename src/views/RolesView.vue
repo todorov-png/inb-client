@@ -55,7 +55,7 @@
         style="width: 3rem"
         :exportable="false"
         class="z-1"
-      ></Column>
+      />
       <Column field="name" :header="$t('ROLES.PERMISSIONS.NAME')" sortable frozen class="z-1">
         <template #editor="{ data, field }">
           <InputText v-model="data[field]" />
@@ -91,6 +91,11 @@
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
+      <Column field="createUser" :header="$t('ROLES.PERMISSIONS.CREATE_USER')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
       <Column field="deleteUser" :header="$t('ROLES.PERMISSIONS.DELETE_USER')">
         <template #editor="{ data, field }">
           <Checkbox v-model="data[field]" :binary="true" />
@@ -102,11 +107,11 @@
         style="width: 10%; min-width: 8rem"
         headerStyle="justify-content: center;"
         bodyStyle="text-align: center;"
-      ></Column>
+      />
     </DataTable>
 
     <Dialog
-      v-model:visible="createModal"
+      v-model:visible="createDialog"
       class="p-fluid w-full max-w-30rem"
       :header="$t('ROLES.CREATE_ROLE.HEADER')"
       :modal="true"
@@ -136,7 +141,7 @@
           :label="$t('CONFIRM_MODAL.BUTTONS.CANCEL')"
           icon="pi pi-times"
           text
-          @click="createModal = false"
+          @click="createDialog = false"
         />
         <Button
           :label="$t('CONFIRM_MODAL.BUTTONS.CREATE')"
@@ -148,7 +153,7 @@
     </Dialog>
 
     <Dialog
-      v-model:visible="deleteRoleModal"
+      v-model:visible="deleteRoleDialog"
       class="p-fluid w-full max-w-30rem"
       :header="$t('ROLES.DELETE_ROLE.HEADER')"
       :modal="true"
@@ -165,7 +170,7 @@
           icon="pi pi-times"
           text
           :label="$t('CONFIRM_MODAL.BUTTONS.NO')"
-          @click="deleteRoleModal = false"
+          @click="deleteRoleDialog = false"
         />
         <Button
           :label="$t('CONFIRM_MODAL.BUTTONS.YES')"
@@ -177,7 +182,7 @@
     </Dialog>
 
     <Dialog
-      v-model:visible="deleteRolesModal"
+      v-model:visible="deleteRolesDialog"
       class="p-fluid w-full max-w-30rem"
       :header="$t('ROLES.DELETE_ROLE.HEADER')"
       :modal="true"
@@ -191,7 +196,7 @@
           :label="$t('CONFIRM_MODAL.BUTTONS.NO')"
           icon="pi pi-times"
           text
-          @click="deleteRolesModal = false"
+          @click="deleteRolesDialog = false"
         />
         <Button
           :label="$t('CONFIRM_MODAL.BUTTONS.YES')"
@@ -223,9 +228,9 @@
         selectedRoles: null,
         submitted: false,
         balanceFrozen: false,
-        createModal: false,
-        deleteRoleModal: false,
-        deleteRolesModal: false,
+        createDialog: false,
+        deleteRoleDialog: false,
+        deleteRolesDialog: false,
         role: {},
         loading: false,
         filters: { global: { value: null, matchMode: FilterMatchMode.CONTAINS } },
@@ -236,6 +241,7 @@
           'createRole',
           'assignRole',
           'deleteRole',
+          'createUser',
           'deleteUser'
         ],
         roles: [],
@@ -258,7 +264,7 @@
         try {
           const response = await RoleService.fetchRoles();
           const roles = response.data || [];
-          this.roles.push(...roles.map((role) => this.formattingRole(role)));
+          this.roles.push(...roles.reverse().map((role) => this.formattingRole(role)));
         } catch (e) {
           showCatchMessage.call(this, e);
         } finally {
@@ -278,11 +284,10 @@
       openNewRole() {
         this.role = {};
         this.submitted = false;
-        this.createModal = true;
+        this.createDialog = true;
       },
 
       async createRole() {
-        this.submitted = true;
         if (this.role.name?.trim()) {
           const data = { name: this.role.name.toLowerCase(), permissions: {} };
           this.permissions.forEach((item) =>
@@ -298,18 +303,20 @@
             });
             data._id = response.data._id;
             this.roles.unshift(this.formattingRole(data));
-            this.createModal = false;
+            this.createDialog = false;
             this.role = {};
           } catch (e) {
             showCatchMessage.call(this, e);
           }
+        } else {
+          this.submitted = true;
         }
       },
 
       confirmDeleteSelected() {
         this.selectedRoles.length === 1
-          ? (this.deleteRoleModal = true)
-          : (this.deleteRolesModal = true);
+          ? (this.deleteRoleDialog = true)
+          : (this.deleteRolesDialog = true);
       },
 
       async deleteRole() {
@@ -327,7 +334,7 @@
         } catch (e) {
           showCatchMessage.call(this, e);
         } finally {
-          this.deleteRoleModal = false;
+          this.deleteRoleDialog = false;
         }
       },
 
@@ -346,7 +353,7 @@
         } catch (e) {
           showCatchMessage.call(this, e);
         } finally {
-          this.deleteRolesModal = false;
+          this.deleteRolesDialog = false;
         }
       },
 

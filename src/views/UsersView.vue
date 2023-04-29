@@ -23,6 +23,13 @@
         <div class="flex flex-wrap align-items-center justify-content-between">
           <div class="flex align-items-center gap-2">
             <span class="text-xl text-900 font-bold">{{ $t('USERS.TABLE.TITLE') }}</span>
+            <Button
+              v-if="userPermissions.createUser"
+              icon="pi pi-plus"
+              rounded
+              raised
+              @click="openNewUser"
+            />
           </div>
           <div class="p-input-icon-left w-auto">
             <i class="pi pi-search" />
@@ -34,22 +41,12 @@
           </div>
         </div>
       </template>
-      <Column
-        field="username"
-        :header="$t('USERS.COLUMN.USERNAME')"
-        sortable
-        frozen
-        class="z-1"
-      ></Column>
-      <Column field="email" :header="$t('USERS.COLUMN.EMAIL')" sortable></Column>
-      <Column
-        field="registrationDate"
-        :header="$t('USERS.COLUMN.DATE_REGISTRATION')"
-        sortable
-      ></Column>
-      <Column field="activationDate" :header="$t('USERS.COLUMN.DATE_ACTIVATION')" sortable></Column>
-      <Column field="role.name" :header="$t('USERS.COLUMN.ROLE')" sortable></Column>
-      <Column field="team.name" :header="$t('USERS.COLUMN.TEAM')" sortable></Column>
+      <Column field="username" :header="$t('USERS.COLUMN.USERNAME')" sortable frozen class="z-1" />
+      <Column field="email" :header="$t('USERS.COLUMN.EMAIL')" sortable />
+      <Column field="registrationDate" :header="$t('USERS.COLUMN.DATE_REGISTRATION')" sortable />
+      <Column field="activationDate" :header="$t('USERS.COLUMN.DATE_ACTIVATION')" sortable />
+      <Column field="role.name" :header="$t('USERS.COLUMN.ROLE')" sortable />
+      <Column field="team.name" :header="$t('USERS.COLUMN.TEAM')" sortable />
       <Column>
         <template #body="slotProps">
           <div class="flex align-items-center justify-content-end gap-2">
@@ -72,6 +69,87 @@
         </template>
       </Column>
     </DataTable>
+
+    <Dialog
+      v-model:visible="createDialog"
+      class="p-fluid w-full max-w-30rem"
+      :header="$t('USERS.CREATE_USER.HEADER')"
+      :modal="true"
+    >
+      <div class="field">
+        <label for="username">{{ $t('USERS.CREATE_USER.USERNAME') }}</label>
+        <InputText
+          id="username"
+          v-model.trim="user.username"
+          :class="{ 'p-invalid': submitted && !user.username }"
+        />
+        <small class="p-error" v-if="submitted && !user.username">
+          {{ $t('USERS.CREATE_USER.EMPTY_USERNAME') }}
+        </small>
+      </div>
+      <div class="field">
+        <label for="email">{{ $t('USERS.CREATE_USER.EMAIL') }}</label>
+        <InputText
+          id="email"
+          type="email"
+          v-model.trim="user.email"
+          :class="{ 'p-invalid': submitted && !user.email }"
+        />
+        <small class="p-error" v-if="submitted && !user.email">
+          {{ $t('USERS.CREATE_USER.EMPTY_EMAIL') }}
+        </small>
+      </div>
+      <div class="field">
+        <label for="password">{{ $t('USERS.CREATE_USER.PASSWORD') }}</label>
+        <InputText
+          id="password"
+          type="password"
+          v-model.trim="user.password"
+          :class="{ 'p-invalid': submitted && !user.password }"
+        />
+        <small class="p-error" v-if="submitted && !user.password">
+          {{ $t('USERS.CREATE_USER.EMPTY_PASSWORD') }}
+        </small>
+      </div>
+      <div class="field" v-if="userPermissions.assignRole">
+        <label for="role">{{ $t('USERS.CREATE_USER.ROLE.LABEL') }}</label>
+        <Dropdown
+          id="role"
+          v-model="selectedRole"
+          :options="roles"
+          :placeholder="$t('USERS.CREATE_USER.ROLE.DROPDOWN')"
+          optionLabel="name"
+          class="w-full"
+          filter
+        />
+      </div>
+      <div class="field" v-if="userPermissions.assignTeam">
+        <label for="team">{{ $t('USERS.CREATE_USER.TEAM.LABEL') }}</label>
+        <Dropdown
+          id="team"
+          v-model="selectedTeam"
+          :options="teams"
+          :placeholder="$t('USERS.CREATE_USER.TEAM.DROPDOWN')"
+          optionLabel="name"
+          class="w-full"
+          filter
+        />
+      </div>
+      <template #footer>
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.CANCEL')"
+          icon="pi pi-times"
+          text
+          @click="createDialog = false"
+        />
+        <Button
+          :label="$t('CONFIRM_MODAL.BUTTONS.CREATE')"
+          icon="pi pi-check"
+          text
+          @click="createUser"
+        />
+      </template>
+    </Dialog>
 
     <Dialog
       v-model:visible="changeDialog"
@@ -97,8 +175,7 @@
           optionLabel="name"
           class="w-full"
           filter
-        >
-        </Dropdown>
+        />
       </div>
       <div class="field" v-if="userPermissions.assignTeam">
         <label for="team">{{ $t('USERS.CHANGE_USER.TEAM.LABEL') }}</label>
@@ -110,8 +187,7 @@
           optionLabel="name"
           class="w-full"
           filter
-        >
-        </Dropdown>
+        />
       </div>
       <template #footer>
         <Button
@@ -182,6 +258,9 @@
         loading: false,
         filters: { global: { value: null, matchMode: FilterMatchMode.CONTAINS } },
         users: [],
+        user: {},
+        submitted: false,
+        createDialog: false,
         changeDialog: false,
         deleteDialog: false,
         selectedUser: null,
@@ -221,7 +300,7 @@
 
           const responseUsers = await UserService.fetchUsers();
           const users = responseUsers.data || [];
-          this.users.push(...users.map((user) => this.formattingUser(user)));
+          this.users.push(...users.reverse().map((user) => this.formattingUser(user)));
         } catch (e) {
           showCatchMessage.call(this, e);
         } finally {
@@ -237,6 +316,52 @@
         user.role ? null : (user.role = { name: '------', _id: null });
         user.team ? null : (user.team = { name: '------', _id: null });
         return user;
+      },
+
+      openNewUser() {
+        this.user = {};
+        this.selectedRole = this.roles[0];
+        this.selectedTeam = this.teams[0];
+        this.submitted = false;
+        this.createDialog = true;
+      },
+
+      async createUser() {
+        if (this.user.username?.trim() && this.user.email?.trim() && this.user.password?.trim()) {
+          const data = {
+            username: this.user.username.toLowerCase(),
+            email: this.user.email.toLowerCase(),
+            password: this.user.password,
+            role: this.selectedRole._id,
+            team: this.selectedTeam._id,
+          };
+          try {
+            const response = await UserService.createUser(data);
+            this.$toast.add({
+              severity: 'success',
+              summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
+              detail: this.$t('USERS.CREATE_USER.SUCCESSFUL'),
+              life: 3000,
+            });
+            this.users.unshift(
+              this.formattingUser({
+                _id: response.data._id,
+                username: data.username,
+                email: data.email,
+                activationDate: response.data.date,
+                registrationDate: response.data.date,
+                role: this.selectedRole,
+                team: this.selectedTeam,
+              })
+            );
+            this.createDialog = false;
+            this.user = {};
+          } catch (e) {
+            showCatchMessage.call(this, e);
+          }
+        } else {
+          this.submitted = true;
+        }
       },
 
       openChangeModal(event) {

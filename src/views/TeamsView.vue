@@ -33,8 +33,8 @@
           </div>
         </div>
       </template>
-      <Column field="name" :header="$t('TEAMS.COLUMN.NAME')" sortable></Column>
-      <Column field="linkTg" :header="$t('TEAMS.COLUMN.LINK_IG')"></Column>
+      <Column field="name" :header="$t('TEAMS.COLUMN.NAME')" sortable />
+      <Column field="linkTg" :header="$t('TEAMS.COLUMN.LINK_IG')" />
       <Column>
         <template #body="slotProps">
           <div class="flex align-items-center justify-content-end gap-2">
@@ -221,7 +221,7 @@
         try {
           const response = await TeamService.fetchTeams();
           const teams = response.data || [];
-          this.teams = teams.map((team) => {
+          this.teams = teams.reverse().map((team) => {
             if (!team.linkTg) {
               team.linkTg = '------';
             }
@@ -245,7 +245,6 @@
       },
 
       async createTeam() {
-        this.submitted = true;
         if (this.newTeam.name?.trim() && this.newTeam.bearer?.trim()) {
           try {
             const response = await TeamService.createTeam(this.newTeam);
@@ -262,6 +261,8 @@
           } catch (e) {
             showCatchMessage.call(this, e);
           }
+        } else {
+          this.submitted = true;
         }
       },
 
@@ -277,7 +278,6 @@
       },
 
       async changeTeam() {
-        this.submitted = true;
         if (this.selectTeam.name?.trim()) {
           try {
             await TeamService.updateTeam(this.selectTeam);
@@ -293,6 +293,8 @@
           } catch (e) {
             showCatchMessage.call(this, e);
           }
+        } else {
+          this.submitted = true;
         }
       },
 
