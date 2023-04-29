@@ -34,6 +34,7 @@
         </div>
       </template>
       <Column field="name" :header="$t('TEAMS.COLUMN.NAME')" sortable />
+      <Column field="members" :header="$t('TEAMS.COLUMN.MEMBERS')" sortable />
       <Column field="linkTg" :header="$t('TEAMS.COLUMN.LINK_IG')" />
       <Column>
         <template #body="slotProps">
@@ -256,6 +257,7 @@
             });
             this.newTeam._id = response.data._id;
             this.newTeam.name = this.newTeam.name.toLowerCase();
+            this.newTeam.members = 0;
             this.teams.unshift(this.newTeam);
             this.hideCreateModal();
           } catch (e) {
@@ -267,8 +269,10 @@
       },
 
       openChangeModal(event) {
+        const data = JSON.parse(JSON.stringify(event.data));
+        if (data.linkTg === '------') data.linkTg = '';
         this.submitted = false;
-        this.selectTeam = JSON.parse(JSON.stringify(event.data));
+        this.selectTeam = data;
         this.selectTeamIndex = event.index;
         this.changeDialog = true;
       },
@@ -287,8 +291,10 @@
               detail: this.$t('TEAMS.CHANGE_TEAM.SUCCESSFUL'),
               life: 3000,
             });
+            const data = this.selectTeam;
+            if (!data.linkTg) data.linkTg = '------';
             this.selectTeam.name = this.selectTeam.name.toLowerCase();
-            this.teams[this.selectTeamIndex] = this.selectTeam;
+            this.teams[this.selectTeamIndex] = data;
             this.hideChangeModal();
           } catch (e) {
             showCatchMessage.call(this, e);

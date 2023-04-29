@@ -103,6 +103,7 @@
     "COLUMN": {
       "NAME": "Name",
       "BEARER": "Bearer",
+      "MEMBERS": "Members",
       "LINK_IG": "Link telegram"
     },
     "CREATE_TEAM": {

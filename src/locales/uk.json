@@ -103,6 +103,7 @@
     "COLUMN": {
       "NAME": "Назва",
       "BEARER": "Bearer ключ",
+      "MEMBERS": "Участников",
       "LINK_IG": "Посилання на telegram"
     },
     "CREATE_TEAM": {
