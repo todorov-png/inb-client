@@ -220,7 +220,7 @@
       async getData() {
         this.loading = true;
         try {
-          const response = await TeamService.fetchTeams();
+          const response = await TeamService.getAll();
           const teams = response.data || [];
           this.teams = teams.reverse().map((team) => {
             if (!team.linkTg) {
@@ -248,7 +248,7 @@
       async createTeam() {
         if (this.newTeam.name?.trim() && this.newTeam.bearer?.trim()) {
           try {
-            const response = await TeamService.createTeam(this.newTeam);
+            const response = await TeamService.create(this.newTeam);
             this.$toast.add({
               severity: 'success',
               summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
@@ -284,7 +284,7 @@
       async changeTeam() {
         if (this.selectTeam.name?.trim()) {
           try {
-            await TeamService.updateTeam(this.selectTeam);
+            await TeamService.update(this.selectTeam);
             this.$toast.add({
               severity: 'success',
               summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
@@ -316,7 +316,7 @@
 
       async deleteTeam() {
         try {
-          await TeamService.deleteTeam({ team: this.selectTeam._id });
+          await TeamService.delete({ team: this.selectTeam._id });
           this.$toast.add({
             severity: 'success',
             summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),

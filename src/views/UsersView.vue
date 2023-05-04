@@ -293,7 +293,7 @@
           }
 
           if (this.userPermissions.assignTeam) {
-            const responseTeams = await TeamService.fetchTeamsList();
+            const responseTeams = await TeamService.getList();
             const teams = responseTeams.data || [];
             this.teams.push(...teams);
           }
