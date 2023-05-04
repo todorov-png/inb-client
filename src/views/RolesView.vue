@@ -242,7 +242,7 @@
           'assignRole',
           'deleteRole',
           'createUser',
-          'deleteUser'
+          'deleteUser',
         ],
         roles: [],
       };
@@ -262,7 +262,7 @@
       async getData() {
         this.loading = true;
         try {
-          const response = await RoleService.fetchRoles();
+          const response = await RoleService.getAll();
           const roles = response.data || [];
           this.roles.push(...roles.reverse().map((role) => this.formattingRole(role)));
         } catch (e) {
@@ -294,7 +294,7 @@
             this.role[item] ? (data.permissions[item] = true) : null
           );
           try {
-            const response = await RoleService.createRole(data);
+            const response = await RoleService.create(data);
             this.$toast.add({
               severity: 'success',
               summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
@@ -322,7 +322,7 @@
       async deleteRole() {
         try {
           const roleID = this.selectedRoles[0]._id;
-          await RoleService.deleteRole({ role: roleID });
+          await RoleService.delete({ role: roleID });
           this.$toast.add({
             severity: 'success',
             summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
@@ -341,7 +341,7 @@
       async deleteSelectedRoles() {
         try {
           const arrayID = this.selectedRoles.map((item) => item._id);
-          await RoleService.deleteRoles({ roles: arrayID });
+          await RoleService.deleteList({ roles: arrayID });
           this.$toast.add({
             severity: 'success',
             summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),
@@ -365,7 +365,7 @@
           newData[permission] ? (newDataFormat.permissions[permission] = true) : null
         );
         try {
-          await RoleService.updateRole(newDataFormat);
+          await RoleService.update(newDataFormat);
           this.$toast.add({
             severity: 'success',
             summary: this.$t('TOAST.SUMMARY.SUCCESSFUL'),

@@ -287,7 +287,7 @@
         this.loading = true;
         try {
           if (this.userPermissions.assignRole) {
-            const responseRoles = await RoleService.fetchRolesList();
+            const responseRoles = await RoleService.getList();
             const roles = responseRoles.data || [];
             this.roles.push(...roles);
           }
