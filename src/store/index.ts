@@ -4,7 +4,7 @@ import UserService from '@/services/UserService';
 import LandService from '@/services/LandService';
 import { AuthResponse } from '@/models/response/AuthResponse';
 import { createStore } from 'vuex';
-import { IUser, IUpdateUser } from '@/models/IUser';
+import { IUser, IEditUser } from '@/models/IUser';
 import { API_URL } from '@/http';
 import { i18n } from '@/i18n';
 
@@ -127,9 +127,9 @@ export default createStore({
       }
     },
 
-    async updateUser({ commit }: any, userData: IUpdateUser) {
+    async updateUser({ commit }: any, userData: IEditUser) {
       try {
-        const response = await UserService.updateUser(userData);
+        const response = await UserService.edit(userData);
         commit('setUser', response.data);
         return { success: true };
       } catch (e: any) {
@@ -140,20 +140,20 @@ export default createStore({
       }
     },
 
-    async getLands({ commit }: any) {
-      try {
-        commit('setLoading', true);
-        const response = await LandService.getLands();
-        commit('setLoading', false);
-        commit('setProducts', response.data);
-        return { success: true };
-      } catch (e: any) {
-        if (e.response?.data?.message) {
-          return { success: false, messageError: e.response.data.message };
-        }
-        return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
-      }
-    },
+    // async getLands({ commit }: any) {
+    //   try {
+    //     commit('setLoading', true);
+    //     const response = await LandService.getLands();
+    //     commit('setLoading', false);
+    //     commit('setProducts', response.data);
+    //     return { success: true };
+    //   } catch (e: any) {
+    //     if (e.response?.data?.message) {
+    //       return { success: false, messageError: e.response.data.message };
+    //     }
+    //     return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
+    //   }
+    // },
   },
 });
 
