@@ -7,4 +7,10 @@ export interface IPermissions {
   deleteRole?: Boolean;
   createUser?: Boolean;
   deleteUser?: Boolean;
+  createCategory?: Boolean;
+  assignCategory?: Boolean;
+  deleteCategory?: Boolean;
+  createCountry?: Boolean;
+  assignCountry?: Boolean;
+  deleteCountry?: Boolean;
 }

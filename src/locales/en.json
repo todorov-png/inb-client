@@ -21,13 +21,17 @@
       "USERS": "users",
       "TEAMS": "teams",
       "LAND": "land",
-      "ROLES": "roles"
+      "ROLES": "roles",
+      "CATEGORY": "category",
+      "COUNTRY": "country"
     },
     "MENU": {
       "PROFILE": "Profile",
       "USERS": "Users",
       "TEAMS": "Teams",
       "ROLES": "Roles",
+      "CATEGORY": "Category",
+      "COUNTRY": "Country",
       "LOG_OUT": "Log Out"
     }
   },
@@ -72,7 +76,13 @@
       "ASSIGN_ROLE": "Assign role",
       "DELETE_ROLE": "Delete role",
       "CREATE_USER": "Create user",
-      "DELETE_USER": "Delete user"
+      "DELETE_USER": "Delete user",
+      "CREATE_CATEGORY": "Create category",
+      "ASSIGN_CATEGORY": "Assign category",
+      "DELETE_CATEGORY": "Delete category",
+      "CREATE_COUNTRY": "Create country",
+      "ASSIGN_COUNTRY": "Assign country",
+      "DELETE_COUNTRY": "Delete country"
     },
     "CREATE_ROLE": {
       "HEADER": "Create role",
@@ -127,6 +137,38 @@
       "HEADER": "Confirm",
       "TEAM": "Are you sure you want to delete the team <b>{name}<b>?",
       "SUCCESSFUL": "Team delete successfully"
+    }
+  },
+
+  "CATEGORIES": {
+    "TABLE": {
+      "TITLE": "Categories",
+      "EMPTY": "Categories not found.",
+      "LOADING": "Loading category data. Please wait.",
+      "SEARCH": "Search"
+    },
+    "COLUMN": {
+      "NAME_CRM": "Name crm",
+      "NAME_SOFTWARE": "Name software"
+    },
+    "CREATE_CATEGORY": {
+      "HEADER": "Create category",
+      "NAME_CRM": "Name crm",
+      "NAME_SOFTWARE": "Name software",
+      "EMPTY_NAME": "Name is required.",
+      "SUCCESSFUL": "Category created successfully"
+    },
+    "CHANGE_CATEGORY": {
+      "HEADER": "Change category",
+      "NAME_CRM": "Name crm",
+      "NAME_SOFTWARE": "Name software",
+      "EMPTY_NAME": "Name is required.",
+      "SUCCESSFUL": "Category change successfully"
+    },
+    "DELETE_CATEGORY": {
+      "HEADER": "Confirm",
+      "CATEGORY": "Are you sure you want to delete the category <b>{name}<b>?",
+      "SUCCESSFUL": "Category delete successfully"
     }
   },
 

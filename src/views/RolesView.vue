@@ -101,6 +101,36 @@
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
+      <Column field="createCategory" :header="$t('ROLES.PERMISSIONS.CREATE_CATEGORY')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
+      <Column field="assignCategory" :header="$t('ROLES.PERMISSIONS.ASSIGN_CATEGORY')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
+      <Column field="deleteCategory" :header="$t('ROLES.PERMISSIONS.DELETE_CATEGORY')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
+      <Column field="createCountry" :header="$t('ROLES.PERMISSIONS.CREATE_COUNTRY')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
+      <Column field="assignCountry" :header="$t('ROLES.PERMISSIONS.ASSIGN_COUNTRY')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
+      <Column field="deleteCountry" :header="$t('ROLES.PERMISSIONS.DELETE_COUNTRY')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
       <Column
         v-if="userPermissions.createRole"
         :rowEditor="true"
@@ -243,6 +273,12 @@
           'deleteRole',
           'createUser',
           'deleteUser',
+          'createCategory',
+          'assignCategory',
+          'deleteCategory',
+          'createCountry',
+          'assignCountry',
+          'deleteCountry',
         ],
         roles: [],
       };

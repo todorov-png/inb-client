@@ -8,6 +8,7 @@ import UsersView from '@/views/UsersView.vue';
 import LoginView from '@/views/LoginView.vue';
 import HomeView from '@/views/HomeView.vue';
 import ProfileView from '@/views/ProfileView.vue';
+import CategoryView from '@/views/CategoryView.vue';
 // import LandView from '@/views/LandView.vue';
 import store from '@/store/index.ts';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -53,6 +54,12 @@ const routes = [
         name: 'roles',
         meta: { requiresAuth: true },
         component: RolesView,
+      },
+      {
+        path: 'category',
+        name: 'category',
+        meta: { requiresAuth: true },
+        component: CategoryView,
       },
     ],
   },

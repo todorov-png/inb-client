@@ -72,7 +72,13 @@
       "ASSIGN_ROLE": "Назначить роль",
       "DELETE_ROLE": "Удалить роль",
       "CREATE_USER": "Создать пользователя",
-      "DELETE_USER": "Удалить пользователя"
+      "DELETE_USER": "Удалить пользователя",
+      "CREATE_CATEGORY": "Создать категорию",
+      "ASSIGN_CATEGORY": "Назначить категорию",
+      "DELETE_CATEGORY": "Удалить категорию",
+      "CREATE_COUNTRY": "Создать страну",
+      "ASSIGN_COUNTRY": "Назначить страну",
+      "DELETE_COUNTRY": "Удалить страну"
     },
     "CREATE_ROLE": {
       "HEADER": "Создать роль",
@@ -127,6 +133,38 @@
       "HEADER": "Подтвердить",
       "TEAM": "Вы уверены, что хотите удалить команду <b>{name}<b>?",
       "SUCCESSFUL": "Команда успешно удалена"
+    }
+  },
+
+  "CATEGORIES": {
+    "TABLE": {
+      "TITLE": "Категории",
+      "EMPTY": "Категории не найдены.",
+      "LOADING": "Идет загрузка данных категорий. Пожалуйста, подождите.",
+      "SEARCH": "Поиск"
+    },
+    "COLUMN": {
+      "NAME_CRM": "Название в crm",
+      "NAME_SOFTWARE": "Название в software"
+    },
+    "CREATE_CATEGORY": {
+      "HEADER": "Создать Категорию",
+      "NAME_CRM": "Название в crm",
+      "NAME_SOFTWARE": "Название в software",
+      "EMPTY_NAME": "Необходимо указать название.",
+      "SUCCESSFUL": "Категория создана успешно"
+    },
+    "CHANGE_CATEGORY": {
+      "HEADER": "Редактировать категорию",
+      "NAME_CRM": "Название в crm",
+      "NAME_SOFTWARE": "Название в software",
+      "EMPTY_NAME": "Необходимо указать название.",
+      "SUCCESSFUL": "Категория успешно отредактирована"
+    },
+    "DELETE_CATEGORY": {
+      "HEADER": "Подтвердить",
+      "CATEGORY": "Вы уверены, что хотите удалить категорию <b>{name}<b>?",
+      "SUCCESSFUL": "Категория успешно удалена"
     }
   },
 

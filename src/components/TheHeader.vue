@@ -62,6 +62,10 @@
             return this.$t('HEADER.TITLE.USERS');
           case 'teams':
             return this.$t('HEADER.TITLE.TEAMS');
+          case 'category':
+            return this.$t('HEADER.TITLE.CATEGORY');
+          case 'country':
+            return this.$t('HEADER.TITLE.COUNTRY');
           // case 'land':
           //   return this.$t('HEADER.TITLE.LAND');
           case 'roles':
@@ -89,8 +93,20 @@
           {
             permissions: ['createTeam', 'deleteTeam'],
             label: this.$t('HEADER.MENU.TEAMS'),
-            icon: 'pi-globe',
+            icon: 'pi-sitemap',
             to: '/teams',
+          },
+          {
+            permissions: ['createCategory', 'deleteCategory'],
+            label: this.$t('HEADER.MENU.CATEGORY'),
+            icon: 'pi-tag',
+            to: '/category',
+          },
+          {
+            permissions: ['createCountry', 'deleteCountry'],
+            label: this.$t('HEADER.MENU.COUNTRY'),
+            icon: 'pi-globe',
+            to: '/country',
           },
           {
             permissions: ['createRole', 'deleteRole'],
