@@ -62,12 +62,12 @@
             return this.$t('HEADER.TITLE.USERS');
           case 'teams':
             return this.$t('HEADER.TITLE.TEAMS');
-          case 'category':
-            return this.$t('HEADER.TITLE.CATEGORY');
-          case 'country':
-            return this.$t('HEADER.TITLE.COUNTRY');
-          // case 'land':
-          //   return this.$t('HEADER.TITLE.LAND');
+          case 'categories':
+            return this.$t('HEADER.TITLE.CATEGORIES');
+          case 'countries':
+            return this.$t('HEADER.TITLE.COUNTRIES');
+          // case 'lands':
+          //   return this.$t('HEADER.TITLE.LANDS');
           case 'roles':
             return this.$t('HEADER.TITLE.ROLES');
           default:
@@ -98,15 +98,15 @@
           },
           {
             permissions: ['createCategory', 'deleteCategory'],
-            label: this.$t('HEADER.MENU.CATEGORY'),
+            label: this.$t('HEADER.MENU.CATEGORIES'),
             icon: 'pi-tag',
-            to: '/category',
+            to: '/categories',
           },
           {
             permissions: ['createCountry', 'deleteCountry'],
-            label: this.$t('HEADER.MENU.COUNTRY'),
+            label: this.$t('HEADER.MENU.COUNTRIES'),
             icon: 'pi-globe',
-            to: '/country',
+            to: '/countries',
           },
           {
             permissions: ['createRole', 'deleteRole'],

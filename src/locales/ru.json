@@ -20,14 +20,18 @@
       "PROFILE": "Профиль",
       "USERS": "Пользователи",
       "TEAMS": "Команды",
-      "LAND": "Ленд",
-      "ROLES": "Роли"
+      "LANDS": "Ленды",
+      "ROLES": "Роли",
+      "CATEGORIES": "Категории",
+      "COUNTRIES": "Страны"
     },
     "MENU": {
       "PROFILE": "Профиль",
       "USERS": "Пользователи",
       "TEAMS": "Команды",
       "ROLES": "Роли",
+      "CATEGORIES": "Категории",
+      "COUNTRIES": "Страны",
       "LOG_OUT": "Выйти"
     }
   },
@@ -148,7 +152,7 @@
       "NAME_SOFTWARE": "Название в software"
     },
     "CREATE_CATEGORY": {
-      "HEADER": "Создать Категорию",
+      "HEADER": "Создать категорию",
       "NAME_CRM": "Название в crm",
       "NAME_SOFTWARE": "Название в software",
       "EMPTY_NAME": "Необходимо указать название.",
@@ -165,6 +169,53 @@
       "HEADER": "Подтвердить",
       "CATEGORY": "Вы уверены, что хотите удалить категорию <b>{name}<b>?",
       "SUCCESSFUL": "Категория успешно удалена"
+    }
+  },
+
+  "COUNTRIES": {
+    "TABLE": {
+      "TITLE": "Страны",
+      "EMPTY": "Страны не найдены.",
+      "LOADING": "Идет загрузка данных стран. Пожалуйста, подождите.",
+      "SEARCH": "Поиск"
+    },
+    "COLUMN": {
+      "NAME_CRM": "Название в crm",
+      "NAME_SOFTWARE": "Название в software",
+      "CURRENCY": "Валюта",
+      "LANG": "Язык",
+      "CALL_CENTER": "Часы работы колл-центра"
+    },
+    "CREATE_COUNTRY": {
+      "HEADER": "Создать страну",
+      "NAME_CRM": "Название в crm",
+      "NAME_SOFTWARE": "Название в software",
+      "EMPTY_NAME": "Необходимо указать название.",
+      "CURRENCY": "Валюта",
+      "EMPTY_CURRENCY": "Необходимо указать валюту.",
+      "LANG": "Язык",
+      "EMPTY_LANG": "Необходимо указать язык.",
+      "CALL_CENTER": "Часы работы колл-центра",
+      "EMPTY_CALL_CENTER": "Необходимо указать часы работы колл-центра.",
+      "SUCCESSFUL": "Страна создана успешно"
+    },
+    "CHANGE_COUNTRY": {
+      "HEADER": "Редактировать страну",
+      "NAME_CRM": "Название в crm",
+      "NAME_SOFTWARE": "Название в software",
+      "EMPTY_NAME": "Необходимо указать название.",
+      "CURRENCY": "Валюта",
+      "EMPTY_CURRENCY": "Необходимо указать валюту.",
+      "LANG": "Язык",
+      "EMPTY_LANG": "Необходимо указать язык.",
+      "CALL_CENTER": "Часы работы колл-центра",
+      "EMPTY_CALL_CENTER": "Необходимо указать часы работы колл-центра.",
+      "SUCCESSFUL": "Страна успешно отредактирована"
+    },
+    "DELETE_COUNTRY": {
+      "HEADER": "Подтвердить",
+      "COUNTRY": "Вы уверены, что хотите удалить страну <b>{name}<b>?",
+      "SUCCESSFUL": "Страна успешно удалена"
     }
   },
 

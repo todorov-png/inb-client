@@ -20,14 +20,18 @@
       "PROFILE": "Профіль",
       "USERS": "Користувачі",
       "TEAMS": "Команди",
-      "LAND": "Ленд",
-      "ROLES": "Ролі"
+      "LANDS": "Ленди",
+      "ROLES": "Ролі",
+      "CATEGORIES": "Категорії",
+      "COUNTRIES": "Країни"
     },
     "MENU": {
       "PROFILE": "Профіль",
       "USERS": "Користувачі",
       "TEAMS": "Команди",
       "ROLES": "Ролі",
+      "CATEGORIES": "Категорії",
+      "COUNTRIES": "Країни",
       "LOG_OUT": "Вийти"
     }
   },
@@ -165,6 +169,53 @@
       "HEADER": "Підтвердити",
       "CATEGORY": "Ви впевнені, що хочете видалити категорію <b>{name}<b>?",
       "SUCCESSFUL": "Категорія успішно видалена"
+    }
+  },
+
+  "COUNTRIES": {
+    "TABLE": {
+      "TITLE": "Країни",
+      "EMPTY": "Країни не знайдени.",
+      "LOADING": "Завантаження даних країн. Зачекайте.",
+      "SEARCH": "Пошук"
+    },
+    "COLUMN": {
+      "NAME_CRM": "Назва в crm",
+      "NAME_SOFTWARE": "Назва в software",
+      "CURRENCY": "Валюта",
+      "LANG": "Мова",
+      "CALL_CENTER": "Години роботи колл-центру"
+    },
+    "CREATE_COUNTRY": {
+      "HEADER": "Створити країну",
+      "NAME_CRM": "Назва в crm",
+      "NAME_SOFTWARE": "Назва в software",
+      "EMPTY_NAME": "Необхідно вказати назву.",
+      "CURRENCY": "Валюта",
+      "EMPTY_CURRENCY": "Необхідно вказати валюту.",
+      "LANG": "Мова",
+      "EMPTY_LANG": "Необхідно вказати мову.",
+      "CALL_CENTER": "Години роботи колл-центру",
+      "EMPTY_CALL_CENTER": "Необхідно вказати години роботи колл-центру.",
+      "SUCCESSFUL": "Країна створена успішно"
+    },
+    "CHANGE_COUNTRY": {
+      "HEADER": "Редагувати країну",
+      "NAME_CRM": "Назва в crm",
+      "NAME_SOFTWARE": "Назва в software",
+      "EMPTY_NAME": "Необхідно вказати назву.",
+      "CURRENCY": "Валюта",
+      "EMPTY_CURRENCY": "Необхідно вказати валюту.",
+      "LANG": "Мова",
+      "EMPTY_LANG": "Необхідно вказати мову.",
+      "CALL_CENTER": "Години роботи колл-центру",
+      "EMPTY_CALL_CENTER": "Необхідно вказати години роботи колл-центру.",
+      "SUCCESSFUL": "Країна успішно відредагована"
+    },
+    "DELETE_COUNTRY": {
+      "HEADER": "Підтвердити",
+      "COUNTRY": "Ви впевнені, що хочете видалити країну <b>{name}<b>?",
+      "SUCCESSFUL": "Країна успішно видалена"
     }
   },
 

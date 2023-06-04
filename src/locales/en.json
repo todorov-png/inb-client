@@ -17,21 +17,21 @@
   "HEADER": {
     "TITLE": {
       "HOME": "home",
-      "PROFILE": "profile",
-      "USERS": "users",
-      "TEAMS": "teams",
-      "LAND": "land",
-      "ROLES": "roles",
-      "CATEGORY": "category",
-      "COUNTRY": "country"
+      "PROFILE": "Profile",
+      "USERS": "Users",
+      "TEAMS": "Teams",
+      "LANDS": "lands",
+      "ROLES": "Roles",
+      "CATEGORIES": "Categories",
+      "COUNTRIES": "Countries"
     },
     "MENU": {
       "PROFILE": "Profile",
       "USERS": "Users",
       "TEAMS": "Teams",
       "ROLES": "Roles",
-      "CATEGORY": "Category",
-      "COUNTRY": "Country",
+      "CATEGORIES": "Categories",
+      "COUNTRIES": "Countries",
       "LOG_OUT": "Log Out"
     }
   },
@@ -169,6 +169,53 @@
       "HEADER": "Confirm",
       "CATEGORY": "Are you sure you want to delete the category <b>{name}<b>?",
       "SUCCESSFUL": "Category delete successfully"
+    }
+  },
+
+  "COUNTRIES": {
+    "TABLE": {
+      "TITLE": "Countries",
+      "EMPTY": "Countries not found.",
+      "LOADING": "Loading country data. Please wait.",
+      "SEARCH": "Search"
+    },
+    "COLUMN": {
+      "NAME_CRM": "Name crm",
+      "NAME_SOFTWARE": "Name software",
+      "CURRENCY": "Currency",
+      "LANG": "Lang",
+      "CALL_CENTER": "Call center hours"
+    },
+    "CREATE_COUNTRY": {
+      "HEADER": "Create country",
+      "NAME_CRM": "Name crm",
+      "NAME_SOFTWARE": "Name software",
+      "EMPTY_NAME": "Name is required.",
+      "CURRENCY": "Currency",
+      "EMPTY_CURRENCY": "Currency is required.",
+      "LANG": "Lang",
+      "EMPTY_LANG": "Lang is required.",
+      "CALL_CENTER": "Call center hours",
+      "EMPTY_CALL_CENTER": "Call center hours is required.",
+      "SUCCESSFUL": "Country created successfully"
+    },
+    "CHANGE_COUNTRY": {
+      "HEADER": "Change country",
+      "NAME_CRM": "Name crm",
+      "NAME_SOFTWARE": "Name software",
+      "EMPTY_NAME": "Name is required.",
+      "CURRENCY": "Currency",
+      "EMPTY_CURRENCY": "Currency is required.",
+      "LANG": "Lang",
+      "EMPTY_LANG": "Lang is required.",
+      "CALL_CENTER": "Call center hours",
+      "EMPTY_CALL_CENTER": "Call center hours is required.",
+      "SUCCESSFUL": "Country change successfully"
+    },
+    "DELETE_COUNTRY": {
+      "HEADER": "Confirm",
+      "COUNTRY": "Are you sure you want to delete the country <b>{name}<b>?",
+      "SUCCESSFUL": "Country delete successfully"
     }
   },
 

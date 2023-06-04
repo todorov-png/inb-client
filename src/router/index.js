@@ -8,8 +8,9 @@ import UsersView from '@/views/UsersView.vue';
 import LoginView from '@/views/LoginView.vue';
 import HomeView from '@/views/HomeView.vue';
 import ProfileView from '@/views/ProfileView.vue';
-import CategoryView from '@/views/CategoryView.vue';
-// import LandView from '@/views/LandView.vue';
+import CategoriesView from '@/views/CategoriesView.vue';
+import CountriesView from '@/views/CountriesView.vue';
+// import LandsView from '@/views/LandsView.vue';
 import store from '@/store/index.ts';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -44,10 +45,10 @@ const routes = [
         component: TeamsView,
       },
       // {
-      //   path: 'land',
-      //   name: 'land',
+      //   path: 'lands',
+      //   name: 'lands',
       //   meta: { requiresAuth: true },
-      //   component: LandView,
+      //   component: LandsView,
       // },
       {
         path: 'roles',
@@ -56,10 +57,16 @@ const routes = [
         component: RolesView,
       },
       {
-        path: 'category',
-        name: 'category',
+        path: 'categories',
+        name: 'categories',
         meta: { requiresAuth: true },
-        component: CategoryView,
+        component: CategoriesView,
+      },
+      {
+        path: 'countries',
+        name: 'countries',
+        meta: { requiresAuth: true },
+        component: CountriesView,
       },
     ],
   },
