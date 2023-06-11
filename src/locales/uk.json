@@ -23,7 +23,8 @@
       "LANDS": "Ленди",
       "ROLES": "Ролі",
       "CATEGORIES": "Категорії",
-      "COUNTRIES": "Країни"
+      "COUNTRIES": "Країни",
+      "PRODUCTS": "Продукти"
     },
     "MENU": {
       "PROFILE": "Профіль",
@@ -32,6 +33,7 @@
       "ROLES": "Ролі",
       "CATEGORIES": "Категорії",
       "COUNTRIES": "Країни",
+      "PRODUCTS": "Продукти",
       "LOG_OUT": "Вийти"
     }
   },
@@ -82,7 +84,9 @@
       "DELETE_CATEGORY": "Видалити категорію",
       "CREATE_COUNTRY": "Створити країну",
       "ASSIGN_COUNTRY": "Призначити країну",
-      "DELETE_COUNTRY": "Видалити країну"
+      "DELETE_COUNTRY": "Видалити країну",
+      "CREATE_PRODUCT": "Створити продукт",
+      "DELETE_PRODUCT": "Видалити продукт"
     },
     "CREATE_ROLE": {
       "HEADER": "Створити роль",
@@ -148,20 +152,20 @@
       "SEARCH": "Пошук"
     },
     "COLUMN": {
-      "NAME_CRM": "Назва в crm",
-      "NAME_SOFTWARE": "Назва в software"
+      "NAME_EN": "Назва англійською",
+      "NAME_RU": "Назва російською"
     },
     "CREATE_CATEGORY": {
       "HEADER": "Створити категорію",
-      "NAME_CRM": "Назва в crm",
-      "NAME_SOFTWARE": "Назва в software",
+      "NAME_EN": "Назва англійською",
+      "NAME_RU": "Назва російською",
       "EMPTY_NAME": "Необхідно вказати назву.",
       "SUCCESSFUL": "Категорія створена успішно"
     },
     "CHANGE_CATEGORY": {
       "HEADER": "Редагувати категорію",
-      "NAME_CRM": "Назва в crm",
-      "NAME_SOFTWARE": "Назва в software",
+      "NAME_EN": "Назва англійською",
+      "NAME_RU": "Назва російською",
       "EMPTY_NAME": "Необхідно вказати назву.",
       "SUCCESSFUL": "Категорія успішно відредагована"
     },
@@ -271,6 +275,66 @@
       "HEADER": "Підтвердити",
       "USER": "Ви впевнені, що хочете видалити користувача <b>{name}<b>?",
       "SUCCESSFUL": "Користувач успішно видалено"
+    }
+  },
+
+  "PRODUCTS": {
+    "TABLE": {
+      "TITLE": "Продукти",
+      "EMPTY": "Продукти не знайдені.",
+      "LOADING": "Завантажується список продуктів. Зачекайте, будь ласка.",
+      "SEARCH": "Пошук"
+    },
+    "COLUMN": {
+      "NAME_CRM": "Ім'я в crm",
+      "NAME_SOFTWARE": "Ім'я в сборці",
+      "PRICE": "Ціна",
+      "COUNTRY": "Країна",
+      "CATEGORY": "Категорія",
+      "AGE_GROUP": "Вікова група"
+    },
+    "CREATE_PRODUCT": {
+      "HEADER": "Створення продукту",
+      "NAME_CRM": "Ім'я в crm",
+      "EMPTY_NAME_CRM": "Потрібне ім'я в crm.",
+      "NAME_SOFTWARE": "Ім'я в сборці",
+      "EMPTY_NAME_SOFTWARE": "Потрібне ім'я в сборці.",
+      "PRICE": "Ціна",
+      "EMPTY_PRICE": "Цена должна быть больше 0",
+      "AGE_GROUP": "Вікова група",
+      "COUNTRY": {
+        "LABEL": "Країна",
+        "DROPDOWN": "Виберіть країну"
+      },
+      "CATEGORY": {
+        "LABEL": "Категорія",
+        "DROPDOWN": "Виберіть категорія"
+      },
+      "SUCCESSFUL": "Продукт успішно створено"
+    },
+    "CHANGE_PRODUCT": {
+      "HEADER": "Редагування продукту",
+      "NAME_CRM": "Ім'я в crm",
+      "EMPTY_NAME_CRM": "Потрібне ім'я в crm.",
+      "NAME_SOFTWARE": "Ім'я в сборці",
+      "EMPTY_NAME_SOFTWARE": "Потрібне ім'я в сборці.",
+      "PRICE": "Ціна",
+      "EMPTY_PRICE": "Цена должна быть больше 0",
+      "AGE_GROUP": "Вікова група",
+      "COUNTRY": {
+        "LABEL": "Країна",
+        "DROPDOWN": "Виберіть країну"
+      },
+      "CATEGORY": {
+        "LABEL": "Категорія",
+        "DROPDOWN": "Виберіть категорія"
+      },
+      "SUCCESSFUL": "Дані продукту успішно змінені"
+    },
+    "DELETE_PRODUCT": {
+      "HEADER": "Підтвердити",
+      "PRODUCT": "Ви впевнені, що хочете видалити продукт <b>{name}<b>?",
+      "SUCCESSFUL": "Продукт успішно видалено"
     }
   },
 

@@ -120,10 +120,12 @@ export default createStore({
           );
         case 'teams':
           return !!(permissions.createTeam || permissions.deleteTeam);
-        case 'category':
+        case 'categories':
           return !!(permissions.createCategory || permissions.deleteCategory);
-        case 'country':
+        case 'countries':
           return !!(permissions.createCountry || permissions.deleteCountry);
+        case 'products':
+          return !!(permissions.createProduct || permissions.deleteProduct);
         case 'roles':
           return !!(permissions.createRole || permissions.deleteRole);
         default:

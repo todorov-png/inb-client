@@ -10,6 +10,7 @@ import HomeView from '@/views/HomeView.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import CategoriesView from '@/views/CategoriesView.vue';
 import CountriesView from '@/views/CountriesView.vue';
+import ProductsView from '@/views/ProductsView.vue';
 // import LandsView from '@/views/LandsView.vue';
 import store from '@/store/index.ts';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -67,6 +68,12 @@ const routes = [
         name: 'countries',
         meta: { requiresAuth: true },
         component: CountriesView,
+      },
+      {
+        path: 'products',
+        name: 'products',
+        meta: { requiresAuth: true },
+        component: ProductsView,
       },
     ],
   },

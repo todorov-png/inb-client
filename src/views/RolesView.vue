@@ -131,6 +131,16 @@
           <Checkbox v-model="data[field]" :binary="true" />
         </template>
       </Column>
+      <Column field="createProduct" :header="$t('ROLES.PERMISSIONS.CREATE_PRODUCT')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
+      <Column field="deleteProduct" :header="$t('ROLES.PERMISSIONS.DELETE_PRODUCT')">
+        <template #editor="{ data, field }">
+          <Checkbox v-model="data[field]" :binary="true" />
+        </template>
+      </Column>
       <Column
         v-if="userPermissions.createRole"
         :rowEditor="true"
@@ -279,6 +289,8 @@
           'createCountry',
           'assignCountry',
           'deleteCountry',
+          'createProduct',
+          'deleteProduct',
         ],
         roles: [],
       };

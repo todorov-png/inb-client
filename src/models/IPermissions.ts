@@ -13,4 +13,6 @@ export interface IPermissions {
   createCountry?: Boolean;
   assignCountry?: Boolean;
   deleteCountry?: Boolean;
+  createProduct?: Boolean;
+  deleteProduct?: Boolean;
 }

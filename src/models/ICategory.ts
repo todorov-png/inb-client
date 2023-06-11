@@ -1,12 +1,12 @@
 export interface ICategory {
   _id?: string;
-  nameCRM: string;
-  nameSoftware: string;
+  nameEN: string;
+  nameRU: string;
 }
 
 export interface ICategoryList {
   _id: string;
-  nameSoftware: string;
+  nameRU: string;
 }
 
 export interface IDeleteCategory {

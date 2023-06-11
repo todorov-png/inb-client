@@ -23,7 +23,8 @@
       "LANDS": "lands",
       "ROLES": "Roles",
       "CATEGORIES": "Categories",
-      "COUNTRIES": "Countries"
+      "COUNTRIES": "Countries",
+      "PRODUCTS": "Products"
     },
     "MENU": {
       "PROFILE": "Profile",
@@ -32,6 +33,7 @@
       "ROLES": "Roles",
       "CATEGORIES": "Categories",
       "COUNTRIES": "Countries",
+      "PRODUCTS": "Products",
       "LOG_OUT": "Log Out"
     }
   },
@@ -82,7 +84,9 @@
       "DELETE_CATEGORY": "Delete category",
       "CREATE_COUNTRY": "Create country",
       "ASSIGN_COUNTRY": "Assign country",
-      "DELETE_COUNTRY": "Delete country"
+      "DELETE_COUNTRY": "Delete country",
+      "CREATE_PRODUCT": "Create product",
+      "DELETE_PRODUCT": "Delete product"
     },
     "CREATE_ROLE": {
       "HEADER": "Create role",
@@ -148,20 +152,20 @@
       "SEARCH": "Search"
     },
     "COLUMN": {
-      "NAME_CRM": "Name crm",
-      "NAME_SOFTWARE": "Name software"
+      "NAME_EN": "Name in English",
+      "NAME_RU": "Name in Russian"
     },
     "CREATE_CATEGORY": {
       "HEADER": "Create category",
-      "NAME_CRM": "Name crm",
-      "NAME_SOFTWARE": "Name software",
+      "NAME_EN": "Name in English",
+      "NAME_RU": "Name in Russian",
       "EMPTY_NAME": "Name is required.",
       "SUCCESSFUL": "Category created successfully"
     },
     "CHANGE_CATEGORY": {
       "HEADER": "Change category",
-      "NAME_CRM": "Name crm",
-      "NAME_SOFTWARE": "Name software",
+      "NAME_EN": "Name in English",
+      "NAME_RU": "Name in Russian",
       "EMPTY_NAME": "Name is required.",
       "SUCCESSFUL": "Category change successfully"
     },
@@ -180,16 +184,16 @@
       "SEARCH": "Search"
     },
     "COLUMN": {
-      "NAME_CRM": "Name crm",
-      "NAME_SOFTWARE": "Name software",
+      "NAME_CRM": "Name in crm",
+      "NAME_SOFTWARE": "Name in software",
       "CURRENCY": "Currency",
       "LANG": "Lang",
       "CALL_CENTER": "Call center hours"
     },
     "CREATE_COUNTRY": {
       "HEADER": "Create country",
-      "NAME_CRM": "Name crm",
-      "NAME_SOFTWARE": "Name software",
+      "NAME_CRM": "Name in crm",
+      "NAME_SOFTWARE": "Name in software",
       "EMPTY_NAME": "Name is required.",
       "CURRENCY": "Currency",
       "EMPTY_CURRENCY": "Currency is required.",
@@ -201,8 +205,8 @@
     },
     "CHANGE_COUNTRY": {
       "HEADER": "Change country",
-      "NAME_CRM": "Name crm",
-      "NAME_SOFTWARE": "Name software",
+      "NAME_CRM": "Name in crm",
+      "NAME_SOFTWARE": "Name in software",
       "EMPTY_NAME": "Name is required.",
       "CURRENCY": "Currency",
       "EMPTY_CURRENCY": "Currency is required.",
@@ -271,6 +275,66 @@
       "HEADER": "Confirm",
       "USER": "Are you sure you want to delete the user <b>{name}<b>?",
       "SUCCESSFUL": "User delete successfully"
+    }
+  },
+
+  "PRODUCTS": {
+    "TABLE": {
+      "TITLE": "Products",
+      "EMPTY": "Products not found.",
+      "LOADING": "Loading Products list. Please wait.",
+      "SEARCH": "Search"
+    },
+    "COLUMN": {
+      "NAME_CRM": "Name in crm",
+      "NAME_SOFTWARE": "Name in software",
+      "PRICE": "Price",
+      "COUNTRY": "Country",
+      "CATEGORY": "Category",
+      "AGE_GROUP": "Age group"
+    },
+    "CREATE_PRODUCT": {
+      "HEADER": "Create products",
+      "NAME_CRM": "Name in crm",
+      "EMPTY_NAME_CRM": "Name in crm is required.",
+      "NAME_SOFTWARE": "Name in software",
+      "EMPTY_NAME_SOFTWARE": "Name in software is required.",
+      "PRICE": "Price",
+      "EMPTY_PRICE": "Price must be greater than 0",
+      "AGE_GROUP": "Age group",
+      "COUNTRY": {
+        "LABEL": "Country",
+        "DROPDOWN": "Select a country"
+      },
+      "CATEGORY": {
+        "LABEL": "Category",
+        "DROPDOWN": "Select a category"
+      },
+      "SUCCESSFUL": "Product create successfully"
+    },
+    "CHANGE_PRODUCT": {
+      "HEADER": "Product change",
+      "NAME_CRM": "Name in crm",
+      "EMPTY_NAME_CRM": "Name in crm is required.",
+      "NAME_SOFTWARE": "Name in software",
+      "EMPTY_NAME_SOFTWARE": "Name in software is required.",
+      "PRICE": "Price",
+      "EMPTY_PRICE": "Price must be greater than 0",
+      "AGE_GROUP": "Age group",
+      "COUNTRY": {
+        "LABEL": "Country",
+        "DROPDOWN": "Select a country"
+      },
+      "CATEGORY": {
+        "LABEL": "Category",
+        "DROPDOWN": "Select a category"
+      },
+      "SUCCESSFUL": "Product change successfully"
+    },
+    "DELETE_PRODUCT": {
+      "HEADER": "Confirm",
+      "PRODUCT": "Are you sure you want to delete the product <b>{name}<b>?",
+      "SUCCESSFUL": "Product delete successfully"
     }
   },
 

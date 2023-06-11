@@ -365,11 +365,12 @@
       },
 
       openChangeModal(event) {
+        const data = JSON.parse(JSON.stringify(event.data));
         this.changeDialog = true;
-        this.selectedUser = event.data;
+        this.selectedUser = data;
         this.selectedUserIndex = event.index;
-        this.selectedRole = event.data.role;
-        this.selectedTeam = event.data.team;
+        this.selectedRole = data.role;
+        this.selectedTeam = data.team;
       },
 
       hideChangeModal() {

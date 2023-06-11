@@ -4,7 +4,7 @@
       v-model:filters="filters"
       :value="countries"
       :loading="loading"
-      :globalFilterFields="['name']"
+      :globalFilterFields="['nameCRM', 'nameSoftware', 'currency', 'lang']"
       :rows="10"
       scrollable
       paginator
@@ -37,7 +37,7 @@
       <Column field="nameSoftware" :header="$t('COUNTRIES.COLUMN.NAME_SOFTWARE')" sortable />
       <Column field="currency" :header="$t('COUNTRIES.COLUMN.CURRENCY')" sortable />
       <Column field="lang" :header="$t('COUNTRIES.COLUMN.LANG')" sortable />
-      <Column field="callCenterSchedule" :header="$t('COUNTRIES.COLUMN.CALL_CENTER')" sortable />
+      <Column field="callCenterSchedule" :header="$t('COUNTRIES.COLUMN.CALL_CENTER')" />
       <Column>
         <template #body="slotProps">
           <div class="flex align-items-center justify-content-end gap-2">
@@ -113,14 +113,7 @@
       </div>
       <div class="field">
         <label for="create_call_center">{{ $t('COUNTRIES.CREATE_COUNTRY.CALL_CENTER') }}</label>
-        <InputText
-          id="create_call_center"
-          v-model.trim="newCountry.callCenterSchedule"
-          :class="{ 'p-invalid': submitted && !newCountry.callCenterSchedule }"
-        />
-        <small class="p-error" v-if="submitted && !newCountry.callCenterSchedule">
-          {{ $t('COUNTRIES.CREATE_COUNTRY.EMPTY_CALL_CENTER') }}
-        </small>
+        <InputText id="create_call_center" v-model.trim="newCountry.callCenterSchedule" />
       </div>
       <template #footer>
         <Button
@@ -190,14 +183,7 @@
       </div>
       <div class="field">
         <label for="change_call_center">{{ $t('COUNTRIES.CHANGE_COUNTRY.CALL_CENTER') }}</label>
-        <InputText
-          id="change_call_center"
-          v-model.trim="selectCountry.callCenterSchedule"
-          :class="{ 'p-invalid': submitted && !selectCountry.callCenterSchedule }"
-        />
-        <small class="p-error" v-if="submitted && !selectCountry.callCenterSchedule">
-          {{ $t('COUNTRIES.CHANGE_COUNTRY.EMPTY_CALL_CENTER') }}
-        </small>
+        <InputText id="change_call_center" v-model.trim="selectCountry.callCenterSchedule" />
       </div>
       <template #footer>
         <Button
@@ -311,8 +297,7 @@
           this.newCountry.nameCRM?.trim() &&
           this.newCountry.nameSoftware?.trim() &&
           this.newCountry.currency?.trim() &&
-          this.newCountry.lang?.trim() &&
-          this.newCountry.callCenterSchedule?.trim()
+          this.newCountry.lang?.trim()
         ) {
           try {
             const response = await CountryService.create(this.newCountry);
@@ -352,8 +337,7 @@
           this.selectCountry.nameCRM?.trim() &&
           this.selectCountry.nameSoftware?.trim() &&
           this.selectCountry.currency?.trim() &&
-          this.selectCountry.lang?.trim() &&
-          this.selectCountry.callCenterSchedule?.trim()
+          this.selectCountry.lang?.trim()
         ) {
           try {
             await CountryService.update(this.selectCountry);

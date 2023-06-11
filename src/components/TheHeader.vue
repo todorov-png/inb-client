@@ -66,6 +66,8 @@
             return this.$t('HEADER.TITLE.CATEGORIES');
           case 'countries':
             return this.$t('HEADER.TITLE.COUNTRIES');
+          case 'products':
+            return this.$t('HEADER.TITLE.PRODUCTS');
           // case 'lands':
           //   return this.$t('HEADER.TITLE.LANDS');
           case 'roles':
@@ -99,7 +101,7 @@
           {
             permissions: ['createCategory', 'deleteCategory'],
             label: this.$t('HEADER.MENU.CATEGORIES'),
-            icon: 'pi-tag',
+            icon: 'pi-tags',
             to: '/categories',
           },
           {
@@ -107,6 +109,12 @@
             label: this.$t('HEADER.MENU.COUNTRIES'),
             icon: 'pi-globe',
             to: '/countries',
+          },
+          {
+            permissions: ['createProduct', 'deleteProduct'],
+            label: this.$t('HEADER.MENU.PRODUCTS'),
+            icon: 'pi-server',
+            to: '/products',
           },
           {
             permissions: ['createRole', 'deleteRole'],
