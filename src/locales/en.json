@@ -152,20 +152,17 @@
       "SEARCH": "Search"
     },
     "COLUMN": {
-      "NAME_EN": "Name in English",
-      "NAME_RU": "Name in Russian"
+      "NAME": "Name"
     },
     "CREATE_CATEGORY": {
       "HEADER": "Create category",
-      "NAME_EN": "Name in English",
-      "NAME_RU": "Name in Russian",
+      "NAME": "Name",
       "EMPTY_NAME": "Name is required.",
       "SUCCESSFUL": "Category created successfully"
     },
     "CHANGE_CATEGORY": {
       "HEADER": "Change category",
-      "NAME_EN": "Name in English",
-      "NAME_RU": "Name in Russian",
+      "NAME": "Name",
       "EMPTY_NAME": "Name is required.",
       "SUCCESSFUL": "Category change successfully"
     },
@@ -184,16 +181,14 @@
       "SEARCH": "Search"
     },
     "COLUMN": {
-      "NAME_CRM": "Name in crm",
-      "NAME_SOFTWARE": "Name in software",
+      "NAME": "Name",
       "CURRENCY": "Currency",
       "LANG": "Lang",
       "CALL_CENTER": "Call center hours"
     },
     "CREATE_COUNTRY": {
       "HEADER": "Create country",
-      "NAME_CRM": "Name in crm",
-      "NAME_SOFTWARE": "Name in software",
+      "NAME": "Name",
       "EMPTY_NAME": "Name is required.",
       "CURRENCY": "Currency",
       "EMPTY_CURRENCY": "Currency is required.",
@@ -205,8 +200,7 @@
     },
     "CHANGE_COUNTRY": {
       "HEADER": "Change country",
-      "NAME_CRM": "Name in crm",
-      "NAME_SOFTWARE": "Name in software",
+      "NAME": "Name",
       "EMPTY_NAME": "Name is required.",
       "CURRENCY": "Currency",
       "EMPTY_CURRENCY": "Currency is required.",

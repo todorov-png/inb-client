@@ -152,20 +152,17 @@
       "SEARCH": "Пошук"
     },
     "COLUMN": {
-      "NAME_EN": "Назва англійською",
-      "NAME_RU": "Назва російською"
+      "NAME": "Назва"
     },
     "CREATE_CATEGORY": {
       "HEADER": "Створити категорію",
-      "NAME_EN": "Назва англійською",
-      "NAME_RU": "Назва російською",
+      "NAME": "Назва",
       "EMPTY_NAME": "Необхідно вказати назву.",
       "SUCCESSFUL": "Категорія створена успішно"
     },
     "CHANGE_CATEGORY": {
       "HEADER": "Редагувати категорію",
-      "NAME_EN": "Назва англійською",
-      "NAME_RU": "Назва російською",
+      "NAME": "Назва",
       "EMPTY_NAME": "Необхідно вказати назву.",
       "SUCCESSFUL": "Категорія успішно відредагована"
     },
@@ -184,16 +181,14 @@
       "SEARCH": "Пошук"
     },
     "COLUMN": {
-      "NAME_CRM": "Назва в crm",
-      "NAME_SOFTWARE": "Назва в software",
+      "NAME": "Назва",
       "CURRENCY": "Валюта",
       "LANG": "Мова",
       "CALL_CENTER": "Години роботи колл-центру"
     },
     "CREATE_COUNTRY": {
       "HEADER": "Створити країну",
-      "NAME_CRM": "Назва в crm",
-      "NAME_SOFTWARE": "Назва в software",
+      "NAME": "Назва",
       "EMPTY_NAME": "Необхідно вказати назву.",
       "CURRENCY": "Валюта",
       "EMPTY_CURRENCY": "Необхідно вказати валюту.",
@@ -205,8 +200,7 @@
     },
     "CHANGE_COUNTRY": {
       "HEADER": "Редагувати країну",
-      "NAME_CRM": "Назва в crm",
-      "NAME_SOFTWARE": "Назва в software",
+      "NAME": "Назва",
       "EMPTY_NAME": "Необхідно вказати назву.",
       "CURRENCY": "Валюта",
       "EMPTY_CURRENCY": "Необхідно вказати валюту.",

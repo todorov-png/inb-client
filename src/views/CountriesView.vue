@@ -4,7 +4,7 @@
       v-model:filters="filters"
       :value="countries"
       :loading="loading"
-      :globalFilterFields="['nameCRM', 'nameSoftware', 'currency', 'lang']"
+      :globalFilterFields="['name', 'currency', 'lang']"
       :rows="10"
       scrollable
       paginator
@@ -33,8 +33,7 @@
           </div>
         </div>
       </template>
-      <Column field="nameCRM" :header="$t('COUNTRIES.COLUMN.NAME_CRM')" sortable />
-      <Column field="nameSoftware" :header="$t('COUNTRIES.COLUMN.NAME_SOFTWARE')" sortable />
+      <Column field="name" :header="$t('COUNTRIES.COLUMN.NAME')" sortable />
       <Column field="currency" :header="$t('COUNTRIES.COLUMN.CURRENCY')" sortable />
       <Column field="lang" :header="$t('COUNTRIES.COLUMN.LANG')" sortable />
       <Column field="callCenterSchedule" :header="$t('COUNTRIES.COLUMN.CALL_CENTER')" />
@@ -68,24 +67,13 @@
       :modal="true"
     >
       <div class="field">
-        <label for="create_name_crm">{{ $t('COUNTRIES.CREATE_COUNTRY.NAME_CRM') }}</label>
+        <label for="create_name">{{ $t('COUNTRIES.CREATE_COUNTRY.NAME') }}</label>
         <InputText
-          id="create_name_crm"
-          v-model.trim="newCountry.nameCRM"
-          :class="{ 'p-invalid': submitted && !newCountry.nameCRM }"
+          id="create_name"
+          v-model.trim="newCountry.name"
+          :class="{ 'p-invalid': submitted && !newCountry.name }"
         />
-        <small class="p-error" v-if="submitted && !newCountry.nameCRM">
-          {{ $t('COUNTRIES.CREATE_COUNTRY.EMPTY_NAME') }}
-        </small>
-      </div>
-      <div class="field">
-        <label for="create_name_software">{{ $t('COUNTRIES.CREATE_COUNTRY.NAME_SOFTWARE') }}</label>
-        <InputText
-          id="create_name_software"
-          v-model.trim="newCountry.nameSoftware"
-          :class="{ 'p-invalid': submitted && !newCountry.nameSoftware }"
-        />
-        <small class="p-error" v-if="submitted && !newCountry.nameSoftware">
+        <small class="p-error" v-if="submitted && !newCountry.name">
           {{ $t('COUNTRIES.CREATE_COUNTRY.EMPTY_NAME') }}
         </small>
       </div>
@@ -138,24 +126,13 @@
       :modal="true"
     >
       <div class="field">
-        <label for="change_name_crm">{{ $t('COUNTRIES.CHANGE_COUNTRY.NAME_CRM') }}</label>
+        <label for="change_name">{{ $t('COUNTRIES.CHANGE_COUNTRY.NAME') }}</label>
         <InputText
-          id="change_name_crm"
-          v-model.trim="selectCountry.nameCRM"
-          :class="{ 'p-invalid': submitted && !selectCountry.nameCRM }"
+          id="change_name"
+          v-model.trim="selectCountry.name"
+          :class="{ 'p-invalid': submitted && !selectCountry.name }"
         />
-        <small class="p-error" v-if="submitted && !selectCountry.nameCRM">
-          {{ $t('COUNTRIES.CHANGE_COUNTRY.EMPTY_NAME') }}
-        </small>
-      </div>
-      <div class="field">
-        <label for="change_name_software">{{ $t('COUNTRIES.CHANGE_COUNTRY.NAME_SOFTWARE') }}</label>
-        <InputText
-          id="change_name_software"
-          v-model.trim="selectCountry.nameSoftware"
-          :class="{ 'p-invalid': submitted && !selectCountry.nameSoftware }"
-        />
-        <small class="p-error" v-if="submitted && !selectCountry.nameSoftware">
+        <small class="p-error" v-if="submitted && !selectCountry.name">
           {{ $t('COUNTRIES.CHANGE_COUNTRY.EMPTY_NAME') }}
         </small>
       </div>
@@ -211,7 +188,7 @@
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
         <span
           v-if="selectCountry"
-          v-html="$t('COUNTRIES.DELETE_COUNTRY.COUNTRY', { name: selectCountry.nameSoftware })"
+          v-html="$t('COUNTRIES.DELETE_COUNTRY.COUNTRY', { name: selectCountry.name })"
         ></span>
       </div>
       <template #footer>
@@ -294,8 +271,7 @@
 
       async createCountry() {
         if (
-          this.newCountry.nameCRM?.trim() &&
-          this.newCountry.nameSoftware?.trim() &&
+          this.newCountry.name?.trim() &&
           this.newCountry.currency?.trim() &&
           this.newCountry.lang?.trim()
         ) {
@@ -308,8 +284,7 @@
               life: 3000,
             });
             this.newCountry._id = response.data._id;
-            this.newCountry.nameCRM = this.newCountry.nameCRM.toLowerCase();
-            this.newCountry.nameSoftware = this.newCountry.nameSoftware.toLowerCase();
+            this.newCountry.name = this.newCountry.name.toLowerCase();
             this.countries.unshift(this.newCountry);
             this.hideCreateModal();
           } catch (e) {
@@ -334,8 +309,7 @@
 
       async changeCountry() {
         if (
-          this.selectCountry.nameCRM?.trim() &&
-          this.selectCountry.nameSoftware?.trim() &&
+          this.selectCountry.name?.trim() &&
           this.selectCountry.currency?.trim() &&
           this.selectCountry.lang?.trim()
         ) {
@@ -348,8 +322,7 @@
               life: 3000,
             });
             const data = this.selectCountry;
-            this.selectCountry.nameCRM = this.selectCountry.nameCRM.toLowerCase();
-            this.selectCountry.nameSoftware = this.selectCountry.nameSoftware.toLowerCase();
+            this.selectCountry.name = this.selectCountry.name.toLowerCase();
             this.countries[this.selectCountryIndex] = data;
             this.hideChangeModal();
           } catch (e) {

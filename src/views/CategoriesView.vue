@@ -4,7 +4,7 @@
       v-model:filters="filters"
       :value="categories"
       :loading="loading"
-      :globalFilterFields="['nameEN', 'nameRU']"
+      :globalFilterFields="['name']"
       :rows="10"
       scrollable
       paginator
@@ -33,8 +33,7 @@
           </div>
         </div>
       </template>
-      <Column field="nameEN" :header="$t('CATEGORIES.COLUMN.NAME_EN')" sortable />
-      <Column field="nameRU" :header="$t('CATEGORIES.COLUMN.NAME_RU')" sortable />
+      <Column field="name" :header="$t('CATEGORIES.COLUMN.NAME')" sortable />
       <Column>
         <template #body="slotProps">
           <div class="flex align-items-center justify-content-end gap-2">
@@ -65,26 +64,15 @@
       :modal="true"
     >
       <div class="field">
-        <label for="create_name_en">{{ $t('CATEGORIES.CREATE_CATEGORY.NAME_EN') }}</label>
-        <InputText
-          id="create_name_en"
-          v-model.trim="newCategory.nameEN"
-          :class="{ 'p-invalid': submitted && !newCategory.nameEN }"
-        />
-        <small class="p-error" v-if="submitted && !newCategory.nameEN">
-          {{ $t('CATEGORIES.CREATE_CATEGORY.EMPTY_NAME') }}
-        </small>
-      </div>
-      <div class="field">
-        <label for="create_name_ru">{{
-          $t('CATEGORIES.CREATE_CATEGORY.NAME_RU')
+        <label for="create_name">{{
+          $t('CATEGORIES.CREATE_CATEGORY.NAME')
         }}</label>
         <InputText
-          id="create_name_ru"
-          v-model.trim="newCategory.nameRU"
-          :class="{ 'p-invalid': submitted && !newCategory.nameRU }"
+          id="create_name"
+          v-model.trim="newCategory.name"
+          :class="{ 'p-invalid': submitted && !newCategory.name }"
         />
-        <small class="p-error" v-if="submitted && !newCategory.nameRU">
+        <small class="p-error" v-if="submitted && !newCategory.name">
           {{ $t('CATEGORIES.CREATE_CATEGORY.EMPTY_NAME') }}
         </small>
       </div>
@@ -111,26 +99,15 @@
       :modal="true"
     >
       <div class="field">
-        <label for="change_name_en">{{ $t('CATEGORIES.CHANGE_CATEGORY.NAME_EN') }}</label>
-        <InputText
-          id="change_name_en"
-          v-model.trim="selectCategory.nameEN"
-          :class="{ 'p-invalid': submitted && !selectCategory.nameEN }"
-        />
-        <small class="p-error" v-if="submitted && !selectCategory.nameEN">
-          {{ $t('CATEGORIES.CHANGE_CATEGORY.EMPTY_NAME') }}
-        </small>
-      </div>
-      <div class="field">
-        <label for="change_name_ru">{{
-          $t('CATEGORIES.CHANGE_CATEGORY.NAME_RU')
+        <label for="change_name">{{
+          $t('CATEGORIES.CHANGE_CATEGORY.NAME')
         }}</label>
         <InputText
-          id="change_name_ru"
-          v-model.trim="selectCategory.nameRU"
-          :class="{ 'p-invalid': submitted && !selectCategory.nameRU }"
+          id="change_name"
+          v-model.trim="selectCategory.name"
+          :class="{ 'p-invalid': submitted && !selectCategory.name }"
         />
-        <small class="p-error" v-if="submitted && !selectCategory.nameRU">
+        <small class="p-error" v-if="submitted && !selectCategory.name">
           {{ $t('CATEGORIES.CHANGE_CATEGORY.EMPTY_NAME') }}
         </small>
       </div>
@@ -160,7 +137,7 @@
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
         <span
           v-if="selectCategory"
-          v-html="$t('CATEGORIES.DELETE_CATEGORY.CATEGORY', { name: selectCategory.nameRU })"
+          v-html="$t('CATEGORIES.DELETE_CATEGORY.CATEGORY', { name: selectCategory.name })"
         ></span>
       </div>
       <template #footer>
@@ -242,7 +219,7 @@
       },
 
       async createCategory() {
-        if (this.newCategory.nameEN?.trim() && this.newCategory.nameRU?.trim()) {
+        if (this.newCategory.name?.trim()) {
           try {
             const response = await CategoryService.create(this.newCategory);
             this.$toast.add({
@@ -252,8 +229,7 @@
               life: 3000,
             });
             this.newCategory._id = response.data._id;
-            this.newCategory.nameEN = this.newCategory.nameEN.toLowerCase();
-            this.newCategory.nameRU = this.newCategory.nameRU.toLowerCase();
+            this.newCategory.name = this.newCategory.name.toLowerCase();
             this.categories.unshift(this.newCategory);
             this.hideCreateModal();
           } catch (e) {
@@ -277,7 +253,7 @@
       },
 
       async changeCategory() {
-        if (this.selectCategory.nameEN?.trim() && this.selectCategory.nameRU?.trim()) {
+        if (this.selectCategory.name?.trim()) {
           try {
             await CategoryService.update(this.selectCategory);
             this.$toast.add({
@@ -287,8 +263,7 @@
               life: 3000,
             });
             const data = this.selectCategory;
-            this.selectCategory.nameEN = this.selectCategory.nameEN.toLowerCase();
-            this.selectCategory.nameRU = this.selectCategory.nameRU.toLowerCase();
+            this.selectCategory.name = this.selectCategory.name.toLowerCase();
             this.categories[this.selectCategoryIndex] = data;
             this.hideChangeModal();
           } catch (e) {
