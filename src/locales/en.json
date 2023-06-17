@@ -280,8 +280,7 @@
       "SEARCH": "Search"
     },
     "COLUMN": {
-      "NAME_CRM": "Name in crm",
-      "NAME_SOFTWARE": "Name in software",
+      "NAME": "Name",
       "PRICE": "Price",
       "COUNTRY": "Country",
       "CATEGORY": "Category",
@@ -289,10 +288,8 @@
     },
     "CREATE_PRODUCT": {
       "HEADER": "Create products",
-      "NAME_CRM": "Name in crm",
-      "EMPTY_NAME_CRM": "Name in crm is required.",
-      "NAME_SOFTWARE": "Name in software",
-      "EMPTY_NAME_SOFTWARE": "Name in software is required.",
+      "NAME": "Name",
+      "EMPTY_NAME": "Name is required.",
       "PRICE": "Price",
       "EMPTY_PRICE": "Price must be greater than 0",
       "AGE_GROUP": "Age group",
@@ -308,10 +305,8 @@
     },
     "CHANGE_PRODUCT": {
       "HEADER": "Product change",
-      "NAME_CRM": "Name in crm",
-      "EMPTY_NAME_CRM": "Name in crm is required.",
-      "NAME_SOFTWARE": "Name in software",
-      "EMPTY_NAME_SOFTWARE": "Name in software is required.",
+      "NAME": "Name",
+      "EMPTY_NAME": "Name is required.",
       "PRICE": "Price",
       "EMPTY_PRICE": "Price must be greater than 0",
       "AGE_GROUP": "Age group",

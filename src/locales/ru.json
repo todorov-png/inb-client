@@ -280,8 +280,7 @@
       "SEARCH": "Поиск"
     },
     "COLUMN": {
-      "NAME_CRM": "Имя в crm",
-      "NAME_SOFTWARE": "Имя в сборке",
+      "NAME": "Имя",
       "PRICE": "Цена",
       "COUNTRY": "Страна",
       "CATEGORY": "Категория",
@@ -289,10 +288,8 @@
     },
     "CREATE_PRODUCT": {
       "HEADER": "Создание продукта",
-      "NAME_CRM": "Имя в crm",
-      "EMPTY_NAME_CRM": "Имя в crm обязательно.",
-      "NAME_SOFTWARE": "Имя в сборке",
-      "EMPTY_NAME_SOFTWARE": "Имя в сборке обязательно.",
+      "NAME": "Имя",
+      "EMPTY_NAME": "Имя обязательно.",
       "PRICE": "Цена",
       "EMPTY_PRICE": "Цена должна быть больше 0",
       "AGE_GROUP": "Возрастная группа",
@@ -308,10 +305,8 @@
     },
     "CHANGE_PRODUCT": {
       "HEADER": "Редактирование продукта",
-      "NAME_CRM": "Имя в crm",
-      "EMPTY_NAME_CRM": "Имя в crm обязательно.",
-      "NAME_SOFTWARE": "Имя в сборке",
-      "EMPTY_NAME_SOFTWARE": "Имя в сборке обязательно.",
+      "NAME": "Имя",
+      "EMPTY_NAME": "Имя обязательно.",
       "PRICE": "Цена",
       "EMPTY_PRICE": "Цена должна быть больше 0",
       "AGE_GROUP": "Возрастная группа",

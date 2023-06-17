@@ -1,7 +1,6 @@
 export interface IProduct {
   _id?: string;
-  nameCRM: string;
-  nameSoftware: string;
+  name: string;
   price: number;
   country: string;
   category: string;

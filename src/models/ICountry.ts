@@ -1,7 +1,6 @@
 export interface ICountry {
   _id?: string;
-  nameCRM: string;
-  nameSoftware: string;
+  name: string;
   currency: string;
   lang: string;
   callCenterSchedule: string;
@@ -9,7 +8,7 @@ export interface ICountry {
 
 export interface ICountryList {
   _id: string;
-  nameSoftware: string;
+  name: string;
 }
 
 export interface IDeleteCountry {

@@ -1,12 +1,11 @@
 export interface ICategory {
   _id?: string;
-  nameEN: string;
-  nameRU: string;
+  name: string;
 }
 
 export interface ICategoryList {
   _id: string;
-  nameRU: string;
+  name: string;
 }
 
 export interface IDeleteCategory {

@@ -6,11 +6,10 @@
       :value="products"
       :loading="loading"
       :globalFilterFields="[
-        'nameCRM',
-        'nameSoftware',
+        'name',
         'price',
-        'country.nameSoftware',
-        'category.nameRU',
+        'country.name',
+        'category.name',
       ]"
       :rows="10"
       scrollable
@@ -40,11 +39,10 @@
           </div>
         </div>
       </template>
-      <Column field="nameCRM" :header="$t('PRODUCTS.COLUMN.NAME_CRM')" sortable />
-      <Column field="nameSoftware" :header="$t('PRODUCTS.COLUMN.NAME_SOFTWARE')" sortable />
+      <Column field="name" :header="$t('PRODUCTS.COLUMN.NAME')" sortable />
       <Column field="price" :header="$t('PRODUCTS.COLUMN.PRICE')" sortable />
-      <Column field="country.nameSoftware" :header="$t('PRODUCTS.COLUMN.COUNTRY')" sortable />
-      <Column field="category.nameRU" :header="$t('PRODUCTS.COLUMN.CATEGORY')" sortable />
+      <Column field="country.name" :header="$t('PRODUCTS.COLUMN.COUNTRY')" sortable />
+      <Column field="category.name" :header="$t('PRODUCTS.COLUMN.CATEGORY')" sortable />
       <Column field="ageGroup" :header="$t('PRODUCTS.COLUMN.AGE_GROUP')" />
       <Column>
         <template #body="slotProps">
@@ -76,24 +74,13 @@
       :modal="true"
     >
       <div class="field">
-        <label for="create_name_crm">{{ $t('PRODUCTS.CREATE_PRODUCT.NAME_CRM') }}</label>
+        <label for="create_name">{{ $t('PRODUCTS.CREATE_PRODUCT.NAME') }}</label>
         <InputText
-          id="create_name_crm"
-          v-model.trim="product.nameCRM"
-          :class="{ 'p-invalid': submitted && !product.nameCRM }"
+          id="create_name"
+          v-model.trim="product.name"
+          :class="{ 'p-invalid': submitted && !product.name }"
         />
-        <small class="p-error" v-if="submitted && !product.nameCRM">
-          {{ $t('PRODUCTS.CREATE_PRODUCT.EMPTY_NAME') }}
-        </small>
-      </div>
-      <div class="field">
-        <label for="create_name_software">{{ $t('PRODUCTS.CREATE_PRODUCT.NAME_SOFTWARE') }}</label>
-        <InputText
-          id="create_name_software"
-          v-model.trim="product.nameSoftware"
-          :class="{ 'p-invalid': submitted && !product.nameSoftware }"
-        />
-        <small class="p-error" v-if="submitted && !product.nameSoftware">
+        <small class="p-error" v-if="submitted && !product.name">
           {{ $t('PRODUCTS.CREATE_PRODUCT.EMPTY_NAME') }}
         </small>
       </div>
@@ -119,7 +106,7 @@
           v-model="selectedCountry"
           :options="countries"
           :placeholder="$t('PRODUCTS.CREATE_PRODUCT.COUNTRY.DROPDOWN')"
-          optionLabel="nameSoftware"
+          optionLabel="name"
           class="w-full"
           filter
         />
@@ -131,7 +118,7 @@
           v-model="selectedCategory"
           :options="categories"
           :placeholder="$t('PRODUCTS.CREATE_PRODUCT.CATEGORY.DROPDOWN')"
-          optionLabel="nameRU"
+          optionLabel="name"
           class="w-full"
           filter
         />
@@ -163,24 +150,13 @@
       :modal="true"
     >
       <div class="field">
-        <label for="change_name_crm">{{ $t('PRODUCTS.CHANGE_PRODUCT.NAME_CRM') }}</label>
+        <label for="change_name">{{ $t('PRODUCTS.CHANGE_PRODUCT.NAME') }}</label>
         <InputText
-          id="change_name_crm"
-          v-model.trim="selectedProduct.nameCRM"
-          :class="{ 'p-invalid': submitted && !selectedProduct.nameCRM }"
+          id="change_name"
+          v-model.trim="selectedProduct.name"
+          :class="{ 'p-invalid': submitted && !selectedProduct.name }"
         />
-        <small class="p-error" v-if="submitted && !selectedProduct.nameCRM">
-          {{ $t('PRODUCTS.CHANGE_PRODUCT.EMPTY_NAME') }}
-        </small>
-      </div>
-      <div class="field">
-        <label for="change_name_software">{{ $t('PRODUCTS.CHANGE_PRODUCT.NAME_SOFTWARE') }}</label>
-        <InputText
-          id="change_name_software"
-          v-model.trim="selectedProduct.nameSoftware"
-          :class="{ 'p-invalid': submitted && !selectedProduct.nameSoftware }"
-        />
-        <small class="p-error" v-if="submitted && !selectedProduct.nameSoftware">
+        <small class="p-error" v-if="submitted && !selectedProduct.name">
           {{ $t('PRODUCTS.CHANGE_PRODUCT.EMPTY_NAME') }}
         </small>
       </div>
@@ -206,7 +182,7 @@
           v-model="selectedCountry"
           :options="countries"
           :placeholder="$t('PRODUCTS.CHANGE_PRODUCT.COUNTRY.DROPDOWN')"
-          optionLabel="nameSoftware"
+          optionLabel="name"
           class="w-full"
           filter
         />
@@ -218,7 +194,7 @@
           v-model="selectedCategory"
           :options="categories"
           :placeholder="$t('PRODUCTS.CHANGE_PRODUCT.CATEGORY.DROPDOWN')"
-          optionLabel="nameRU"
+          optionLabel="name"
           class="w-full"
           filter
         />
@@ -253,7 +229,7 @@
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
         <span
           v-if="selectedProduct"
-          v-html="$t('PRODUCTS.DELETE_PRODUCT.PRODUCT', { name: selectedProduct.nameSoftware })"
+          v-html="$t('PRODUCTS.DELETE_PRODUCT.PRODUCT', { name: selectedProduct.name })"
         ></span>
       </div>
       <template #footer>
@@ -305,8 +281,8 @@
         selectedCountry: null,
         selectedCategory: null,
         selectedProductIndex: null,
-        countries: [{ nameSoftware: '------', _id: null }],
-        categories: [{ nameRU: '------', _id: null }],
+        countries: [{ name: '------', _id: null }],
+        categories: [{ name: '------', _id: null }],
       };
     },
 
@@ -349,8 +325,8 @@
       },
 
       formattingProduct(product) {
-        product.country ? null : (product.country = { nameSoftware: '------', _id: null });
-        product.category ? null : (product.category = { nameRU: '------', _id: null });
+        product.country ? null : (product.country = { name: '------', _id: null });
+        product.category ? null : (product.category = { name: '------', _id: null });
         product.price ? null : (product.price = 0);
         return product;
       },
@@ -370,13 +346,11 @@
 
       async createProduct() {
         if (
-          this.product.nameCRM?.trim() &&
-          this.product.nameSoftware?.trim() &&
+          this.product.name?.trim() &&
           this.product.price > 0
         ) {
           const data = {
-            nameCRM: this.product.nameCRM,
-            nameSoftware: this.product.nameSoftware,
+            name: this.product.name,
             price: this.product.price,
             country: this.selectedCountry._id,
             category: this.selectedCategory._id,
@@ -392,8 +366,7 @@
             });
             this.products.unshift({
               _id: response.data._id,
-              nameCRM: this.product.nameCRM,
-              nameSoftware: this.product.nameSoftware,
+              name: this.product.name,
               price: this.product.price,
               country: this.selectedCountry,
               category: this.selectedCategory,
@@ -425,14 +398,12 @@
 
       async updateProduct() {
         if (
-          this.selectedProduct.nameCRM?.trim() &&
-          this.selectedProduct.nameSoftware?.trim() &&
+          this.selectedProduct.name?.trim() &&
           this.selectedProduct.price > 0
         ) {
           const data = {
             _id: this.selectedProduct._id,
-            nameCRM: this.selectedProduct.nameCRM,
-            nameSoftware: this.selectedProduct.nameSoftware,
+            name: this.selectedProduct.name,
             price: this.selectedProduct.price,
             country: this.selectedCountry._id,
             category: this.selectedCategory._id,
@@ -448,8 +419,7 @@
             });
             this.products[this.selectedProductIndex] = {
               _id: this.selectedProduct._id,
-              nameCRM: this.selectedProduct.nameCRM,
-              nameSoftware: this.selectedProduct.nameSoftware,
+              name: this.selectedProduct.name,
               price: this.selectedProduct.price,
               country: this.selectedCountry,
               category: this.selectedCategory,
