@@ -1,7 +1,8 @@
 import axios from 'axios';
 import AuthService from '@/services/AuthService';
 import UserService from '@/services/UserService';
-import LandService from '@/services/LandService';
+// import LandService from '@/services/LandService';
+import ProductService from '@/services/ProductService';
 import { AuthResponse } from '@/models/response/AuthResponse';
 import { createStore } from 'vuex';
 import { IUser, IEditUser } from '@/models/IUser';
@@ -145,21 +146,21 @@ export default createStore({
         return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
       }
     },
-
-    // async getLands({ commit }: any) {
-    //   try {
-    //     commit('setLoading', true);
-    //     const response = await LandService.getLands();
-    //     commit('setLoading', false);
-    //     commit('setProducts', response.data);
-    //     return { success: true };
-    //   } catch (e: any) {
-    //     if (e.response?.data?.message) {
-    //       return { success: false, messageError: e.response.data.message };
-    //     }
-    //     return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
-    //   }
-    // },
+    
+    async getProducts({ commit }: any) {
+      try {
+        commit('setLoading', true);
+        const response = await ProductService.getProducts();
+        commit('setLoading', false);
+        commit('setProducts', response.data);
+        return { success: true };
+      } catch (e: any) {
+        if (e.response?.data?.message) {
+          return { success: false, messageError: e.response.data.message };
+        }
+        return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
+      }
+    },
   },
 });
 

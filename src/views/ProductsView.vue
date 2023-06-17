@@ -5,12 +5,7 @@
       v-model="balanceFrozen"
       :value="products"
       :loading="loading"
-      :globalFilterFields="[
-        'name',
-        'price',
-        'country.name',
-        'category.name',
-      ]"
+      :globalFilterFields="['name', 'price', 'country.name', 'category.name']"
       :rows="10"
       scrollable
       paginator
@@ -106,10 +101,14 @@
           v-model="selectedCountry"
           :options="countries"
           :placeholder="$t('PRODUCTS.CREATE_PRODUCT.COUNTRY.DROPDOWN')"
+          :class="{ 'p-invalid': submitted && !selectedCountry?._id }"
           optionLabel="name"
           class="w-full"
           filter
         />
+        <small class="p-error" v-if="submitted && !selectedCountry?._id">
+          {{ $t('PRODUCTS.CREATE_PRODUCT.COUNTRY.EMPTY') }}
+        </small>
       </div>
       <div class="field" v-if="userPermissions.assignCategory">
         <label for="create_category">{{ $t('PRODUCTS.CREATE_PRODUCT.CATEGORY.LABEL') }}</label>
@@ -118,10 +117,14 @@
           v-model="selectedCategory"
           :options="categories"
           :placeholder="$t('PRODUCTS.CREATE_PRODUCT.CATEGORY.DROPDOWN')"
+          :class="{ 'p-invalid': submitted && !selectedCategory?._id }"
           optionLabel="name"
           class="w-full"
           filter
         />
+        <small class="p-error" v-if="submitted && !selectedCategory?._id">
+          {{ $t('PRODUCTS.CREATE_PRODUCT.CATEGORY.EMPTY') }}
+        </small>
       </div>
       <div class="field">
         <label for="create_age_group">{{ $t('PRODUCTS.CREATE_PRODUCT.AGE_GROUP') }}</label>
@@ -182,10 +185,14 @@
           v-model="selectedCountry"
           :options="countries"
           :placeholder="$t('PRODUCTS.CHANGE_PRODUCT.COUNTRY.DROPDOWN')"
+          :class="{ 'p-invalid': submitted && !product.selectedCountry?._id }"
           optionLabel="name"
           class="w-full"
           filter
         />
+        <small class="p-error" v-if="submitted && !product.selectedCountry?._id">
+          {{ $t('PRODUCTS.CHANGE_PRODUCT.COUNTRY.EMPTY') }}
+        </small>
       </div>
       <div class="field" v-if="userPermissions.assignCategory">
         <label for="change_category">{{ $t('PRODUCTS.CHANGE_PRODUCT.CATEGORY.LABEL') }}</label>
@@ -194,10 +201,14 @@
           v-model="selectedCategory"
           :options="categories"
           :placeholder="$t('PRODUCTS.CHANGE_PRODUCT.CATEGORY.DROPDOWN')"
+          :class="{ 'p-invalid': submitted && !product.selectedCategory?._id }"
           optionLabel="name"
           class="w-full"
           filter
         />
+        <small class="p-error" v-if="submitted && !product.selectedCategory?._id">
+          {{ $t('PRODUCTS.CHANGE_PRODUCT.CATEGORY.EMPTY') }}
+        </small>
       </div>
       <div class="field">
         <label for="change_age_group">{{ $t('PRODUCTS.CHANGE_PRODUCT.AGE_GROUP') }}</label>
@@ -347,7 +358,9 @@
       async createProduct() {
         if (
           this.product.name?.trim() &&
-          this.product.price > 0
+          this.product.price > 0 &&
+          this.selectedCountry._id &&
+          this.selectedCategory._id
         ) {
           const data = {
             name: this.product.name,
@@ -399,7 +412,9 @@
       async updateProduct() {
         if (
           this.selectedProduct.name?.trim() &&
-          this.selectedProduct.price > 0
+          this.selectedProduct.price > 0 &&
+          this.selectedCountry._id &&
+          this.selectedCategory._id
         ) {
           const data = {
             _id: this.selectedProduct._id,

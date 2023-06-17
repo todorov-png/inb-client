@@ -52,7 +52,7 @@
   import Carousel from 'primevue/carousel';
   import Button from 'primevue/button';
   // import Galleria from 'primevue/galleria';
-  // import { mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
 
   export default {
     components: {
@@ -84,9 +84,9 @@
       };
     },
 
-    // created() {
-    //   this.getData();
-    // },
+    created() {
+      this.getData();
+    },
 
     computed: {
       products() {
@@ -98,19 +98,19 @@
     },
 
     methods: {
-      // ...mapActions(['getLands']),
+      ...mapActions(['getProducts']),
 
-      // async getData() {
-      //   const response = await this.getLands();
-      //   if (!response.success) {
-      //     this.$toast.add({
-      //       severity: 'error',
-      //       summary: this.$t('TOAST.SUMMARY.ERROR'),
-      //       detail: response.messageError,
-      //       life: 3000,
-      //     });
-      //   }
-      // },
+      async getData() {
+        const response = await this.getProducts();
+        if (!response.success) {
+          this.$toast.add({
+            severity: 'error',
+            summary: this.$t('TOAST.SUMMARY.ERROR'),
+            detail: response.messageError,
+            life: 3000,
+          });
+        }
+      },
 
       pathScreenshotsDesktop(id) {
         return `${this.env.VUE_APP_SCREENSHOTS_URL}/${id}/desktop.webp`;

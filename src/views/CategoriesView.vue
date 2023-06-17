@@ -64,9 +64,7 @@
       :modal="true"
     >
       <div class="field">
-        <label for="create_name">{{
-          $t('CATEGORIES.CREATE_CATEGORY.NAME')
-        }}</label>
+        <label for="create_name">{{ $t('CATEGORIES.CREATE_CATEGORY.NAME') }}</label>
         <InputText
           id="create_name"
           v-model.trim="newCategory.name"
@@ -99,9 +97,7 @@
       :modal="true"
     >
       <div class="field">
-        <label for="change_name">{{
-          $t('CATEGORIES.CHANGE_CATEGORY.NAME')
-        }}</label>
+        <label for="change_name">{{ $t('CATEGORIES.CHANGE_CATEGORY.NAME') }}</label>
         <InputText
           id="change_name"
           v-model.trim="selectCategory.name"

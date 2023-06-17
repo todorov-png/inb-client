@@ -295,11 +295,13 @@
       "AGE_GROUP": "Age group",
       "COUNTRY": {
         "LABEL": "Country",
-        "DROPDOWN": "Select a country"
+        "DROPDOWN": "Select a country",
+        "EMPTY": "Country is required."
       },
       "CATEGORY": {
         "LABEL": "Category",
-        "DROPDOWN": "Select a category"
+        "DROPDOWN": "Select a category",
+        "EMPTY": "Category is required."
       },
       "SUCCESSFUL": "Product create successfully"
     },
@@ -312,11 +314,13 @@
       "AGE_GROUP": "Age group",
       "COUNTRY": {
         "LABEL": "Country",
-        "DROPDOWN": "Select a country"
+        "DROPDOWN": "Select a country",
+        "EMPTY": "Country is required."
       },
       "CATEGORY": {
         "LABEL": "Category",
-        "DROPDOWN": "Select a category"
+        "DROPDOWN": "Select a category",
+        "EMPTY": "Category is required."
       },
       "SUCCESSFUL": "Product change successfully"
     },

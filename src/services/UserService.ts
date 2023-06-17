@@ -14,7 +14,7 @@ export default class UserService {
   static async getAll(): Promise<AxiosResponse<IUser[]>> {
     return $api.get<IUser[]>('/user/all');
   }
-  
+
   static async update(data: IUpdateUser): Promise<AxiosResponse<IUser>> {
     return $api.put<IUser>('/user', data);
   }

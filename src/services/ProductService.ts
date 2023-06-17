@@ -1,6 +1,6 @@
 import $api from '@/http';
 import { AxiosResponse } from 'axios';
-import { IProduct, IDeleteProduct } from '@/models/IProduct';
+import { IProduct, IDeleteProduct, IProductUser } from '@/models/IProduct';
 
 export default class ProductService {
   static async getAll(): Promise<AxiosResponse<IProduct[]>> {
@@ -17,5 +17,9 @@ export default class ProductService {
 
   static async delete(data: IDeleteProduct): Promise<AxiosResponse> {
     return $api.delete('/product', { data });
+  }
+
+  static async getProducts(): Promise<AxiosResponse<IProductUser[]>> {
+    return $api.get<IProductUser[]>('/products');
   }
 }
