@@ -24,7 +24,8 @@
       "ROLES": "Roles",
       "CATEGORIES": "Categories",
       "COUNTRIES": "Countries",
-      "PRODUCTS": "Products"
+      "PRODUCTS": "Products",
+      "PRODUCT": "Product"
     },
     "MENU": {
       "PROFILE": "Profile",
@@ -281,6 +282,7 @@
     },
     "COLUMN": {
       "NAME": "Name",
+      "PHOTO": "Photo",
       "PRICE": "Price",
       "COUNTRY": "Country",
       "CATEGORY": "Category",

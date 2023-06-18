@@ -24,7 +24,8 @@
       "ROLES": "Роли",
       "CATEGORIES": "Категории",
       "COUNTRIES": "Страны",
-      "PRODUCTS": "Продукты"
+      "PRODUCTS": "Продукты",
+      "PRODUCT": "Продукт"
     },
     "MENU": {
       "PROFILE": "Профиль",
@@ -281,6 +282,7 @@
     },
     "COLUMN": {
       "NAME": "Имя",
+      "PHOTO": "Фото",
       "PRICE": "Цена",
       "COUNTRY": "Страна",
       "CATEGORY": "Категория",

@@ -68,6 +68,8 @@
             return this.$t('HEADER.TITLE.COUNTRIES');
           case 'products':
             return this.$t('HEADER.TITLE.PRODUCTS');
+          case 'product':
+            return this.$t('HEADER.TITLE.PRODUCT');
           // case 'lands':
           //   return this.$t('HEADER.TITLE.LANDS');
           case 'roles':

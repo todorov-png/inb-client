@@ -10,10 +10,10 @@ export interface IProduct {
 export interface IProductUser {
   _id?: string;
   name: string;
+  photo: string;
   price: number;
   country: string;
   category: string;
-  image: string;
 }
 
 export interface IDeleteProduct {

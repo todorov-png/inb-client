@@ -23,9 +23,9 @@
         </div>
       </div>
     </template>
-    <Column header="Image">
+    <Column :header="$t('PRODUCTS.COLUMN.PHOTO')">
       <template #body="slotProps">
-        <img :src="slotProps.data.image" :alt="slotProps.data.name" class="w-6rem border-round" />
+        <img :src="slotProps.data.photo" :alt="slotProps.data.name" class="w-6rem border-round" />
       </template>
     </Column>
     <Column field="name" :header="$t('PRODUCTS.COLUMN.NAME')" sortable></Column>
