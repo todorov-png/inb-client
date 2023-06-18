@@ -1,99 +1,80 @@
 <template>
-  <Accordion v-if="true" :multiple="true" :activeIndex="[0]">
-    <template v-for="(product, key) in products" :key="key">
-      <AccordionTab :header="product[0].product">
-        <Carousel
-          :value="product"
-          :numVisible="3"
-          :numScroll="3"
-          :responsiveOptions="responsiveOptions"
-        >
-          <template #item="slotProps">
-            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
-              <div class="overflow-auto max-h-30rem mb-3">
-                <img :src="pathScreenshotsDesktop(slotProps.data._id)" class="w-full" alt="" />
-              </div>
-              <div>
-                <h4 class="mb-1">{{ slotProps.data.country }}</h4>
-                <!-- <h6 class="mt-0 mb-3">${{ slotProps.data.price }}</h6> -->
-                <!-- <Tag
-                  :value="slotProps.data.inventoryStatus"
-                  :severity="getSeverity(slotProps.data.inventoryStatus)"
-                /> -->
-                <div class="mt-5">
-                  <Button icon="pi pi-search" rounded class="mr-2" />
-                  <Button icon="pi pi-star-fill" rounded severity="success" class="mr-2" />
-                </div>
-              </div>
-            </div>
-          </template>
-        </Carousel>
-        <!-- <Galleria
-          :value="product"
-          :circular="true"
-          containerStyle="max-width: 640px; margin: 0 auto;"
-          :showItemNavigators="true"
-          :showThumbnails="false"
-        >
-          <template #item="slotProps">
-            <div class="overflow-auto max-h-30rem">
-              <img :src="pathScreenshotsDesktop(slotProps.item._id)" class="w-full" alt="" />
-            </div>
-          </template>
-        </Galleria> -->
-      </AccordionTab>
+  <DataTable
+    v-model:filters="filters"
+    :value="products"
+    :loading="loading"
+    :globalFilterFields="['name', 'country', 'category']"
+    scrollable
+  >
+    <template #empty>{{ $t('PRODUCTS.TABLE.EMPTY') }}</template>
+    <template #loading>{{ $t('PRODUCTS.TABLE.LOADING') }}</template>
+    <template #header>
+      <div class="flex flex-wrap align-items-center justify-content-between">
+        <div class="flex align-items-center gap-2">
+          <span class="text-xl text-900 font-bold">{{ $t('PRODUCTS.TABLE.TITLE') }}</span>
+        </div>
+        <div class="p-input-icon-left w-auto">
+          <i class="pi pi-search" />
+          <InputText
+            v-model="filters['global'].value"
+            class="max-w-12rem"
+            :placeholder="$t('PRODUCTS.TABLE.SEARCH')"
+          />
+        </div>
+      </div>
     </template>
-  </Accordion>
+    <Column header="Image">
+      <template #body="slotProps">
+        <img :src="slotProps.data.image" :alt="slotProps.data.name" class="w-6rem border-round" />
+      </template>
+    </Column>
+    <Column field="name" :header="$t('PRODUCTS.COLUMN.NAME')" sortable></Column>
+    <Column field="price" :header="$t('PRODUCTS.COLUMN.PRICE')"></Column>
+    <Column field="country" :header="$t('PRODUCTS.COLUMN.COUNTRY')" sortable></Column>
+    <Column field="category" :header="$t('PRODUCTS.COLUMN.CATEGORY')" sortable></Column>
+    <Column>
+      <template #body="slotProps">
+        <router-link
+          :to="{ name: 'product', params: { id: slotProps.data._id } }"
+          custom
+          v-slot="{ navigate }"
+        >
+          <Button icon="pi pi-eye" severity="info" rounded @click="navigate" />
+        </router-link>
+      </template>
+    </Column>
+  </DataTable>
 </template>
 
 <script>
-  import Accordion from 'primevue/accordion';
-  import AccordionTab from 'primevue/accordiontab';
-  import Carousel from 'primevue/carousel';
+  import DataTable from 'primevue/datatable';
+  import Column from 'primevue/column';
   import Button from 'primevue/button';
-  // import Galleria from 'primevue/galleria';
+  import InputText from 'primevue/inputtext';
+  import { FilterMatchMode } from 'primevue/api';
   import { mapActions } from 'vuex';
 
   export default {
     components: {
-      Accordion,
-      AccordionTab,
-      Carousel,
+      DataTable,
+      Column,
+      InputText,
       Button,
-      // Galleria
     },
     data() {
       return {
-        responsiveOptions: [
-          {
-            breakpoint: '1199px',
-            numVisible: 3,
-            numScroll: 3,
-          },
-          {
-            breakpoint: '991px',
-            numVisible: 2,
-            numScroll: 2,
-          },
-          {
-            breakpoint: '767px',
-            numVisible: 1,
-            numScroll: 1,
-          },
-        ],
+        loading: false,
+        filters: { global: { value: null, matchMode: FilterMatchMode.CONTAINS } },
       };
     },
 
-    created() {
-      this.getData();
+    async created() {
+      await this.getData();
     },
 
     computed: {
       products() {
-        return this.$store.state.products || {};
-      },
-      env() {
-        return process.env;
+        return this.$store.state.products;
       },
     },
 
@@ -101,6 +82,7 @@
       ...mapActions(['getProducts']),
 
       async getData() {
+        this.loading = true;
         const response = await this.getProducts();
         if (!response.success) {
           this.$toast.add({
@@ -110,17 +92,8 @@
             life: 3000,
           });
         }
-      },
-
-      pathScreenshotsDesktop(id) {
-        return `${this.env.VUE_APP_SCREENSHOTS_URL}/${id}/desktop.webp`;
+        this.loading = false;
       },
     },
   };
 </script>
-
-<style lang="scss">
-  .p-galleria .p-galleria-item-nav:not(.p-disabled) {
-    background-color: black !important;
-  }
-</style>
