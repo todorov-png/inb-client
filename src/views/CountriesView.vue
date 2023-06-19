@@ -4,7 +4,7 @@
       v-model:filters="filters"
       :value="countries"
       :loading="loading"
-      :globalFilterFields="['name', 'currency', 'lang']"
+      :globalFilterFields="['name', 'lang']"
       :rows="10"
       scrollable
       paginator
@@ -34,9 +34,12 @@
         </div>
       </template>
       <Column field="name" :header="$t('COUNTRIES.COLUMN.NAME')" sortable />
-      <Column field="currency" :header="$t('COUNTRIES.COLUMN.CURRENCY')" sortable />
       <Column field="lang" :header="$t('COUNTRIES.COLUMN.LANG')" sortable />
-      <Column field="callCenterSchedule" :header="$t('COUNTRIES.COLUMN.CALL_CENTER')" />
+      <Column field="callCenterSchedule" :header="$t('COUNTRIES.COLUMN.CALL_CENTER')" >
+        <template #body="slotProps">
+          {{ slotProps.data.callCenterSchedule ? slotProps.data.callCenterSchedule : '------' }}
+        </template>
+      </Column>
       <Column>
         <template #body="slotProps">
           <div class="flex align-items-center justify-content-end gap-2">
@@ -75,17 +78,6 @@
         />
         <small class="p-error" v-if="submitted && !newCountry.name">
           {{ $t('COUNTRIES.CREATE_COUNTRY.EMPTY_NAME') }}
-        </small>
-      </div>
-      <div class="field">
-        <label for="create_currency">{{ $t('COUNTRIES.CREATE_COUNTRY.CURRENCY') }}</label>
-        <InputText
-          id="create_currency"
-          v-model.trim="newCountry.currency"
-          :class="{ 'p-invalid': submitted && !newCountry.currency }"
-        />
-        <small class="p-error" v-if="submitted && !newCountry.currency">
-          {{ $t('COUNTRIES.CREATE_COUNTRY.EMPTY_CURRENCY') }}
         </small>
       </div>
       <div class="field">
@@ -134,17 +126,6 @@
         />
         <small class="p-error" v-if="submitted && !selectCountry.name">
           {{ $t('COUNTRIES.CHANGE_COUNTRY.EMPTY_NAME') }}
-        </small>
-      </div>
-      <div class="field">
-        <label for="change_currency">{{ $t('COUNTRIES.CHANGE_COUNTRY.CURRENCY') }}</label>
-        <InputText
-          id="change_currency"
-          v-model.trim="selectCountry.currency"
-          :class="{ 'p-invalid': submitted && !selectCountry.currency }"
-        />
-        <small class="p-error" v-if="submitted && !selectCountry.currency">
-          {{ $t('COUNTRIES.CHANGE_COUNTRY.EMPTY_CURRENCY') }}
         </small>
       </div>
       <div class="field">
@@ -270,11 +251,7 @@
       },
 
       async createCountry() {
-        if (
-          this.newCountry.name?.trim() &&
-          this.newCountry.currency?.trim() &&
-          this.newCountry.lang?.trim()
-        ) {
+        if (this.newCountry.name?.trim() && this.newCountry.lang?.trim()) {
           try {
             const response = await CountryService.create(this.newCountry);
             this.$toast.add({
@@ -308,11 +285,7 @@
       },
 
       async changeCountry() {
-        if (
-          this.selectCountry.name?.trim() &&
-          this.selectCountry.currency?.trim() &&
-          this.selectCountry.lang?.trim()
-        ) {
+        if (this.selectCountry.name?.trim() && this.selectCountry.lang?.trim()) {
           try {
             await CountryService.update(this.selectCountry);
             this.$toast.add({

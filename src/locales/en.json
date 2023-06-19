@@ -183,7 +183,6 @@
     },
     "COLUMN": {
       "NAME": "Name",
-      "CURRENCY": "Currency",
       "LANG": "Lang",
       "CALL_CENTER": "Call center hours"
     },
@@ -191,8 +190,6 @@
       "HEADER": "Create country",
       "NAME": "Name",
       "EMPTY_NAME": "Name is required.",
-      "CURRENCY": "Currency",
-      "EMPTY_CURRENCY": "Currency is required.",
       "LANG": "Lang",
       "EMPTY_LANG": "Lang is required.",
       "CALL_CENTER": "Call center hours",
@@ -203,8 +200,6 @@
       "HEADER": "Change country",
       "NAME": "Name",
       "EMPTY_NAME": "Name is required.",
-      "CURRENCY": "Currency",
-      "EMPTY_CURRENCY": "Currency is required.",
       "LANG": "Lang",
       "EMPTY_LANG": "Lang is required.",
       "CALL_CENTER": "Call center hours",
@@ -330,6 +325,19 @@
       "HEADER": "Confirm",
       "PRODUCT": "Are you sure you want to delete the product <b>{name}<b>?",
       "SUCCESSFUL": "Product delete successfully"
+    }
+  },
+
+  "PRODUCT": {
+    "INFO": {
+      "COUNTRY": "Country",
+      "CATEGORY": "Category",
+      "LANG": "Lang",
+      "PRICE": "Price",
+      "PAYOUT": "Payout",
+      "AGE_GROUP": "Age group",
+      "CALL_CENTER_SCHEDULE": "Call center schedule",
+      "UUID": "UUID"
     }
   },
 

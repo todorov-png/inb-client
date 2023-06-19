@@ -11,6 +11,7 @@ import ProfileView from '@/views/ProfileView.vue';
 import CategoriesView from '@/views/CategoriesView.vue';
 import CountriesView from '@/views/CountriesView.vue';
 import ProductsView from '@/views/ProductsView.vue';
+import ProductView from '@/views/ProductView.vue';
 // import LandsView from '@/views/LandsView.vue';
 import store from '@/store/index.ts';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -74,6 +75,12 @@ const routes = [
         name: 'products',
         meta: { requiresAuth: true },
         component: ProductsView,
+      },
+      {
+        path: 'product/:id',
+        name: 'product',
+        meta: { requiresAuth: true },
+        component: ProductView,
       },
     ],
   },

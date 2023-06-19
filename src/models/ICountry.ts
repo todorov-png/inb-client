@@ -1,9 +1,8 @@
 export interface ICountry {
   _id?: string;
   name: string;
-  currency: string;
   lang: string;
-  callCenterSchedule: string;
+  callCenterSchedule?: string;
 }
 
 export interface ICountryList {

@@ -146,12 +146,11 @@ export default createStore({
         return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
       }
     },
-    
+
     async getProducts({ commit }: any) {
       try {
         commit('setLoading', true);
         const response = await ProductService.getProducts();
-        commit('setLoading', false);
         commit('setProducts', response.data);
         return { success: true };
       } catch (e: any) {
@@ -159,8 +158,21 @@ export default createStore({
           return { success: false, messageError: e.response.data.message };
         }
         return { success: false, messageError: i18n.global.t('TOAST.DETAIL.SERVER_ERROR') };
+      } finally {
+        commit('setLoading', false);
+      }
+    },
+
+    async getProduct({ commit }: any, _id: string) {
+      try {
+        commit('setLoading', true);
+        const response = await ProductService.get(_id);
+        return { success: true, data: response.data };
+      } catch (e: any) {
+        return { success: false };
+      } finally {
+        commit('setLoading', false);
       }
     },
   },
 });
-
